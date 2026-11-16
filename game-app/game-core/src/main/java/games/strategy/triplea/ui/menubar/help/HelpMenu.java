@@ -17,7 +17,7 @@ public final class HelpMenu {
   public static JMenu buildMenu(
       final Component parentComponent, final UiContext uiContext, final GameData gameData) {
     final String gameNotes = gameData.loadGameNotes(uiContext.getMapLocation());
-    return new JMenuBuilder("Help", KeyCode.H)
+    return new JMenuBuilder("帮助", KeyCode.H)
         .addMenuItem(new JMenuItemBuilder(MoveHelpMenu.buildMenu(), KeyCode.M))
         .addMenuItem(new JMenuItemBuilder(UnitHelpMenu.buildMenu(gameData, uiContext), KeyCode.U))
         .addMenuItemIf(
@@ -28,32 +28,32 @@ public final class HelpMenu {
                     .build())
         .addSeparator()
         .addMenuItem(
-            new JMenuItemBuilder("License", KeyCode.I)
+            new JMenuItemBuilder("许可协议", KeyCode.I)
                 .actionListener(
                     () ->
                         SwingComponents.newOpenUrlConfirmationDialog(
                             parentComponent, UrlConstants.LICENSE_NOTICE)))
         .addMenuItem(
-            new JMenuItemBuilder("Send Bug Report", KeyCode.B)
+            new JMenuItemBuilder("发送错误报告", KeyCode.B)
                 .actionListener(
                     () ->
                         SwingComponents.newOpenUrlConfirmationDialog(
                             parentComponent, UrlConstants.GITHUB_ISSUES)))
         .addSeparator()
         .addMenuItem(
-            new JMenuItemBuilder("User Guide", KeyCode.H)
+            new JMenuItemBuilder("用户指南", KeyCode.H)
                 .actionListener(
                     () ->
                         SwingComponents.newOpenUrlConfirmationDialog(
                             parentComponent, UrlConstants.USER_GUIDE)))
         .addMenuItem(
-            new JMenuItemBuilder("TripleA Forum", KeyCode.W)
+            new JMenuItemBuilder("TripleA 论坛", KeyCode.W)
                 .actionListener(
                     () ->
                         SwingComponents.newOpenUrlConfirmationDialog(
                             parentComponent, UrlConstants.TRIPLEA_FORUM)))
         .addMenuItem(
-            new JMenuItemBuilder("Donate", KeyCode.O)
+            new JMenuItemBuilder("捐赠", KeyCode.O)
                 .actionListener(
                     () ->
                         SwingComponents.newOpenUrlConfirmationDialog(

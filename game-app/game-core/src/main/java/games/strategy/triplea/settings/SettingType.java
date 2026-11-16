@@ -8,23 +8,23 @@ package games.strategy.triplea.settings;
 public enum SettingType {
   AI("AI"),
 
-  BATTLE_SIMULATOR("Battle Simulator"),
+  BATTLE_SIMULATOR("战斗模拟器"),
 
-  COMBAT("Combat"),
+  COMBAT("战斗"),
 
-  GAME("Game"),
+  GAME("游戏"),
 
-  MAP_SCROLLING("Map Scrolling"),
+  MAP_SCROLLING("地图滚动"),
 
-  NETWORK("Network"),
+  NETWORK("网络"),
 
-  LOOK_AND_FEEL("UI Theme"),
+  LOOK_AND_FEEL("界面主题"),
 
-  FOLDER_LOCATIONS("Folders"),
+  FOLDER_LOCATIONS("文件夹"),
 
-  TESTING("Testing"),
+  TESTING("测试"),
 
-  PLAY_BY_FORUM_EMAIL("Play by Forum/Email");
+  PLAY_BY_FORUM_EMAIL("论坛/邮件对战");
 
   final String tabTitle;
 

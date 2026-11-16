@@ -69,7 +69,7 @@ class ProductionPanel extends JPanel {
 
   protected JDialog dialog;
   private boolean bid;
-  final Action doneAction = SwingAction.of("Done", () -> dialog.setVisible(false));
+  final Action doneAction = SwingAction.of("完成", () -> dialog.setVisible(false));
 
   ProductionPanel(final UiContext uiContext) {
     this.uiContext = uiContext;

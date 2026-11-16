@@ -93,7 +93,7 @@ class DiceChooser extends JPanel {
       diceButtonPanel.add(button);
     }
     diceButtonPanel.add(Box.createHorizontalStrut(4));
-    undoButton = new JButton(SwingAction.of("Undo", e -> removeLastDie()));
+    undoButton = new JButton(SwingAction.of("撤销", e -> removeLastDie()));
     diceButtonPanel.add(undoButton);
     diceButtonPanel.add(Box.createHorizontalStrut(40));
     diceCountLabel = new JLabel("Dice remaining:   ");

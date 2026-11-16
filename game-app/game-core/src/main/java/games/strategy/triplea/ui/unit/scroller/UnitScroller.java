@@ -56,14 +56,10 @@ public class UnitScroller {
 
   private static final int HORIZONTAL_BUTTON_GAP = 2;
 
-  private static final String PREVIOUS_UNITS_TOOLTIP =
-      "Press ',' or click to see 'Previous' unmoved units.";
-  private static final String NEXT_UNITS_TOOLTIP =
-      "Press '.' or click to see 'Next' unmoved units.";
-  private static final String SKIP_UNITS_TOOLTIP =
-      "Press 'Space' or click to 'Skip' these unmoved units until next move phase.";
-  private static final String WAKE_ALL_TOOLTIP =
-      "Click to 'Alert' all skipped and sleeping units on the map.";
+  private static final String PREVIOUS_UNITS_TOOLTIP = "按 ',' 或点击以查看上一个未移动的单位。";
+  private static final String NEXT_UNITS_TOOLTIP = "按 '.' 或点击以查看下一个未移动的单位。";
+  private static final String SKIP_UNITS_TOOLTIP = "按 '空格' 或点击以跳过这些未移动的单位，直到下一个移动阶段。";
+  private static final String WAKE_ALL_TOOLTIP = "点击以提醒地图上所有被跳过和休眠的单位。";
 
   private Collection<Unit> skippedUnits = new HashSet<>();
   private final Collection<Unit> sleepingUnits = new HashSet<>();
@@ -154,7 +150,7 @@ public class UnitScroller {
               movesLeft = movesLeft();
               SwingUtilities.invokeLater(
                   () -> {
-                    panel.setTitle("Active Units: " + movesLeft);
+                    panel.setTitle("可行动单位：" + movesLeft);
 
                     if (movesLeft == 0) {
                       clearUnitAvatarArea();
@@ -334,20 +330,20 @@ public class UnitScroller {
     final int result =
         JOptionPane.showOptionDialog(
             mapPanel,
-            "All units have moved",
-            "All units moved",
+            "所有单位已移动",
+            "所有单位已移动",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.PLAIN_MESSAGE,
             null,
-            new String[] {"OK", "Do not show again"},
-            "OK");
+            new String[] {"确定", "不再显示"},
+            "确定");
     final boolean doNotShowAgainClicked = (result == 1);
     if (doNotShowAgainClicked) {
       ClientSetting.notifyAllUnitsMoved.setValueAndFlush(false);
       DialogBuilder.builder()
           .parent(mapPanel)
-          .title("All units moved confirmation turned off")
-          .infoMessage("Will not show this message again.\nIt can be turned on from game settings.")
+          .title("已关闭所有单位已移动确认")
+          .infoMessage("将不再显示此消息。\n可在游戏设置中重新开启。")
           .showDialog();
     }
   }

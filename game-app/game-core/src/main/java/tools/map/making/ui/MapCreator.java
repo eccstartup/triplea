@@ -41,16 +41,15 @@ public class MapCreator {
     sidePanel.add(Box.createVerticalGlue());
 
     // set up the menu actions
-    addButtonToSidePanel(sidePanel, "Step 1: Map Properties", mainPanel, mapPropertiesPanel);
-    addButtonToSidePanel(sidePanel, "Step 2: Map Utilities", mainPanel, getMapSkinPanel());
-    addButtonToSidePanel(sidePanel, "Step 3: Game XML", mainPanel, XmlUtilitiesPanel.build());
-    addButtonToSidePanel(sidePanel, "Step 4: Validate Map", mainPanel, ValidateMapPanel.build());
-    addButtonToSidePanel(
-        sidePanel, "Other: Optional Things", mainPanel, getOptionalUtilitiesPanel());
+    addButtonToSidePanel(sidePanel, "第 1 步：地图属性", mainPanel, mapPropertiesPanel);
+    addButtonToSidePanel(sidePanel, "第 2 步：地图工具", mainPanel, getMapSkinPanel());
+    addButtonToSidePanel(sidePanel, "第 3 步：游戏 XML", mainPanel, XmlUtilitiesPanel.build());
+    addButtonToSidePanel(sidePanel, "第 4 步：验证地图", mainPanel, ValidateMapPanel.build());
+    addButtonToSidePanel(sidePanel, "其他：可选功能", mainPanel, getOptionalUtilitiesPanel());
 
     final JFrame frame =
         new JFrameBuilder()
-            .title("TripleA Map Creator Tools")
+            .title("TripleA 地图制作工具")
             .iconImage(EngineImageLoader.loadFrameIcon())
             .disposeOnClose()
             .layout(new BorderLayout())
@@ -67,26 +66,21 @@ public class MapCreator {
 
   private static JPanel getOptionalUtilitiesPanel() {
     return MapMakingPanelFactory.get(
-        "Other or Optional Utilities:",
-        new MapMakingPanelFactory.ButtonSpec("Run the Image Shrinker", ImageShrinkerTask::run),
-        new MapMakingPanelFactory.ButtonSpec(
-            "Run the Tile Image Reconstructor", TileImageReconstructorTask::run));
+        "其他或可选工具：",
+        new MapMakingPanelFactory.ButtonSpec("运行图像缩小器", ImageShrinkerTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行图块图像重建器", TileImageReconstructorTask::run));
   }
 
   private static JPanel getMapSkinPanel() {
     return MapMakingPanelFactory.get(
-        "Map Skin Utilities:",
-        new MapMakingPanelFactory.ButtonSpec(
-            "Run the Map Properties Maker", MapPropertiesMakerTask::run),
-        new MapMakingPanelFactory.ButtonSpec("Run the Center Picker", CenterPickerTask::run),
-        new MapMakingPanelFactory.ButtonSpec("Run the Polygon Grabber", PolygonGrabberTask::run),
-        new MapMakingPanelFactory.ButtonSpec(
-            "Run the Automatic Placement Finder", AutoPlacementFinderTask::run),
-        new MapMakingPanelFactory.ButtonSpec("Run the Placement Picker", PlacementPickerTask::run),
-        new MapMakingPanelFactory.ButtonSpec(
-            "Run the Tile Image Breaker", TileImageBreakerTask::run),
-        new MapMakingPanelFactory.ButtonSpec(
-            "Run the Decoration Placer", DecorationPlacerTask::run));
+        "地图皮肤工具：",
+        new MapMakingPanelFactory.ButtonSpec("运行地图属性生成器", MapPropertiesMakerTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行中心点选择器", CenterPickerTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行多边形抓取器", PolygonGrabberTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行自动部署点查找器", AutoPlacementFinderTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行部署点选择器", PlacementPickerTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行图块图像分割器", TileImageBreakerTask::run),
+        new MapMakingPanelFactory.ButtonSpec("运行装饰物放置器", DecorationPlacerTask::run));
   }
 
   private static void addButtonToSidePanel(

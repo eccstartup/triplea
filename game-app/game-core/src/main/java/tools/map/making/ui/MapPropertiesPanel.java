@@ -42,39 +42,35 @@ public class MapPropertiesPanel {
                 .columns(45)
                 .text(
                     """
-                        Welcome to Veqryn's map creator program for TripleA.\
+                        欢迎使用 Veqryn 的 TripleA 地图制作程序。\
 
 
-                        Before you begin, go create a folder in your directory: \
-                        Users\\yourname\\triplea\\maps\
+                        开始之前，请先在您的目录中创建一个文件夹：\
+                        Users\\您的用户名\\triplea\\maps\
 
-                        Name the folder with a short name of your map, do not use any special characters \
-                        in the name.\
+                        请用地图的简短名称命名该文件夹，名称中不要使用任何特殊字符。\
 
-                        Next, create 5 folders inside your map folder, with these names: \
-                        flags, units, baseTiles, reliefTiles, games\
+                        接下来，在地图文件夹内创建 5 个子文件夹，名称分别为：\
+                        flags、units、baseTiles、reliefTiles、games\
 
-                        Then, create a text file and rename it "map.properties" or use one created by \
-                        this utility.\
+                        然后创建一个文本文件并将其重命名为 "map.properties"，或使用本工具生成的文件。\
 
 
-                        To start the Map Utilities, have a png image of your map with just the \
-                        territory borders and nothing else. The borders must be in black (hex: 000000) and \
-                        there should not be any anti-aliasing (smoothing) of the lines or edges that stick \
-                        out.\
+                        要开始使用地图工具，请准备一张地图的 png 图像，其中只包含 \
+                        领地边界，不含其他内容。边界必须为黑色（十六进制：000000），且线条或边缘 \
+                        不得有任何抗锯齿（平滑）处理或外突。\
 
-                        Create a small image of the map (approx 250 pixels wide) and name \
-                        it "smallMap.jpeg".\
+                        创建一张地图的小图（约 250 像素宽），命名为 \
+                        "smallMap.jpeg"。\
 
-                        Put these in the map's root folder. You can now start the map maker by clicking \
-                        and filling in the details below, before moving on to 'Step 2' and running the \
-                        map utilities.""")
+                        将这些文件放入地图的根文件夹。现在您可以在下方填写详细信息来启动地图制作工具，\
+                        然后再进入“第 2 步”并运行地图工具。""")
                 .build()));
     addBlockToPanel(
         panel,
         new JButtonBuilder()
-            .title("Start Tutorial  /  Show Help Document")
-            .toolTip("Open up the readme file on how to make maps")
+            .title("开始教程  /  显示帮助文档")
+            .toolTip("打开关于如何制作地图的说明文件")
             .actionListener(
                 () ->
                     OpenFileUtility.openUrl(
@@ -83,15 +79,15 @@ public class MapPropertiesPanel {
     addBlockToPanel(
         panel,
         new JButtonBuilder()
-            .title("Select Map Folder")
+            .title("选择地图文件夹")
             .actionListener(
                 () ->
                     SwingAction.of(
-                        "Select Map Folder",
+                        "选择地图文件夹",
                         e -> {
                           final Path mapFolder =
                               new FileSave(
-                                      "Where is your map's folder?",
+                                      "你的地图文件夹在哪里？",
                                       null,
                                       ToolArguments.getPropertyMapFolderPath().orElse(null))
                                   .getFile();
@@ -102,20 +98,20 @@ public class MapPropertiesPanel {
             .build());
     addInputFieldToPanel(
         panel,
-        "Unit scaling: ",
-        "Choose a scaling factor for the unit image.\nExamples: 1.25, 1, 0.875, 0.8333, 0.75, 0.6666, 0.5625, 0.5",
+        "单位缩放： ",
+        "为单位图像选择缩放系数。\n示例：1.25、1、0.875、0.8333、0.75、0.6666、0.5625、0.5",
         "0.75",
         ToolArguments.UNIT_ZOOM);
     addInputFieldToPanel(
         panel,
-        "Unit width: ",
-        "Set width of the unit image",
+        "单位宽度： ",
+        "设置单位图像的宽度",
         Integer.toString(UnitImageFactory.DEFAULT_UNIT_ICON_SIZE),
         ToolArguments.UNIT_WIDTH);
     addInputFieldToPanel(
         panel,
-        "Unit height: ",
-        "Set height of the unit image",
+        "单位高度： ",
+        "设置单位图像的高度",
         Integer.toString(UnitImageFactory.DEFAULT_UNIT_ICON_SIZE),
         ToolArguments.UNIT_HEIGHT);
     return panel;

@@ -73,7 +73,7 @@ class RepairPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 修理");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 修理");
           add(SwingComponents.leftBox(actionLabel));
 
           buyButton.setText(BUY);
@@ -123,7 +123,10 @@ class RepairPanel extends ActionPanel {
   }
 
   private void refreshActionLabelText() {
-    actionLabel.setText(getCurrentPlayer().getName() + " 修理 " + (bid ? " 用于出价" : ""));
+    actionLabel.setText(
+        DisplayNameLocalizer.playerName(getCurrentPlayer().getName())
+            + " 修理 "
+            + (bid ? " 用于出价" : ""));
   }
 
   // Spin through the territories to get this.

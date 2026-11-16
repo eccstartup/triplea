@@ -22,7 +22,7 @@ public final class WaitDialog extends JDialog {
   }
 
   public WaitDialog(final Component parent, final String message, final Runnable cancelAction) {
-    super(JOptionPane.getFrameForComponent(parent), "Please Wait", true);
+    super(JOptionPane.getFrameForComponent(parent), "请稍候", true);
 
     setLayout(new BorderLayout());
     add(new WaitPanel(message), BorderLayout.CENTER);
@@ -31,7 +31,7 @@ public final class WaitDialog extends JDialog {
     Optional.ofNullable(cancelAction)
         .ifPresent(
             action -> {
-              final JButton cancelButton = new JButton("Cancel");
+              final JButton cancelButton = new JButton("取消");
               cancelButton.addActionListener(e -> action.run());
               add(cancelButton, BorderLayout.SOUTH);
 

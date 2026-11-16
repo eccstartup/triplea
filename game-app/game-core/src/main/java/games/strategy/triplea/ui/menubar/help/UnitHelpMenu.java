@@ -12,7 +12,7 @@ import org.triplea.swing.SwingAction;
 
 @UtilityClass
 class UnitHelpMenu {
-  private static final String unitHelpTitle = "Unit Help";
+  private static final String unitHelpTitle = "单位帮助";
 
   Action buildMenu(final GameData gameData, final UiContext uiContext) {
     return SwingAction.of(
@@ -21,7 +21,7 @@ class UnitHelpMenu {
           try {
             BackgroundTaskRunner.runInBackgroundAndReturn(
                 UnitHelpMenu::showDialog,
-                "Calculating Data",
+                "正在计算数据",
                 () -> UnitStatsTable.getUnitStatsTable(gameData, uiContext));
           } catch (InterruptedException e) {
             // Nothing to do.

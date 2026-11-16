@@ -326,7 +326,7 @@ class ObjectivePanel extends JPanel implements GameDataChangeListener {
 
     @Override
     public String getColumnName(final int col) {
-      return (col == 0) ? "Done" : "Objective Name";
+      return (col == 0) ? "完成" : "目标名称";
     }
 
     @Override

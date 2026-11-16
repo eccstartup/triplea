@@ -211,7 +211,7 @@ public class DownloadMapsWindow extends JFrame {
   /// @return a descriptive HTML string depending on the selection
   private String newMapUrlAndSizeLabelText(final List<ManagedMap> selectedMapItems) {
     if (selectedMapItems.isEmpty()) {
-      return "<html>None selected</html>";
+      return "<html>未选择</html>";
     }
     final @NonNls String doubleSpace = "&nbsp;&nbsp;";
 

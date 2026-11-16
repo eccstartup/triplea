@@ -95,7 +95,7 @@ final class ViewMenu {
               buttons.add(fitWidth);
               final JButton fitHeight = new JButton("适应高度");
               buttons.add(fitHeight);
-              final JButton reset = new JButton("Reset");
+              final JButton reset = new JButton("重置");
               buttons.add(reset);
               panel.add(buttons, BorderLayout.SOUTH);
               fitWidth.addActionListener(
@@ -120,11 +120,11 @@ final class ViewMenu {
                   JOptionPane.showOptionDialog(
                       frame,
                       panel,
-                      "Choose Map Zoom",
+                      "选择地图缩放",
                       JOptionPane.OK_CANCEL_OPTION,
                       JOptionPane.PLAIN_MESSAGE,
                       null,
-                      new String[] {"OK", "Cancel"},
+                      new String[] {"确定", "取消"},
                       0);
               if (result != 0) {
                 return;
@@ -162,7 +162,7 @@ final class ViewMenu {
     }
 
     final JMenu unitSizeMenu =
-        new JMenuBuilder("Unit Size", Mnemonic.UNIT_SIZE_SUBMENU.getMnemonicCode()).build();
+        new JMenuBuilder("单位大小", Mnemonic.UNIT_SIZE_SUBMENU.getMnemonicCode()).build();
     final ButtonGroup unitSizeGroup = new ButtonGroup();
     final JRadioButtonMenuItem radioItem125 = new JRadioButtonMenuItem(new UnitSizeAction(1.25));
     final JRadioButtonMenuItem radioItem100 = new JRadioButtonMenuItem(new UnitSizeAction(1.0));

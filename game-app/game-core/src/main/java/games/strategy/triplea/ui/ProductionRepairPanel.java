@@ -54,7 +54,7 @@ class ProductionRepairPanel extends JPanel {
   private boolean bid;
   private Collection<GamePlayer> allowedPlayersToRepair;
   private GameData data;
-  final Action doneAction = SwingAction.of("Done", e -> dialog.setVisible(false));
+  final Action doneAction = SwingAction.of("完成", e -> dialog.setVisible(false));
   private final ScrollableTextFieldListener listener = stf -> calculateLimits();
 
   ProductionRepairPanel(final UiContext uiContext) {

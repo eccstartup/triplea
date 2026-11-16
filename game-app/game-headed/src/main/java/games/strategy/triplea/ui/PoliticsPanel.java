@@ -140,7 +140,7 @@ public class PoliticsPanel extends ActionPanel {
                   () -> politicalChoiceDialog.setVisible(false));
               final JButton doneButton =
                   new JButton(
-                      SwingAction.of("Done", event -> politicalChoiceDialog.setVisible(false)));
+                      SwingAction.of("完成", event -> politicalChoiceDialog.setVisible(false)));
               SwingUtilities.invokeLater(doneButton::requestFocusInWindow);
               politicalChoicePanel.add(
                   doneButton,
@@ -176,7 +176,7 @@ public class PoliticsPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 外交");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 外交");
           add(SwingComponents.leftBox(actionLabel));
 
           selectPoliticalActionButton = new JButton(selectPoliticalActionAction);

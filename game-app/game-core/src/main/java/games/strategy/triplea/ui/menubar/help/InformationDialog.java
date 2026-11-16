@@ -20,7 +20,7 @@ class InformationDialog {
     final JButton button =
         new JButton(
             SwingAction.of(
-                "OK",
+                "确定",
                 event -> {
                   dialog.setVisible(false);
                   dialog.removeAll();

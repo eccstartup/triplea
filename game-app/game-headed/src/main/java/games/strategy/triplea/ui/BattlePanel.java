@@ -118,7 +118,7 @@ public final class BattlePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 战斗");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 战斗");
           setLayout(new BorderLayout());
           final JPanel panel = new JPanelBuilder().gridLayout(0, 1).add(actionLabel).build();
           battleListing.forEachBattle(

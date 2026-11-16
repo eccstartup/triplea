@@ -118,7 +118,7 @@ public class UserActionPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 行动与操作");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 行动与操作");
           add(SwingComponents.leftBox(actionLabel));
 
           selectUserActionButton = new JButton(selectUserActionAction);

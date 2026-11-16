@@ -66,7 +66,7 @@ final class FileMenu {
   }
 
   private JMenuItem newSaveMenuItem(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Save", Mnemonic.SAVE.getMnemonicCode())
+    return new JMenuItemBuilder("保存", Mnemonic.SAVE.getMnemonicCode())
         .accelerator(KeyCode.S)
         .actionListener(
             () -> {

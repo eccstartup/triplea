@@ -50,8 +50,8 @@ public class UnitStatsTable {
                   + strColorVeryLightOrange
                   + "\" colspan=\"4\">")
           .append(player == null ? "NULL" : player.getName())
-          .append(" Units</th></tr>");
-      String lineHeaderAndFooter = "<td>Unit</td><td>Name</td><td>Cost</td><td>Tool Tip</td>";
+          .append(" 单位</th></tr>");
+      String lineHeaderAndFooter = "<td>单位</td><td>名称</td><td>成本</td><td>提示</td>";
       addUnitStatsTableLineColored(
           hints, lineHeaderAndFooter, lineIndex, strColorGrey, strColorLightGrey);
       for (final UnitType ut : entry.getValue()) {
@@ -176,7 +176,7 @@ public class UnitStatsTable {
       final UnitType unitType, final GamePlayer player, final UiContext uiContext) {
     final UnitImageFactory unitImageFactory = uiContext.getUnitImageFactory();
     if (player == null || unitImageFactory == null) {
-      return "no image";
+      return "无图像";
     }
     final String imageLocation =
         unitImageFactory

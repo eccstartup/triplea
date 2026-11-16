@@ -17,22 +17,22 @@ public final class SoundOptions {
 
   /** Builds a "Sound Options" menu item. */
   public static JMenuItem buildSoundOptionsMenuItem() {
-    final JMenuItemBuilder itemBuilder = new JMenuItemBuilder("Sound Options", KeyCode.S);
+    final JMenuItemBuilder itemBuilder = new JMenuItemBuilder("声音选项", KeyCode.S);
 
     if (ClipPlayer.hasAudio()) {
       itemBuilder.actionListener(SoundOptions::showSoundOptions);
     } else {
-      itemBuilder.disabled("No audio device detected on your system");
+      itemBuilder.disabled("未检测到音频设备");
     }
 
     return itemBuilder.build();
   }
 
   private static void showSoundOptions() {
-    final String ok = "OK";
-    final String cancel = "Cancel";
-    final String selectAll = "All";
-    final String selectNone = "None";
+    final String ok = "确定";
+    final String cancel = "取消";
+    final String selectAll = "全选";
+    final String selectNone = "全不选";
 
     final List<SoundOptionCheckBox> properties = SoundPath.getSoundOptions();
     final JScrollPane scroll = new JScrollPane(new PropertiesUi(properties, true));
@@ -47,7 +47,7 @@ public final class SoundOptions {
             new Object[] {ok, selectAll, selectNone, cancel});
     // use default frame to avoid button action dependency to itself
     JFrame defaultFrame = null;
-    pane.createDialog(defaultFrame, "Sound Options").setVisible(true);
+    pane.createDialog(defaultFrame, "声音选项").setVisible(true);
     final Object pressedButton = pane.getValue();
     if (pressedButton == null || pressedButton.equals(cancel)) {
       return;
@@ -70,13 +70,13 @@ public final class SoundOptions {
   /** Builds a checkbox menu item to turn sounds on or off. */
   public static JMenuItem buildGlobalSoundSwitchMenuItem() {
     final JMenuItem enableSoundMenuItem =
-        new JMenuItemCheckBoxBuilder("Enable Sound", KeyCode.N)
+        new JMenuItemCheckBoxBuilder("启用声音", KeyCode.N)
             .bindSetting(ClientSetting.soundEnabled)
             .build();
 
     if (!ClipPlayer.hasAudio()) {
       enableSoundMenuItem.setEnabled(false);
-      enableSoundMenuItem.setToolTipText("No audio device detected on your system");
+      enableSoundMenuItem.setToolTipText("未检测到音频设备");
     }
     return enableSoundMenuItem;
   }

@@ -151,7 +151,7 @@ class StatPanel extends JPanel implements GameDataChangeListener {
         collectedData = new String[players.size() + alliances.size()][stats.length + 1];
         int row = 0;
         for (final GamePlayer player : players) {
-          collectedData[row][0] = player.getName();
+          collectedData[row][0] = DisplayNameLocalizer.playerName(player.getName());
           for (int i = 0; i < stats.length; i++) {
             double value = stats[i].getValue(player, gameDataSync, uiContext.getMapData());
             collectedData[row][i + 1] = IStat.DECIMAL_FORMAT.format(value);
@@ -159,7 +159,7 @@ class StatPanel extends JPanel implements GameDataChangeListener {
           row++;
         }
         for (final @Nls String alliance : alliances) {
-          collectedData[row][0] = "<html><b>" + alliance;
+          collectedData[row][0] = "<html><b>" + DisplayNameLocalizer.playerName(alliance);
           for (int i = 0; i < stats.length; i++) {
             double value = stats[i].getValue(alliance, gameDataSync, uiContext.getMapData());
             collectedData[row][i + 1] = IStat.DECIMAL_FORMAT.format(value);
@@ -189,9 +189,18 @@ class StatPanel extends JPanel implements GameDataChangeListener {
     @Override
     public @Nls String getColumnName(final int col) {
       if (col == 0) {
-        return "Player";
+        return "玩家";
       }
-      return stats[col - 1].getName();
+      final String name = stats[col - 1].getName();
+      return switch (name) {
+        case "Production" -> "生产";
+        case "TUV" -> "战力净值";
+        case "PUs" -> "生产点";
+        case "Units" -> "单位";
+        case "VPs" -> "胜利点";
+        case "VC" -> "胜利城市";
+        default -> name;
+      };
     }
 
     @Override

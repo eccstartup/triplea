@@ -14,7 +14,7 @@ import org.triplea.util.LocalizeHtml;
 
 @UtilityClass
 class GameNotesMenu {
-  private static final String gameNotesTitle = "Game Notes";
+  private static final String gameNotesTitle = "游戏说明";
 
   Action buildMenu(final String gameNotes, final Path mapLocation) {
     return SwingAction.of(

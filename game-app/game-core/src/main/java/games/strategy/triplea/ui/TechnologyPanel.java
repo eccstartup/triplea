@@ -183,14 +183,14 @@ class TechnologyPanel extends JPanel implements GameDataChangeListener {
       int row = 0;
       if (useToken) {
         rowMap.put("Tokens", row);
-        dataTable[row][0] = "Tokens";
+        dataTable[row][0] = "科技代币";
         row++;
       }
       final List<TechAdvance> techAdvances =
           TechAdvance.getTechAdvances(gameDataSync.getTechnologyFrontier(), null);
       for (final TechAdvance tech : techAdvances) {
         rowMap.put(tech.getName(), row);
-        dataTable[row][0] = tech.getName();
+        dataTable[row][0] = DisplayNameLocalizer.techName(tech.getName());
         row++;
       }
       return dataTable;
@@ -253,7 +253,7 @@ class TechnologyPanel extends JPanel implements GameDataChangeListener {
     @Override
     public String getColumnName(final int col) {
       if (col == 0) {
-        return "Technology";
+        return "科技";
       }
       return colList[col - 1];
     }

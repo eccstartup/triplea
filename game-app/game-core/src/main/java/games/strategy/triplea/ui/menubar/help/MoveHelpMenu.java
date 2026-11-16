@@ -12,7 +12,7 @@ class MoveHelpMenu {
 
   Action buildMenu() {
     return SwingAction.of(
-        "Movement/Selection",
+        "移动/选择",
         e -> {
           // html formatted string
           final JEditorPane editorPane = new JEditorPane();
@@ -22,57 +22,50 @@ class MoveHelpMenu {
           // #6157.
           editorPane.putClientProperty(JEditorPane.W3C_LENGTH_UNITS, Boolean.TRUE);
           final String hints =
-              "<font size='+1'>Selecting Units</font><br>"
-                  + "Clicking on a unit stack adds <u>1 unit</u> of the stack to the selection.<br>"
-                  + "<b>CTRL-click on a unit stack</b> selects <u>All units in the stack</u>.<br>"
-                  + "<b>Shift-click on a territory/sea zone</b> selects "
-                  + "<u>All units in that zone</u>.<br>"
-                  + "<b>Click on a zone</b> (not a unit) to <u>choose the units</u> "
-                  + "to select from that zone.<br>"
-                  + "<b>Alt-click on a unit stack</b> selects <u>10 units</u> in the stack.<br>"
-                  + "<br><font size='+1'> Deselecting Units</font><br>"
-                  + "<b>Escape</b> unselects <u>All selected units</u>.<br>"
-                  + "<b>Right click</b> on a unit stack deselects <u>1 unit</u> in the stack.<br>"
-                  + "<b>CTRL-Right click</b> on a unit stack to unselect <u>All units</u> "
-                  + "in the stack.<br>"
-                  + "<b>Right click</b> (not on a unit) to deselect "
-                  + "<u>the last selected unit</u>.<br>"
-                  + "<b>Alt-Right click</b> on a unit stack deselects <u>10 units</u> "
-                  + "in the stack.<br>"
-                  + "<br><font size='+1'> Moving Units</font><br>"
-                  + "After selecting units, simply click on the zone to move the units to.<br>"
-                  + "<b>CTRL-click</b> on a zone to select the zone <u>as a way point</u> :<br>"
-                  + "units will take the shortest path through this zone to move to "
-                  + "destination.<br>"
-                  + "<br><font size='+1'> Moving the Map on Screen</font><br>"
-                  + "Parameters can be adjusted in menu Game><b>Engine Settings:</b> "
-                  + "Map Scrolling.<br>"
-                  + "<b>Scroll the mouse wheel</b> to move the map vertically,<br>"
-                  + "<b>Hold Shift + Scroll the mouse wheel</b> to move the map horizontally.<br>"
-                  + "<b>Hold Right click</b> and move the mouse to <u>drag the map</u>.<br>"
-                  + "Click the map (anywhere), <b>use the arrow keys</b> "
-                  + "to move the map around,<br>"
-                  + "<b>CTRL + arrow</b> moves the map faster.<br>"
-                  + "<b>Click in the Minimap</b> at the top right of the screen,"
-                  + " and Drag the mouse (or not).<br>"
-                  + "Unless disabled, <b>moving the mouse near the edge</b>"
-                  + " scrolls the map in that direction.<br>"
+              "<font size='+1'>选择单位</font><br>"
+                  + "点击单位堆会将其中 <u>1 个单位</u> 加入选择。<br>"
+                  + "<b>CTRL + 点击单位堆</b> 会选中 <u>该堆中的所有单位</u>。<br>"
+                  + "<b>Shift + 点击领地/海域</b> 会选中 "
+                  + "<u>该区域中的所有单位</u>。<br>"
+                  + "<b>点击某个区域</b>（不是单位）可 <u>从中选择单位</u>。<br>"
+                  + "<b>Alt + 点击单位堆</b> 会选中堆中的 <u>10 个单位</u>。<br>"
+                  + "<br><font size='+1'> 取消选择单位</font><br>"
+                  + "<b>Escape</b> 取消选择 <u>所有已选单位</u>。<br>"
+                  + "<b>右键点击</b> 单位堆会取消选择堆中的 <u>1 个单位</u>。<br>"
+                  + "<b>CTRL + 右键点击</b> 单位堆会取消选择堆中的 <u>所有单位</u>。<br>"
+                  + "<b>右键点击</b>（不在单位上）会取消选择 "
+                  + "<u>最后选中的单位</u>。<br>"
+                  + "<b>Alt + 右键点击</b> 单位堆会取消选择堆中的 <u>10 个单位</u>。<br>"
+                  + "<br><font size='+1'> 移动单位</font><br>"
+                  + "选中单位后，直接点击要移动到的区域即可。<br>"
+                  + "<b>CTRL + 点击</b> 某区域可将其选为 <u>途经点</u>：<br>"
+                  + "单位将经由此区域以最短路径移动到 "
+                  + "目的地。<br>"
+                  + "<br><font size='+1'> 在屏幕上移动地图</font><br>"
+                  + "可在菜单 游戏><b>引擎设置：</b> "
+                  + "地图滚动 中调整参数。<br>"
+                  + "<b>滚动鼠标滚轮</b> 可垂直移动地图，<br>"
+                  + "<b>按住 Shift + 滚动滚轮</b> 可水平移动地图。<br>"
+                  + "<b>按住右键</b> 并移动鼠标可 <u>拖动地图</u>。<br>"
+                  + "点击地图（任意位置），<b>使用方向键</b> "
+                  + "即可移动地图，<br>"
+                  + "<b>CTRL + 方向键</b> 可更快移动地图。<br>"
+                  + "<b>点击屏幕右上角的小地图</b>，"
+                  + "再拖动鼠标（也可不拖）。<br>"
+                  + "除非已禁用，否则 <b>将鼠标移到边缘附近</b>"
+                  + " 会向该方向滚动地图。<br>"
                   + "<br>"
-                  + "<font size='+1'> Changing the Map Zoom</font><br>"
-                  + "<b>Menu View>Zoom</b> to select the desired zoom level (Maximum: 100%).<br>"
-                  + "<b>Hold CTRL</b> with -/+ or Scroll the Mouse Wheel.<br>"
-                  + "<br><font size='+1'> Other Tips</font><br>"
-                  + "Press <b>F</b> to highlight <u>All units with movement left</u> "
-                  + "(Move phases only).<br>"
-                  + "Press <b>U</b> while mousing over a unit to "
-                  + "<u>undo All moves by that unit</u>.<br>";
+                  + "<font size='+1'> 更改地图缩放</font><br>"
+                  + "<b>菜单 视图>缩放</b> 选择所需缩放级别（最大 100%）。<br>"
+                  + "<b>按住 CTRL</b> 配合 -/+ 或滚动鼠标滚轮。<br>"
+                  + "<br><font size='+1'> 其他提示</font><br>"
+                  + "按 <b>F</b> 高亮 <u>所有还有移动力的单位</u> "
+                  + "（仅限移动阶段）。<br>"
+                  + "鼠标悬停在单位上时按 <b>U</b> 可 "
+                  + "<u>撤销该单位的所有移动</u>。<br>";
           editorPane.setText(hints);
           final JScrollPane scroll = new JScrollPane(editorPane);
-          JOptionPane.showMessageDialog(
-              null,
-              scroll,
-              "Movement/Selection Help (Keyboard & Mouse)",
-              JOptionPane.PLAIN_MESSAGE);
+          JOptionPane.showMessageDialog(null, scroll, "移动/选择帮助（键盘与鼠标）", JOptionPane.PLAIN_MESSAGE);
         });
   }
 }

@@ -17,16 +17,11 @@ public class XmlUtilitiesPanel {
     final JPanel panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
     panel.add(Box.createVerticalStrut(SPACING_HEIGHT));
-    panel.add(new JLabel("Game XML Utilities:"));
+    panel.add(new JLabel("游戏 XML 工具："));
     panel.add(Box.createVerticalStrut(SPACING_HEIGHT));
-    panel.add(
-        new JLabel(
-            "Sorry but for now the only XML creator is Wisconsin's 'Part 2' of his map maker."));
+    panel.add(new JLabel("抱歉，目前唯一的 XML 生成器是 Wisconsin 地图制作工具中的“第二部分”。"));
     panel.add(Box.createVerticalStrut(SPACING_HEIGHT));
-    panel.add(
-        new JButtonBuilder("Run the Connection Finder")
-            .actionListener(ConnectionFinderTask::run)
-            .build());
+    panel.add(new JButtonBuilder("运行连接查找器").actionListener(ConnectionFinderTask::run).build());
     panel.add(Box.createVerticalStrut(SPACING_HEIGHT));
     return panel;
   }

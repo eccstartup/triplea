@@ -68,7 +68,7 @@ public enum SettingsWindow {
   public void open(final Frame owner) {
     Preconditions.checkState(SwingUtilities.isEventDispatchThread());
     if (dialog == null) {
-      dialog = new JDialog(owner, "Engine Preferences");
+      dialog = new JDialog(owner, "引擎偏好设置");
       dialog.setContentPane(newContentPane());
       dialog.setMinimumSize(new Dimension(400, 50));
       dialog.pack();
@@ -201,21 +201,14 @@ public enum SettingsWindow {
         .horizontalAlignmentCenter()
         .boxLayoutHorizontal()
         .addHorizontalGlue()
-        .add(new JButtonBuilder().title("Save").actionListener(this::saveSettings).build())
+        .add(new JButtonBuilder().title("保存").actionListener(this::saveSettings).build())
         .addHorizontalStrut(5)
-        .add(new JButtonBuilder().title("Close").actionListener(this::close).build())
+        .add(new JButtonBuilder().title("关闭").actionListener(this::close).build())
         .addHorizontalStrut(5)
-        .add(
-            new JButtonBuilder()
-                .title("Reset to Saved")
-                .actionListener(this::resetSettings)
-                .build())
+        .add(new JButtonBuilder().title("恢复已保存").actionListener(this::resetSettings).build())
         .addHorizontalStrut(5)
         .add(
-            new JButtonBuilder()
-                .title("Reset to Default")
-                .actionListener(this::resetSettingsToDefault)
-                .build())
+            new JButtonBuilder().title("恢复默认").actionListener(this::resetSettingsToDefault).build())
         .addHorizontalGlue()
         .build();
   }
@@ -223,7 +216,7 @@ public enum SettingsWindow {
   private void saveSettings() {
     final SaveFunction.SaveResult saveResult =
         SaveFunction.saveSettings(getSelectedSelectionComponents(), ClientSetting::flush);
-    JOptionPane.showMessageDialog(dialog, saveResult.message, "Results", saveResult.dialogType);
+    JOptionPane.showMessageDialog(dialog, saveResult.message, "结果", saveResult.dialogType);
   }
 
   private void resetSettings() {

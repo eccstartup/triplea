@@ -246,11 +246,12 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
   private String getTerritoryNameLabelText(
       final String territoryName, final GamePlayer territoryOwner) {
     if (territoryOwner == null) return "";
+    final String displayTerritoryName = DisplayNameLocalizer.territoryName(territoryName);
     GamePlayer currentPlayer = uiContext.getCurrentPlayer();
     if (currentPlayer == null)
       currentPlayer = territoryOwner.getData().getPlayerList().getNullPlayer();
     if (territoryOwner.equals(currentPlayer)) {
-      return String.format("<html>%s（当前玩家）</html>", territoryName);
+      return String.format("<html>%s（当前玩家）</html>", displayTerritoryName);
     }
     final RelationshipTypeAttachment relationshipTypeAttachment =
         territoryOwner
@@ -270,7 +271,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
     final Color color = getRelationshipTypeAttachmentColor(relationshipTypeAttachment);
     return String.format(
         "<html>%s (<span style='background-color:%s;color:%s'>&nbsp;%s&nbsp;</span>)</html>",
-        territoryName,
+        displayTerritoryName,
         convertColorToHex(color),
         convertColorToHex(getContrastingTextColor(color)),
         strArchType);
@@ -301,7 +302,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
 
   public void setStepInfo(int roundNumber, String stepName) {
     roundLabel.setText("回合：" + roundNumber + " ");
-    stepLabel.setText(stepName);
+    stepLabel.setText(DisplayNameLocalizer.stepName(stepName));
   }
 
   public void updateFromCurrentPlayer() {
@@ -313,7 +314,9 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
             .thenAccept(icon -> SwingUtilities.invokeLater(() -> roundLabel.setIcon(icon)));
     CompletableFutureUtils.logExceptionWhenComplete(
         future, throwable -> log.error("Failed to set round icon for " + player, throwable));
-    playerLabel.setText((uiContext.isCurrentPlayerRemote() ? "远程：" : "") + player.getName());
+    playerLabel.setText(
+        (uiContext.isCurrentPlayerRemote() ? "远程：" : "")
+            + DisplayNameLocalizer.playerName(player.getName()));
   }
 
   public void setMapZoomEnabled(boolean enabled) {

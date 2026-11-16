@@ -22,8 +22,8 @@ class DoneMoveAction {
       parentComponent ->
           JOptionPane.showConfirmDialog(
                   JOptionPane.getFrameForComponent(parentComponent),
-                  "Are you sure you do not want to move?",
-                  "End Move",
+                  "确定不移动吗？",
+                  "结束移动",
                   JOptionPane.YES_NO_OPTION)
               == JOptionPane.YES_OPTION;
 

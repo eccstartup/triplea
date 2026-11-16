@@ -217,9 +217,8 @@ public final class SwingComponents {
 
   public static void newOpenUrlConfirmationDialog(
       final Component parentComponent, final String url) {
-    final String msg = "<html>Okay to open URL in a web browser?<br>" + url + "</html";
-    SwingComponents.promptUser(
-        "Open external URL?", msg, () -> OpenFileUtility.openUrl(parentComponent, url));
+    final String msg = "<html>确定要在网页浏览器中打开链接吗？<br>" + url + "</html";
+    SwingComponents.promptUser("打开外部链接？", msg, () -> OpenFileUtility.openUrl(parentComponent, url));
   }
 
   /**

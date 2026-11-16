@@ -142,7 +142,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 选择领地与单位");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 选择领地与单位");
           add(actionLabel);
           selectTerritoryButton = new JButton(selectTerritoryAction);
           add(selectTerritoryButton);

@@ -221,7 +221,7 @@ class TechPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 科技掷骰");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 科技掷骰");
           add(SwingComponents.leftBox(actionLabel));
 
           if (Properties.getWW2V3TechModel(getData().getProperties())) {

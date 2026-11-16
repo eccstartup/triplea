@@ -117,7 +117,7 @@ public class PurchasePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " 生产");
+          actionLabel.setText(DisplayNameLocalizer.playerName(gamePlayer.getName()) + " 生产");
           add(SwingComponents.leftBox(actionLabel));
 
           buyButton.setText(BUY);
@@ -219,7 +219,11 @@ public class PurchasePanel extends ActionPanel {
 
   private void refreshActionLabelText() {
     SwingUtilities.invokeLater(
-        () -> actionLabel.setText(getCurrentPlayer().getName() + " 生产 " + (bid ? " 用于出价" : "")));
+        () ->
+            actionLabel.setText(
+                DisplayNameLocalizer.playerName(getCurrentPlayer().getName())
+                    + " 生产 "
+                    + (bid ? " 用于出价" : "")));
   }
 
   IntegerMap<ProductionRule> waitForPurchase(final boolean bid) {
