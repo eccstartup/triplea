@@ -131,8 +131,8 @@ public class ActionButtonsPanel extends JPanel {
     if (movePanel != null) {
       movePanel.setNonCombat(nonCombat);
       final boolean airBorne = stepName.endsWith("AirborneCombatMove");
-      final String displayText = (airBorne ? " Airborne" : (nonCombat ? " Non" : ""));
-      movePanel.setDisplayText(displayText + " Combat Move");
+      final String displayText = (airBorne ? "空降" : (nonCombat ? "非战斗" : ""));
+      movePanel.setDisplayText(displayText + "移动");
       movePanel.setMoveType(airBorne ? MoveType.SPECIAL : MoveType.DEFAULT);
     }
     changeTo(gamePlayer, movePanel);

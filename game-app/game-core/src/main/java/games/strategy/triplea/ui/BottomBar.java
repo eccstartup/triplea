@@ -105,7 +105,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
     stepPanel.add(stepLabel, gridBuilder.gridX(1).build());
     stepPanel.add(roundLabel, gridBuilder.gridX(2).build());
     if (usingDiceServer) {
-      final JLabel diceServerLabel = new JLabel("Dice Server On");
+      final JLabel diceServerLabel = new JLabel("骰子服务器已开启");
       diceServerLabel.setBorder(new EtchedBorder(EtchedBorder.RAISED));
       stepPanel.add(diceServerLabel, gridBuilder.gridX(3).build());
     }
@@ -250,7 +250,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
     if (currentPlayer == null)
       currentPlayer = territoryOwner.getData().getPlayerList().getNullPlayer();
     if (territoryOwner.equals(currentPlayer)) {
-      return String.format("<html>%s (current player)</html>", territoryName);
+      return String.format("<html>%s（当前玩家）</html>", territoryName);
     }
     final RelationshipTypeAttachment relationshipTypeAttachment =
         territoryOwner
@@ -260,9 +260,9 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
             .getRelationshipTypeAttachment();
     String strArchType;
     if (relationshipTypeAttachment.isWar()) {
-      strArchType = "at War";
+      strArchType = "交战中";
     } else if (relationshipTypeAttachment.isAllied()) {
-      strArchType = "Allied";
+      strArchType = "同盟";
     } else {
       strArchType = relationshipTypeAttachment.getArcheType();
     }
@@ -300,7 +300,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
   }
 
   public void setStepInfo(int roundNumber, String stepName) {
-    roundLabel.setText("Round: " + roundNumber + " ");
+    roundLabel.setText("回合：" + roundNumber + " ");
     stepLabel.setText(stepName);
   }
 
@@ -313,7 +313,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
             .thenAccept(icon -> SwingUtilities.invokeLater(() -> roundLabel.setIcon(icon)));
     CompletableFutureUtils.logExceptionWhenComplete(
         future, throwable -> log.error("Failed to set round icon for " + player, throwable));
-    playerLabel.setText((uiContext.isCurrentPlayerRemote() ? "REMOTE: " : "") + player.getName());
+    playerLabel.setText((uiContext.isCurrentPlayerRemote() ? "远程：" : "") + player.getName());
   }
 
   public void setMapZoomEnabled(boolean enabled) {
@@ -365,7 +365,7 @@ public class BottomBar extends JPanel implements TerritoryListener, ZoomMapListe
 
   @Override
   public void zoomMapChanged(Integer newZoom) {
-    zoomLabel.setText(String.format("Zoom: %d%%", newZoom));
+    zoomLabel.setText(String.format("缩放：%d%%", newZoom));
   }
 
   public void setGameDataForCurrentTerritory(GameData newGameData) {

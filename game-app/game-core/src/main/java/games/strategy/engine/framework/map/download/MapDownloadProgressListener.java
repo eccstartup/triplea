@@ -31,7 +31,7 @@ final class MapDownloadProgressListener {
   }
 
   void downloadUpdated(final long currentLength) {
-    final String toolTipText = "Installing..";
+    final String toolTipText = "正在安装……";
 
     updateProgressBarWithPercentComplete(
         toolTipText, percentComplete(currentLength, downloadLength));
@@ -42,6 +42,6 @@ final class MapDownloadProgressListener {
   }
 
   void downloadCompleted() {
-    updateProgressBarWithPercentComplete(String.format("Installed %s", download.getMapName()), 100);
+    updateProgressBarWithPercentComplete(String.format("已安装 %s", download.getMapName()), 100);
   }
 }

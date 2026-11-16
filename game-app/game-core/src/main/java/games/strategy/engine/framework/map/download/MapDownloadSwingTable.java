@@ -29,7 +29,7 @@ public class MapDownloadSwingTable {
     // value if a map does not have a given tag.
 
     final List<String> columnNames = new ArrayList<>();
-    columnNames.add("Map");
+    columnNames.add("地图");
 
     // Get the full set of all tag names in display order
     this.tagNames =

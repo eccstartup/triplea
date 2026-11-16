@@ -17,10 +17,10 @@ class FileSystemAccessStrategy {
       final List<ManagedMap> toRemove,
       final Consumer<List<ManagedMap>> removeAction) {
     SwingComponents.promptUser(
-        "Remove Maps?",
-        "<html>Will remove "
+        "移除地图？",
+        "<html>即将移除 "
             + toRemove.size()
-            + " maps, are you sure? <br/>"
+            + " 个地图，确定吗？<br/>"
             + formatMapList(toRemove, ManagedMap::getMapName)
             + "</html>",
         newRemoveMapAction(parentFrame, mapDeleteAction, toRemove, removeAction));
@@ -43,7 +43,7 @@ class FileSystemAccessStrategy {
 
       if (!deletes.isEmpty()) {
         removeActionListeners.accept(deletes);
-        final String message = newDialogMessage("Successfully removed.", deletes);
+        final String message = newDialogMessage("移除成功。", deletes);
         showDialog(parentFrame, message, deletes, ManagedMap::getMapName);
       }
     };
@@ -61,8 +61,8 @@ class FileSystemAccessStrategy {
   }
 
   private static String newDialogMessage(final String message, final List<ManagedMap> mapList) {
-    final String plural = mapList.size() != 1 ? "s" : "";
-    return message + " " + mapList.size() + " map" + plural;
+    final String plural = "";
+    return message + " " + mapList.size() + " 张地图" + plural;
   }
 
   private static String formatMapList(

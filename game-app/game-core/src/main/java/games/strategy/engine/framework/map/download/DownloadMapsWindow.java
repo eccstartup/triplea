@@ -73,8 +73,7 @@ public class DownloadMapsWindow extends JFrame {
   private static final int MIN_HEIGHT = 700;
   private static final double SCREEN_SHARE = 0.7;
   private static final int PROGRESS_AREA_HEIGHT = 150;
-  private static final String MULTIPLE_SELECT_MSG =
-      "You can select multiple maps by holding control or shift while clicking map names.";
+  private static final String MULTIPLE_SELECT_MSG = "按住 Ctrl 或 Shift 点击地图名称，可同时选择多个地图。";
   private static final SingletonManager SINGLETON_MANAGER = new SingletonManager();
 
   private final MapDownloadProgressPanel progressPanel;
@@ -84,7 +83,7 @@ public class DownloadMapsWindow extends JFrame {
   private DownloadMapsWindow(
       final Collection<String> pendingDownloadMapNames,
       DownloadMapsWindowModel downloadMapsWindowModel) {
-    super("Download Maps");
+    super("下载地图");
     this.downloadMapsWindowModel = downloadMapsWindowModel;
     getMapStore().addMapStatusListener(this::handleMapStatusChange);
 
@@ -220,7 +219,7 @@ public class DownloadMapsWindow extends JFrame {
         String.join(", ", selectedMapItems.stream().map(ManagedMap::getMapName).toList());
 
     final StringBuilder sb = new StringBuilder();
-    sb.append("<html>").append(String.format("Selected: %s", mapsString)).append(doubleSpace);
+    sb.append("<html>").append(String.format("已选择：%s", mapsString)).append(doubleSpace);
 
     if (selectedMapItems.size() == 1) {
       final ManagedMap map = selectedMapItems.getFirst();
@@ -246,7 +245,7 @@ public class DownloadMapsWindow extends JFrame {
                   }
                   sb.append(")")
                       .append("<br>")
-                      .append(String.format("Path: %s", mapPath.toAbsolutePath()));
+                      .append(String.format("路径：%s", mapPath.toAbsolutePath()));
                 });
       }
     }
@@ -259,11 +258,11 @@ public class DownloadMapsWindow extends JFrame {
   private static String formatIgnoredPendingMapsMessage(final Collection<String> unknownMapNames) {
     final StringBuilder sb = new StringBuilder();
     sb.append("<html>");
-    sb.append("Some maps were not downloaded.<br>");
+    sb.append("部分地图未能下载。<br>");
 
     if (!unknownMapNames.isEmpty()) {
       sb.append("<br>");
-      sb.append("Could not find the following map(s):<br>");
+      sb.append("找不到以下地图：<br>");
       sb.append("<ul>");
       for (final String mapName : unknownMapNames) {
         sb.append("<li>").append(mapName).append("</li>");
@@ -348,7 +347,7 @@ public class DownloadMapsWindow extends JFrame {
   private void updateTabTitleNewMaps() {
     setTabTitle(
         availableMapTab.getContentPanel(),
-        String.format("New Maps (%d)", getMapStore().getCountByStatus(ManagedMapStatus.AVAILABLE)));
+        String.format("新地图 (%d)", getMapStore().getCountByStatus(ManagedMapStatus.AVAILABLE)));
   }
 
   private void updateTabTitleUpdatesAvailable() {
@@ -358,15 +357,14 @@ public class DownloadMapsWindow extends JFrame {
     setTabTitle(
         outOfDateMapTab.getContentPanel(),
         String.format(
-            "Updates Available (%d)",
-            getMapStore().getCountByStatus(ManagedMapStatus.UPDATE_AVAILABLE)));
+            "有可用更新 (%d)", getMapStore().getCountByStatus(ManagedMapStatus.UPDATE_AVAILABLE)));
   }
 
   private void updateTabTitleInstalled() {
     setTabTitle(
         installedMapTab.getContentPanel(),
         String.format(
-            "Installed (%d)",
+            "已安装 (%d)",
             getMapStore().getCountByStatus(ManagedMapStatus.INSTALLED)
                 + getMapStore().getCountByStatus(ManagedMapStatus.UPDATE_AVAILABLE)));
   }
@@ -407,7 +405,7 @@ public class DownloadMapsWindow extends JFrame {
     if (countSelectedMapItems == 1) {
       descriptionPanelText = downloadMapsWindowModel.toHtmlString(selectedMapItems.getFirst());
     } else if (countSelectedMapItems > 1) {
-      descriptionPanelText = "(multiple maps selected)";
+      descriptionPanelText = "（已选择多个地图）";
     } else {
       descriptionPanelText = "";
     }
@@ -480,9 +478,9 @@ public class DownloadMapsWindow extends JFrame {
         descriptionPane.scrollRectToVisible(new Rectangle(0, 0, 0, 0));
 
         // Create label and search field
-        final JLabel searchLabel = new JLabel("Search:");
+        final JLabel searchLabel = new JLabel("搜索：");
         final JTextField searchField = new JTextField(15);
-        searchField.setToolTipText("Search maps...");
+        searchField.setToolTipText("搜索地图……");
         SwingUtilities.invokeLater(searchField::requestFocus);
 
         // Panel for label + field
@@ -641,7 +639,7 @@ public class DownloadMapsWindow extends JFrame {
     private static DownloadMapsWindowModel getMapDownloadListInBackground()
         throws InterruptedException {
       return BackgroundTaskRunner.runInBackgroundAndReturn(
-          "Downloading list of available maps...",
+          "正在下载可用地图列表……",
           () -> new DownloadMapsWindowModel(MapListingFetcher.getMapDownloadList()));
     }
 
@@ -683,9 +681,8 @@ public class DownloadMapsWindow extends JFrame {
         .add(Box.createGlue())
         .add(
             new JButtonBuilder()
-                .title("Close")
-                .toolTip(
-                    "Click this button to close the map download window and cancel any in-progress downloads.")
+                .title("关闭")
+                .toolTip("点击此按钮关闭地图下载窗口，并取消所有正在进行的下载。")
                 .actionListener(
                     () -> {
                       setVisible(false);
@@ -704,21 +701,15 @@ public class DownloadMapsWindow extends JFrame {
     if (action == MapAction.REMOVE) {
       actionButton =
           new JButtonBuilder()
-              .title("Remove")
-              .toolTip(
-                  String.format(
-                      "Click this button to remove the maps selected above from your computer. %s",
-                      MULTIPLE_SELECT_MSG))
+              .title("移除")
+              .toolTip(String.format("点击此按钮从你的电脑上移除上方选中的地图。%s", MULTIPLE_SELECT_MSG))
               .actionListener(removeAction(mapSelection, tableRemoveAction))
               .build();
     } else {
       actionButton =
           new JButtonBuilder()
-              .title((action == MapAction.INSTALL) ? "Install" : "Update")
-              .toolTip(
-                  String.format(
-                      "Click this button to download and install the maps selected above. %s",
-                      MULTIPLE_SELECT_MSG))
+              .title((action == MapAction.INSTALL) ? "安装" : "更新")
+              .toolTip(String.format("点击此按钮下载并安装上方选中的地图。%s", MULTIPLE_SELECT_MSG))
               .actionListener(installAction(mapSelection, tableRemoveAction))
               .build();
     }

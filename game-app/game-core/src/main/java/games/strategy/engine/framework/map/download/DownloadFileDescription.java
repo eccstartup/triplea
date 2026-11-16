@@ -27,13 +27,13 @@ public final class DownloadFileDescription {
   }
 
   enum MapCategory {
-    BEST("High Quality"),
+    BEST("高质量"),
 
-    GOOD("Good Quality"),
+    GOOD("良好质量"),
 
-    DEVELOPMENT("In Development"),
+    DEVELOPMENT("开发中"),
 
-    EXPERIMENTAL("Experimental");
+    EXPERIMENTAL("实验性");
 
     final String outputLabel;
 
