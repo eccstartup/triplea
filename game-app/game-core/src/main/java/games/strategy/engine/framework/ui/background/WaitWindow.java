@@ -17,7 +17,7 @@ public final class WaitWindow extends JWindow {
     setAlwaysOnTop(true);
     setLocationRelativeTo(null);
 
-    final WaitPanel mainPanel = new WaitPanel("Loading game, please wait...");
+    final WaitPanel mainPanel = new WaitPanel("正在载入游戏，请稍候...");
     mainPanel.setBorder(new LineBorder(Color.BLACK));
     setLayout(new BorderLayout());
     add(mainPanel, BorderLayout.CENTER);
