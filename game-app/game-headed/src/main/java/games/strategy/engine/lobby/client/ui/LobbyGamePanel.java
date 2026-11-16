@@ -52,8 +52,8 @@ class LobbyGamePanel extends JPanel {
     this.gameTableModel = lobbyGameTableModel;
     this.gameListingModel = gameListingModel;
 
-    final JButton hostGameButton = new JButton("Host Game");
-    joinGameButton = new JButton("Join Game");
+    final JButton hostGameButton = new JButton("创建游戏");
+    joinGameButton = new JButton("加入游戏");
 
     gameTable =
         new JTable(gameTableModel) {
@@ -236,8 +236,8 @@ class LobbyGamePanel extends JPanel {
     final JPopupMenu menu = new JPopupMenu();
 
     List.of(
-            SwingAction.of("Join Game", this::joinGame),
-            SwingAction.of("Host Game", this::hostGame),
+            SwingAction.of("加入游戏", this::joinGame),
+            SwingAction.of("创建游戏", this::hostGame),
             ShowPlayersAction.builder()
                 .parentWindow(parent)
                 .gameIdSelection(
@@ -251,9 +251,7 @@ class LobbyGamePanel extends JPanel {
 
     if (loginResult.isModerator()) {
       menu.addSeparator();
-      List.of(
-              SwingAction.of("Boot Game", e -> bootGame()),
-              SwingAction.of("Shutdown", e -> shutdownGame()))
+      List.of(SwingAction.of("移除游戏", e -> bootGame()), SwingAction.of("关闭", e -> shutdownGame()))
           .forEach(menu::add);
     }
 
@@ -274,8 +272,8 @@ class LobbyGamePanel extends JPanel {
       // don't re-click into a dead action believing the click missed.
       JOptionPane.showMessageDialog(
           JOptionPane.getFrameForComponent(this),
-          "This game is still starting up. Try joining again in a moment.",
-          "Game Starting",
+          "该游戏仍在启动中，请稍后再试。",
+          "游戏启动中",
           JOptionPane.INFORMATION_MESSAGE);
       return;
     }
@@ -308,9 +306,8 @@ class LobbyGamePanel extends JPanel {
     final int result =
         JOptionPane.showConfirmDialog(
             null,
-            "Remove the selected game's listing? The game keeps running, and its host re-lists it"
-                + " within seconds if still online.",
-            "Remove Game From Lobby",
+            "移除所选游戏的列表信息？游戏仍会继续运行，且主机在线时会在" + "几秒内重新列出。",
+            "从大厅移除游戏",
             JOptionPane.OK_CANCEL_OPTION);
     if (result != JOptionPane.OK_OPTION) {
       return;
@@ -319,7 +316,7 @@ class LobbyGamePanel extends JPanel {
     final String gameId =
         gameTableModel.getGameIdForRow(gameTable.convertRowIndexToModel(selectedIndex));
     gameListingModel.bootGame(gameId);
-    JOptionPane.showMessageDialog(null, "The selected game's listing has been removed.");
+    JOptionPane.showMessageDialog(null, "所选游戏的列表信息已移除。");
   }
 
   private void shutdownGame() {
@@ -329,10 +326,7 @@ class LobbyGamePanel extends JPanel {
     }
     final int result =
         JOptionPane.showConfirmDialog(
-            null,
-            "Shut down the selected game? It will close for all players in it.",
-            "Shut Down Game",
-            JOptionPane.OK_CANCEL_OPTION);
+            null, "关闭所选游戏？这将断开其中所有玩家的连接。", "关闭游戏", JOptionPane.OK_CANCEL_OPTION);
     if (result != JOptionPane.OK_OPTION) {
       return;
     }
@@ -340,6 +334,6 @@ class LobbyGamePanel extends JPanel {
     final String gameId =
         gameTableModel.getGameIdForRow(gameTable.convertRowIndexToModel(selectedIndex));
     gameListingModel.sendShutdownRequest(gameId);
-    JOptionPane.showMessageDialog(parent, "The selected game will shut down shortly.");
+    JOptionPane.showMessageDialog(parent, "所选游戏即将关闭。");
   }
 }

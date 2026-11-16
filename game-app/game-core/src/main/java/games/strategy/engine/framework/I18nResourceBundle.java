@@ -1,10 +1,10 @@
 package games.strategy.engine.framework;
 
-import java.text.Collator;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import org.jetbrains.annotations.NonNls;
@@ -15,24 +15,20 @@ import org.jetbrains.annotations.NonNls;
  * property file(s).
  */
 public abstract class I18nResourceBundle {
+  @NonNls private static final String LANGUAGE_PROPERTY = "triplea.language";
+  private static final Map<Locale, Double> mapSupportedLocales = getNewMapSupportedLocales();
 
-  private final ResourceBundle bundle;
-  private static final HashMap<Locale, Double> mapSupportedLocales = getNewMapSupportedLocales();
-  private static final Locale locale =
-      Locale.lookup(getSupportedLanguageRange(), Arrays.asList(Collator.getAvailableLocales()));
-
-  protected I18nResourceBundle() {
-    bundle = ResourceBundle.getBundle(getResourcePath(), locale);
-  }
+  protected I18nResourceBundle() {}
 
   /**
    * Add new supported locales here!
    *
    * @return new map supported Locale->weight Double
    */
-  private static HashMap<Locale, Double> getNewMapSupportedLocales() {
-    final HashMap<Locale, Double> newMapSupportedLocales = new HashMap<>();
+  private static Map<Locale, Double> getNewMapSupportedLocales() {
+    final Map<Locale, Double> newMapSupportedLocales = new HashMap<>();
     newMapSupportedLocales.put(Locale.US, 1.0);
+    newMapSupportedLocales.put(Locale.SIMPLIFIED_CHINESE, 0.8);
     newMapSupportedLocales.put(Locale.GERMANY, 0.5);
     return newMapSupportedLocales;
   }
@@ -49,38 +45,40 @@ public abstract class I18nResourceBundle {
     return Locale.LanguageRange.parse(sb.substring(1));
   }
 
-  /*
-   * @param long number to be language-dependently converted to string
-   * @return Language-dependent string for number
+  /**
+   * Returns the locale used to load translations. Defaults to Simplified Chinese and can be
+   * overridden with the {@code triplea.language} system property (e.g. {@code
+   * -Dtriplea.language=en_US}).
    */
-  /*public static String convToText(final long number) {
-    return NumberFormat.getInstance(locale).format(number);
-  }*/
+  public static Locale getActiveLocale() {
+    @NonNls final String language = System.getProperty(LANGUAGE_PROPERTY, "zh_CN");
+    return mapSupportedLocales.keySet().stream()
+        .filter(
+            locale -> locale.toString().equals(language) || locale.toLanguageTag().equals(language))
+        .findFirst()
+        .orElse(Locale.SIMPLIFIED_CHINESE);
+  }
 
-  /*
-   * @param date to be language-dependently converted to string
-   * @return Language-dependent string for date
+  /**
+   * Switches the active language for subsequently created UI text. Components already on screen
+   * keep their previous text until the UI is rebuilt or the application is restarted.
    */
-  /*public static String convToText(final Date date) {
-    return convToText(date, DateFormat.SHORT);
-  }*/
-  /*
-   * @param date to be language-dependently converted to string
-   * @param style Date formatting style to be used
-   * @return Language-dependent string for date
-   */
-  /*public static String convToText(final Date date, final int style) {
-    return DateFormat.getDateInstance(style, locale).format(date);
-  }*/
+  public static void setActiveLocale(final Locale locale) {
+    if (!mapSupportedLocales.containsKey(locale)) {
+      throw new IllegalArgumentException("Unsupported locale: " + locale);
+    }
+    System.setProperty(LANGUAGE_PROPERTY, locale.toString());
+  }
 
   /**
    * @return List of supported languages
    */
   public static List<Locale> getSupportedLanguages() {
-    return Arrays.asList(Locale.ENGLISH, Locale.GERMAN);
+    return List.of(Locale.US, Locale.SIMPLIFIED_CHINESE, Locale.GERMANY);
   }
 
   public String getBaseBundleName() {
+    final ResourceBundle bundle = ResourceBundle.getBundle(getResourcePath(), getActiveLocale());
     return bundle.getBaseBundleName();
   }
 
@@ -112,6 +110,7 @@ public abstract class I18nResourceBundle {
    * @return Language dependent text
    */
   public String getText(final String key) {
+    final ResourceBundle bundle = ResourceBundle.getBundle(getResourcePath(), getActiveLocale());
     return bundle.getString(key);
   }
 }

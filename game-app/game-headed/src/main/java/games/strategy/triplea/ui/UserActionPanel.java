@@ -45,12 +45,12 @@ public class UserActionPanel extends ActionPanel {
    * trigger waitForRelease().
    */
   private final Action selectUserActionAction =
-      new AbstractAction("Take Action...") {
+      new AbstractAction("采取行动……") {
         @Serial private static final long serialVersionUID = 2389485901611958851L;
 
         @Override
         public void actionPerformed(final ActionEvent event) {
-          final JDialog userChoiceDialog = new JDialog(frame, "Actions and Operations", true);
+          final JDialog userChoiceDialog = new JDialog(frame, "行动与操作", true);
 
           final JPanel userChoicePanel = new JPanel();
           userChoicePanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
@@ -76,7 +76,7 @@ public class UserActionPanel extends ActionPanel {
                   0));
 
           final JButton noActionButton =
-              new JButton(SwingAction.of("No Actions", e -> userChoiceDialog.setVisible(false)));
+              new JButton(SwingAction.of("无可用行动", e -> userChoiceDialog.setVisible(false)));
           SwingUtilities.invokeLater(noActionButton::requestFocusInWindow);
           userChoicePanel.add(
               noActionButton,
@@ -137,8 +137,8 @@ public class UserActionPanel extends ActionPanel {
     if (!firstRun
         || JOptionPane.showConfirmDialog(
                 JOptionPane.getFrameForComponent(UserActionPanel.this),
-                "Are you sure you don't want to do anything?",
-                "End Actions",
+                "确定什么都不做吗？",
+                "结束行动",
                 JOptionPane.YES_NO_OPTION)
             == JOptionPane.YES_OPTION) {
       choice = null;

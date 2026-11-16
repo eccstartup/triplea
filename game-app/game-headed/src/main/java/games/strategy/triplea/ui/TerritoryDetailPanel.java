@@ -33,9 +33,9 @@ public class TerritoryDetailPanel extends JPanel {
   private static final long serialVersionUID = 1377022163587438988L;
   private GameData gameData;
   private final UiContext uiContext;
-  private final JButton showOdds = new JButton("Battle Calculator (Ctrl-B)");
-  private final JButton addAttackers = new JButton("Add Attackers (Ctrl-A)");
-  private final JButton addDefenders = new JButton("Add Defenders (Ctrl-D)");
+  private final JButton showOdds = new JButton("战斗计算器 (Ctrl-B)");
+  private final JButton addAttackers = new JButton("添加进攻方 (Ctrl-A)");
+  private final JButton addDefenders = new JButton("添加防守方 (Ctrl-D)");
   private final JButton findTerritoryButton;
   private final JLabel territoryInfo = new JLabel();
   private final JLabel unitInfo = new JLabel();
@@ -168,7 +168,7 @@ public class TerritoryDetailPanel extends JPanel {
     try (GameData.Unlocker ignored = gameData.acquireReadLock()) {
       unitsList = UnitSeparator.getSortedUnitCategories(territory, uiContext.getMapData());
       unitsLabel =
-          "Units: "
+          "单位："
               + territory.getUnits().stream()
                   .filter(u -> uiContext.getMapData().shouldDrawUnit(u.getType().getName()))
                   .count();

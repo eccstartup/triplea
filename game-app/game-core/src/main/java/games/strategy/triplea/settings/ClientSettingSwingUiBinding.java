@@ -32,38 +32,28 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 enum ClientSettingSwingUiBinding implements GameSettingUiBinding<JComponent> {
-  AI_MOVE_PAUSE_DURATION_BINDING(
-      "AI Move Pause Duration", SettingType.AI, "Time (in milliseconds) between AI moves") {
+  AI_MOVE_PAUSE_DURATION_BINDING("AI 移动暂停时长", SettingType.AI, "AI 各次移动之间的间隔（毫秒）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.aiMovePauseDuration, 0, 3000);
     }
   },
 
-  AI_COMBAT_STEP_PAUSE_DURATION_BINDING(
-      "AI Combat Step Pause Duration",
-      SettingType.AI,
-      "Time (in milliseconds) between AI combat steps") {
+  AI_COMBAT_STEP_PAUSE_DURATION_BINDING("AI 战斗步骤暂停时长", SettingType.AI, "AI 各战斗步骤之间的间隔（毫秒）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.aiCombatStepPauseDuration, 0, 3000);
     }
   },
 
-  ARROW_KEY_SCROLL_SPEED_BINDING(
-      "Arrow Key Scroll Speed",
-      SettingType.MAP_SCROLLING,
-      "How fast the map is scrolled (in pixels) when using the arrow keys") {
+  ARROW_KEY_SCROLL_SPEED_BINDING("方向键滚动速度", SettingType.MAP_SCROLLING, "使用方向键时地图滚动的速度（像素）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.arrowKeyScrollSpeed, 0, 500);
     }
   },
 
-  MAP_ZOOM_FACTOR_BINDING(
-      "Map zoom factor",
-      SettingType.MAP_SCROLLING,
-      "How fast you zoom in on maps when using the mousewheel or zoom keys") {
+  MAP_ZOOM_FACTOR_BINDING("地图缩放系数", SettingType.MAP_SCROLLING, "使用滚轮或缩放键时地图缩放的速度") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.mapZoomFactor, 1, 100);
@@ -71,9 +61,7 @@ enum ClientSettingSwingUiBinding implements GameSettingUiBinding<JComponent> {
   },
 
   BATTLE_CALC_SIMULATION_COUNT_DICE_BINDING(
-      "Simulation Count (Dice)",
-      SettingType.BATTLE_SIMULATOR,
-      "Default battle simulation count in dice games") {
+      "模拟次数（骰子）", SettingType.BATTLE_SIMULATOR, "骰子游戏中默认的战斗模拟次数") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.battleCalcSimulationCountDice, 10, 100_000);
@@ -81,37 +69,28 @@ enum ClientSettingSwingUiBinding implements GameSettingUiBinding<JComponent> {
   },
 
   BATTLE_CALC_SIMULATION_COUNT_LOW_LUCK_BINDING(
-      "Simulation Count (LL)",
-      SettingType.BATTLE_SIMULATOR,
-      "Default battle simulation count in low luck games") {
+      "模拟次数（低运气）", SettingType.BATTLE_SIMULATOR, "低运气游戏中默认的战斗模拟次数") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.battleCalcSimulationCountLowLuck, 10, 100_000);
     }
   },
 
-  CONFIRM_DEFENSIVE_ROLLS_BINDING(
-      "Confirm defensive rolls",
-      SettingType.COMBAT,
-      "Whether battle should proceed until you confirm the dice you roll while on defense") {
+  CONFIRM_DEFENSIVE_ROLLS_BINDING("确认防御掷骰", SettingType.COMBAT, "防御时是否要等你确认所掷骰子后战斗才继续") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.confirmDefensiveRolls);
     }
   },
 
-  CONFIRM_ENEMY_CASUALTIES_BINDING(
-      "Confirm enemy casualties",
-      SettingType.COMBAT,
-      "Whether battles should proceed only once every player "
-          + "has confirmed the casualties selected") {
+  CONFIRM_ENEMY_CASUALTIES_BINDING("确认敌方伤亡", SettingType.COMBAT, "是否只有在每位玩家 " + "都确认所选伤亡后战斗才继续") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.confirmEnemyCasualties);
     }
   },
 
-  DICE_ROLLER_URI("Dice Server URI", SettingType.TESTING, "Dice server for PBEM & PBF games") {
+  DICE_ROLLER_URI("骰子服务器地址", SettingType.TESTING, "用于 PBEM 和 PBF 游戏的骰子服务器") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return diceRollerOverrideSelection();
@@ -119,7 +98,7 @@ enum ClientSettingSwingUiBinding implements GameSettingUiBinding<JComponent> {
   },
 
   SPACE_BAR_CONFIRMS_CASUALTIES_BINDING(
-      "Space bar confirms casualties",
+      "空格键确认伤亡",
       SettingType.COMBAT,
 """
 When set to true casualty confirmation can be accepted by pressing space bar.
@@ -130,20 +109,14 @@ When set to false, the confirm casualty button has to always be clicked.""") {
     }
   },
 
-  SHOW_AA_FLYOVER_WARNING(
-      "AA flyover warning",
-      SettingType.COMBAT,
-      "Warn about AA firing when moving over territories with AA defense") {
+  SHOW_AA_FLYOVER_WARNING("防空炮飞越警告", SettingType.COMBAT, "移动经过有防空炮防御的领地时，提示防空炮开火") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.showAaFlyoverWarning);
     }
   },
 
-  SHOW_POTENTIAL_SCRAMBLE_WARNING(
-      "Scramble warning",
-      SettingType.COMBAT,
-      "Warn about potential scrambling planes when you attack a territory") {
+  SHOW_POTENTIAL_SCRAMBLE_WARNING("紧急起飞警告", SettingType.COMBAT, "攻击领地时，提示敌方可能紧急起飞战机") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.showPotentialScrambleWarning);
@@ -151,7 +124,7 @@ When set to false, the confirm casualty button has to always be clicked.""") {
   },
 
   LOOK_AND_FEEL_PREF_BINDING(
-      "Look and Feel",
+      "界面外观",
       SettingType.LOOK_AND_FEEL,
 """
 Updates UI theme for TripleA.
@@ -174,7 +147,7 @@ WARNING: restart all running TripleA instances after changing this setting to av
   },
 
   RELATIONSHIP_COLOR_SCHEME_BINDING(
-      "Relationship Colors",
+      "关系颜色",
       SettingType.LOOK_AND_FEEL,
 """
 War/allied/neutral colors in the politics panel and status bar.
@@ -192,20 +165,15 @@ Color blind friendly uses orange/blue instead of red/green.""") {
   },
 
   UI_SCALE_PERCENT_BINDING(
-      "UI Font & Size Scale (%)",
-      SettingType.LOOK_AND_FEEL,
-      "Scales the whole UI - fonts and component sizes - by this percentage. "
-          + "100 is the default size; increase it for larger, more readable text.") {
+      "界面字体与尺寸缩放 (%)",
+      SettingType.LOOK_AND_FEEL, "按此百分比缩放整个界面——包括字体和组件尺寸。" + "100 为默认大小；增大此值可获得更大、更易读的文字。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.uiScalePercent, 75, 250);
     }
   },
 
-  MAP_EDGE_SCROLL_SPEED_BINDING(
-      "Map Scroll Speed",
-      SettingType.MAP_SCROLLING,
-      "How fast the map scrolls (in pixels) when the mouse is moved close to the map edge") {
+  MAP_EDGE_SCROLL_SPEED_BINDING("地图滚动速度", SettingType.MAP_SCROLLING, "鼠标靠近地图边缘时地图滚动的速度（像素）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.mapEdgeScrollSpeed, 0, 300);
@@ -213,20 +181,14 @@ Color blind friendly uses orange/blue instead of red/green.""") {
   },
 
   MAP_EDGE_SCROLL_ZONE_SIZE_BINDING(
-      "Scroll Zone Size",
-      SettingType.MAP_SCROLLING,
-      "How close to the edge of the map (in pixels) the mouse needs "
-          + "to be for the map to start scrolling") {
+      "滚动区域大小", SettingType.MAP_SCROLLING, "鼠标需要距地图边缘多近（像素）" + "，地图才会开始滚动") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.mapEdgeScrollZoneSize, 0, 300);
     }
   },
 
-  NOTIFY_ALL_UNITS_MOVED(
-      "Notify When All Units Moved",
-      SettingType.GAME,
-      "Game will show a pop-up notification message when all units have been moved") {
+  NOTIFY_ALL_UNITS_MOVED("所有单位移动后通知", SettingType.GAME, "所有单位移动完毕后，游戏将显示弹出通知") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.notifyAllUnitsMoved);
@@ -234,7 +196,7 @@ Color blind friendly uses orange/blue instead of red/green.""") {
   },
 
   PROXY_CHOICE(
-      "Network Proxy",
+      "网络代理",
       SettingType.NETWORK,
 """
 Configure TripleA's Network and Proxy Settings
@@ -247,29 +209,21 @@ This only effects Play-By-Forum games, dice servers, and map downloads.""") {
   },
 
   SERVER_START_GAME_SYNC_WAIT_TIME_BINDING(
-      "Start game timeout",
-      SettingType.NETWORK,
-      "Maximum time (in seconds) to wait for all clients to sync data on game start") {
+      "开始游戏超时", SettingType.NETWORK, "游戏开始时等待所有客户端同步数据的最长时间（秒）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.serverStartGameSyncWaitTime, 120, 1500);
     }
   },
 
-  SERVER_OBSERVER_JOIN_WAIT_TIME_BINDING(
-      "Observer join timeout",
-      SettingType.NETWORK,
-      "Maximum time (in seconds) for host to wait for clients and observers") {
+  SERVER_OBSERVER_JOIN_WAIT_TIME_BINDING("观察者加入超时", SettingType.NETWORK, "主机等待客户端和观察者的最长时间（秒）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.serverObserverJoinWaitTime, 60, 1500);
     }
   },
 
-  SHOW_BATTLES_WHEN_OBSERVING_BINDING(
-      "Show battles as observer",
-      SettingType.GAME,
-      "Whether to show a battle if you are only observing.") {
+  SHOW_BATTLES_WHEN_OBSERVING_BINDING("以观察者身份显示战斗", SettingType.GAME, "仅作为观察者时是否显示战斗。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.showBattlesWhenObserving);
@@ -277,7 +231,7 @@ This only effects Play-By-Forum games, dice servers, and map downloads.""") {
   },
 
   SHOW_BETA_FEATURES_BINDING(
-      "Show Beta Features",
+      "显示测试版功能",
       SettingType.TESTING,
 """
 Toggles whether to show 'beta' features. These are game features that are still under development and potentially may not be working yet.
@@ -289,7 +243,7 @@ Restart to fully activate""") {
   },
 
   SHOW_SERIALIZE_FEATURES_BINDING(
-      "Use New Serialization",
+      "使用新序列化方式",
       SettingType.TESTING,
 """
 Toggles whether to use the new serialization mechanisms. This mechanism is still under development and potentially may break saved games and network games.
@@ -300,10 +254,7 @@ All players in the same game must have it set to the same value. Restart to full
     }
   },
 
-  USE_WEBSOCKET_NETWORK(
-      "Use Websocket Network (Beta)",
-      SettingType.TESTING,
-      "Toggles whether to use in-development websocket network") {
+  USE_WEBSOCKET_NETWORK("使用 Websocket 网络（测试版）", SettingType.TESTING, "切换是否使用开发中的 websocket 网络") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.useWebsocketNetwork);
@@ -311,67 +262,51 @@ All players in the same game must have it set to the same value. Restart to full
   },
 
   USE_BOUNDED_CONTEXT_BATTLE_CALC(
-      "Use bounded-context battle calculator (Beta)",
+      "使用限定上下文的战斗计算器（测试版）",
       SettingType.TESTING,
-      "Toggles the in-development engine-free battle odds calculator. Off by default; still under "
-          + "development. Takes effect the next time the battle calculator is opened.") {
+      "切换开发中的无引擎战斗胜率计算器。默认关闭；仍在 " + "开发中。下次打开战斗计算器时生效。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.useBoundedContextBattleCalc);
     }
   },
 
-  DO_NOT_REDRAW_MAP(
-      "Do Not Redraw Map",
-      SettingType.TESTING,
-      "Toggles whether to completely redraw the map when a technology is discovered. Default is fully redraw. No redraw makes the \"flash\" you see disappear when a tech is added.") {
+  DO_NOT_REDRAW_MAP("不重绘地图", SettingType.TESTING, "切换发现科技时是否完全重绘地图。默认完全重绘；不重绘可使获得科技时的闪光效果消失。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.doNotRedrawMap);
     }
   },
 
-  LOBBY_URI_OVERRIDE_BINDING("Lobby URI Override", SettingType.TESTING, "Overrides the lobby URI") {
+  LOBBY_URI_OVERRIDE_BINDING("大厅地址覆盖", SettingType.TESTING, "覆盖大厅服务器地址") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return LobbySelectionViewFactory.build();
     }
   },
 
-  SAVE_GAMES_FOLDER_PATH_BINDING(
-      "Saved Games Folder",
-      SettingType.FOLDER_LOCATIONS,
-      "The folder where saved game files will be stored by default") {
+  SAVE_GAMES_FOLDER_PATH_BINDING("存档文件夹", SettingType.FOLDER_LOCATIONS, "默认存放游戏存档的文件夹") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return folderPath(ClientSetting.saveGamesFolderPath);
     }
   },
 
-  USER_MAPS_FOLDER_PATH_BINDING(
-      "Maps Folder",
-      SettingType.FOLDER_LOCATIONS,
-      "The folder where game engine will download and find map files.") {
+  USER_MAPS_FOLDER_PATH_BINDING("地图文件夹", SettingType.FOLDER_LOCATIONS, "游戏引擎下载和查找地图文件的文件夹。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return folderPath(ClientSetting.mapFolderOverride);
     }
   },
 
-  WHEEL_SCROLL_AMOUNT_BINDING(
-      "Mouse Wheel Scroll Speed",
-      SettingType.MAP_SCROLLING,
-      "How fast the map will scroll (in pixels) when using the mouse wheel") {
+  WHEEL_SCROLL_AMOUNT_BINDING("鼠标滚轮滚动速度", SettingType.MAP_SCROLLING, "使用鼠标滚轮时地图滚动的速度（像素）") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return intValueRange(ClientSetting.wheelScrollAmount, 10, 300);
     }
   },
 
-  EMAIL_SETTINGS(
-      "Play by Email Preferences",
-      SettingType.PLAY_BY_FORUM_EMAIL,
-      "Configure the settings of your preferred email server.") {
+  EMAIL_SETTINGS("邮件对战偏好设置", SettingType.PLAY_BY_FORUM_EMAIL, "配置你偏好的邮件服务器设置。") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return SelectionComponentFactory.emailSettings(
@@ -383,10 +318,7 @@ All players in the same game must have it set to the same value. Restart to full
     }
   },
 
-  TRIPLEA_FORUM_SETTINGS(
-      "TripleA Forum Settings",
-      SettingType.PLAY_BY_FORUM_EMAIL,
-      "Configure the login credentials of the TripleA Forum") {
+  TRIPLEA_FORUM_SETTINGS("TripleA 论坛设置", SettingType.PLAY_BY_FORUM_EMAIL, "配置 TripleA 论坛的登录凭据") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return SelectionComponentFactory.forumPosterSettings(
@@ -398,9 +330,7 @@ All players in the same game must have it set to the same value. Restart to full
   },
 
   AXIS_AND_ALLIES_FORUM_SETTINGS(
-      "Axis & Allies Forum Settings",
-      SettingType.PLAY_BY_FORUM_EMAIL,
-      "Configure the login credentials of the Axis & Allies Forum") {
+      "Axis & Allies 论坛设置", SettingType.PLAY_BY_FORUM_EMAIL, "配置 Axis & Allies 论坛的登录凭据") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return SelectionComponentFactory.forumPosterSettings(
@@ -411,10 +341,7 @@ All players in the same game must have it set to the same value. Restart to full
     }
   },
 
-  UNIT_SCROLLER_HIGHLIGHT_TERRITORY(
-      "Highlight Territory on Unit Scroll",
-      SettingType.GAME,
-      "When scrolling through units, whether to also highlight territory") {
+  UNIT_SCROLLER_HIGHLIGHT_TERRITORY("切换单位时高亮领地", SettingType.GAME, "切换单位时是否同时高亮所在领地") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.unitScrollerHighlightTerritory);

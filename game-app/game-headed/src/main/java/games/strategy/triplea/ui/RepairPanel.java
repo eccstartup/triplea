@@ -23,7 +23,7 @@ import org.triplea.swing.SwingComponents;
 class RepairPanel extends ActionPanel {
   private static final long serialVersionUID = 3045997038627313714L;
   private static final String CHANGE = "Change...";
-  private static final String BUY = "Repair...";
+  private static final String BUY = "修理……";
   private Map<Unit, IntegerMap<RepairRule>> repair;
   private boolean bid;
   private Collection<GamePlayer> allowedPlayersToRepair;
@@ -54,7 +54,7 @@ class RepairPanel extends ActionPanel {
           } else {
             buyButton.setText(CHANGE);
             repairedSoFar.setText(
-                totalValues + MyFormatter.pluralize(" unit", totalValues) + " to be repaired:");
+                totalValues + MyFormatter.pluralize(" unit", totalValues) + " 待修理：");
           }
         }
       };
@@ -73,7 +73,7 @@ class RepairPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " repair");
+          actionLabel.setText(gamePlayer.getName() + " 修理");
           add(SwingComponents.leftBox(actionLabel));
 
           buyButton.setText(BUY);
@@ -97,7 +97,7 @@ class RepairPanel extends ActionPanel {
       final int selectedOption =
           JOptionPane.showConfirmDialog(
               JOptionPane.getFrameForComponent(RepairPanel.this),
-              "Are you sure you don't want to repair anything?",
+              "确定什么都不修理吗？",
               "End Purchase",
               JOptionPane.YES_NO_OPTION);
       if (selectedOption != JOptionPane.YES_OPTION) {

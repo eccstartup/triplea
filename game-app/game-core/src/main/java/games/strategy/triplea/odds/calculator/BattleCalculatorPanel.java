@@ -84,13 +84,11 @@ class BattleCalculatorPanel extends JPanel {
   private final IntTextField numRuns = new IntTextField();
   private final IntTextField retreatAfterXRounds = new IntTextField();
   private final IntTextField retreatAfterXUnitsLeft = new IntTextField();
-  private final JButton calculateButton = new JButton("Pls Wait, Copying Data...");
-  private final JCheckBox keepOneAttackingLandUnitCheckBox =
-      new JCheckBox("One attacking land must live");
-  private final JCheckBox amphibiousCheckBox = new JCheckBox("Add amphibious attack modifiers");
-  private final JCheckBox landBattleCheckBox = new JCheckBox("Land battle");
-  private final JCheckBox retreatWhenOnlyAirLeftCheckBox =
-      new JCheckBox("Retreat when only air left");
+  private final JButton calculateButton = new JButton("请稍候，正在复制数据……");
+  private final JCheckBox keepOneAttackingLandUnitCheckBox = new JCheckBox("必须有一个进攻方陆地单位存活");
+  private final JCheckBox amphibiousCheckBox = new JCheckBox("加入两栖攻击修正");
+  private final JCheckBox landBattleCheckBox = new JCheckBox("陆地战斗");
+  private final JCheckBox retreatWhenOnlyAirLeftCheckBox = new JCheckBox("仅剩空军时撤退");
   private final UiContext uiContext;
   private final GameData data;
   private final IBattleCalculator calculator;
@@ -171,14 +169,12 @@ class BattleCalculatorPanel extends JPanel {
     retreatAfterXRounds.setMin(-1);
     retreatAfterXRounds.setMax(1000);
     retreatAfterXRounds.setValue(-1);
-    retreatAfterXRounds.setToolTipText("-1 means never.");
+    retreatAfterXRounds.setToolTipText("-1 表示永不撤退。");
     retreatAfterXUnitsLeft.setColumns(4);
     retreatAfterXUnitsLeft.setMin(-1);
     retreatAfterXUnitsLeft.setMax(1000);
     retreatAfterXUnitsLeft.setValue(-1);
-    retreatAfterXUnitsLeft.setToolTipText(
-        "-1 means never. If positive and 'retreat when only air left' is also "
-            + "selected, then we will retreat when X of non-air units is left.");
+    retreatAfterXUnitsLeft.setToolTipText("-1 表示永不。若为正数且同时选中了「仅剩空军时撤退」，" + "则当非空军单位剩余 X 个时撤退。");
     setResultsToBlank();
     defenderLeft.setToolTipText(
         "Units Left does not include AA guns and other infrastructure, and does not include "
@@ -219,9 +215,9 @@ class BattleCalculatorPanel extends JPanel {
     int row0 = 0;
     GridBagConstraintsBuilder builder0 =
         new GridBagConstraintsBuilder().gridY(row0++).anchor(GridBagConstraintsAnchor.EAST);
-    attackAndDefend.add(new JLabel("Attacker: "), builder0.gridX(0).insets(0, gap, gap, 0).build());
+    attackAndDefend.add(new JLabel("进攻方："), builder0.gridX(0).insets(0, gap, gap, 0).build());
     attackAndDefend.add(attackerCombo, builder0.gridX(1).insets(0, 0, gap / 2, gap).build());
-    attackAndDefend.add(new JLabel("Defender: "), builder0.gridX(2).insets(0, gap, gap, 0).build());
+    attackAndDefend.add(new JLabel("防守方："), builder0.gridX(2).insets(0, gap, gap, 0).build());
     attackAndDefend.add(defenderCombo, builder0.gridX(3).insets(0, 0, gap / 2, gap).build());
     attackAndDefend.add(
         attackerUnitsTotalNumber, builder0.gridY(row0++).gridX(0).insets(0, gap, 0, 0).build());
@@ -267,24 +263,17 @@ class BattleCalculatorPanel extends JPanel {
     int row1 = 0;
     GridBagConstraintsBuilder builder1 =
         new GridBagConstraintsBuilder().anchor(GridBagConstraintsAnchor.EAST);
-    resultsText.add(new JLabel("Attacker Wins:"), builder1.gridY(row1++).build());
-    resultsText.add(new JLabel("Draw:"), builder1.gridY(row1++).build());
-    resultsText.add(new JLabel("Defender Wins:"), builder1.gridY(row1++).build());
-    resultsText.add(
-        new JLabel("Ave. Defender Units Left:"), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Units Left If Def Won:"), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Ave. Attacker Units Left:"), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Units Left If Att Won:"), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Average TUV Swing:"), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Average Rounds:"), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Simulation Count:"), builder1.gridY(row1++).insets(15, 0, 0, 0).build());
-    resultsText.add(new JLabel("Time:"), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
+    resultsText.add(new JLabel("进攻方获胜："), builder1.gridY(row1++).build());
+    resultsText.add(new JLabel("平局："), builder1.gridY(row1++).build());
+    resultsText.add(new JLabel("防守方获胜："), builder1.gridY(row1++).build());
+    resultsText.add(new JLabel("防守方平均剩余单位："), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
+    resultsText.add(new JLabel("防守方获胜时剩余单位："), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
+    resultsText.add(new JLabel("进攻方平均剩余单位："), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
+    resultsText.add(new JLabel("进攻方获胜时剩余单位："), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
+    resultsText.add(new JLabel("平均战力净值变化："), builder1.gridY(row1++).insets(6, 0, 0, 0).build());
+    resultsText.add(new JLabel("平均回合数："), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
+    resultsText.add(new JLabel("模拟次数："), builder1.gridY(row1++).insets(15, 0, 0, 0).build());
+    resultsText.add(new JLabel("耗时："), builder1.gridY(row1++).insets(0, 0, 0, 0).build());
     GridBagConstraintsBuilder builder2 =
         new GridBagConstraintsBuilder()
             .gridWidth(2)
@@ -292,12 +281,11 @@ class BattleCalculatorPanel extends JPanel {
             .fill(GridBagConstraintsFill.BOTH);
     resultsText.add(
         calculateButton, builder2.gridY(row1++).gridWidth(2).insets(20, 60, 0, 100).build());
-    final JButton clearButton = new JButton("Clear");
+    final JButton clearButton = new JButton("清除");
     resultsText.add(clearButton, builder2.gridY(row1++).gridWidth(1).insets(6, 60, 0, 0).build());
-    resultsText.add(new JLabel("Run Count:"), builder1.gridY(row1++).insets(20, 0, 0, 0).build());
-    resultsText.add(
-        new JLabel("Retreat After Round:"), builder1.gridY(row1++).insets(10, 0, 0, 0).build());
-    resultsText.add(new JLabel("Retreat When X Units Left:"), builder1.gridY(row1).build());
+    resultsText.add(new JLabel("运行次数："), builder1.gridY(row1++).insets(20, 0, 0, 0).build());
+    resultsText.add(new JLabel("在第几回合后撤退："), builder1.gridY(row1++).insets(10, 0, 0, 0).build());
+    resultsText.add(new JLabel("剩余 X 个单位时撤退："), builder1.gridY(row1).build());
     GridBagConstraintsBuilder builder3 =
         new GridBagConstraintsBuilder()
             .gridX(1)
@@ -318,7 +306,7 @@ class BattleCalculatorPanel extends JPanel {
     resultsText.add(time, builder3.gridY(row2++).insets(0, 10, 0, 0).build());
 
     row2++;
-    final JButton swapSidesButton = new JButton("Swap Sides");
+    final JButton swapSidesButton = new JButton("交换攻守");
     resultsText.add(
         swapSidesButton,
         builder3.gridY(row2++).fill(GridBagConstraintsFill.BOTH).insets(6, 10, 0, 100).build());
@@ -329,7 +317,7 @@ class BattleCalculatorPanel extends JPanel {
     resultsText.add(retreatAfterXUnitsLeft, builder3.gridY(row2++).build());
 
     row1 = row2;
-    final JButton orderOfLossesButton = new JButton("Order Of Losses");
+    final JButton orderOfLossesButton = new JButton("伤亡顺序");
     resultsText.add(
         orderOfLossesButton, builder1.gridX(0).gridY(row1++).insets(10, 15, 0, 0).build());
     if (territoryEffectsJList != null) {
@@ -369,7 +357,7 @@ class BattleCalculatorPanel extends JPanel {
 
     final JPanel buttons = new JPanel();
     buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-    final JButton closeButton = new JButton("Close");
+    final JButton closeButton = new JButton("关闭");
     buttons.add(closeButton);
     add(buttons);
     defenderCombo.addActionListener(
@@ -454,7 +442,7 @@ class BattleCalculatorPanel extends JPanel {
               == JOptionPane.showConfirmDialog(
                   BattleCalculatorPanel.this,
                   oolPanel,
-                  "Create Order Of Losses for each side",
+                  "为每一方创建伤亡顺序",
                   JOptionPane.OK_CANCEL_OPTION,
                   JOptionPane.PLAIN_MESSAGE)) {
             if (OrderOfLossesInputPanel.isValidOrderOfLoss(oolPanel.getAttackerOrder(), data)) {
@@ -491,7 +479,7 @@ class BattleCalculatorPanel extends JPanel {
                 SwingUtilities.invokeLater(
                     () -> {
                       log.debug("Battle Calculator ready in {}ms", millis);
-                      calculateButton.setText("Calculate Odds");
+                      calculateButton.setText("计算胜率");
                       calculateButton.setEnabled(true);
                       calculateButton.requestFocusInWindow();
                     });
@@ -558,8 +546,7 @@ class BattleCalculatorPanel extends JPanel {
   private void updateStats() {
     Util.ensureOnEventDispatchThread();
     final AtomicReference<AggregateResults> resultsRef = new AtomicReference<>();
-    final WaitDialog dialog =
-        new WaitDialog(this, "Calculating Odds... (this may take a while)", calculator::cancel);
+    final WaitDialog dialog = new WaitDialog(this, "正在计算胜率……（可能需要一些时间）", calculator::cancel);
     final AtomicReference<Collection<Unit>> defenders = new AtomicReference<>();
     final AtomicReference<Collection<Unit>> attackers = new AtomicReference<>();
     final GamePlayer attacker = getAttacker();
@@ -778,16 +765,16 @@ class BattleCalculatorPanel extends JPanel {
       final List<Unit> defenders =
           CollectionUtils.getMatches(
               defendingUnitsPanel.getUnits(), Matches.unitCanBeInBattle(false, isLand, 1, true));
-      attackerUnitsTotalNumber.setText(getTotalNumberText("Units: ", attackers.size()));
-      defenderUnitsTotalNumber.setText(getTotalNumberText("Units: ", defenders.size()));
+      attackerUnitsTotalNumber.setText(getTotalNumberText("单位：", attackers.size()));
+      defenderUnitsTotalNumber.setText(getTotalNumberText("单位：", defenders.size()));
       attackerUnitsTotalTuv.setText(
           getTotalNumberText(
-              "TUV: ",
+              "战力净值：",
               TuvUtils.getTuv(
                   attackers, getAttacker(), tuvCalculator.getCostsForTuv(getAttacker()), data)));
       defenderUnitsTotalTuv.setText(
           getTotalNumberText(
-              "TUV: ",
+              "战力净值：",
               TuvUtils.getTuv(
                   defenders, getDefender(), tuvCalculator.getCostsForTuv(getDefender()), data)));
       final int attackHitPoints = CasualtyUtil.getTotalHitpointsLeft(attackers);
@@ -840,8 +827,8 @@ class BattleCalculatorPanel extends JPanel {
                       .territoryEffects(territoryEffects)
                       .build())
               .calculateTotalPower();
-      attackerUnitsTotalPower.setText(getTotalNumberText("Power: ", attackPower));
-      defenderUnitsTotalPower.setText(getTotalNumberText("Power: ", defensePower));
+      attackerUnitsTotalPower.setText(getTotalNumberText("战力：", attackPower));
+      defenderUnitsTotalPower.setText(getTotalNumberText("战力：", defensePower));
     }
   }
 

@@ -330,7 +330,7 @@ public final class BattlePanel extends ActionPanel {
         () -> {
           final var panel = new SelectTerritoryComponent(unitTerritory, territories, map);
           final String unitName = unit.getType().getName() + " in " + unitTerritory;
-          panel.setLabelText("Which territory should " + unitName + " bombard?");
+          panel.setLabelText("应由哪个领地 " + unitName + " 进行轰炸？");
           return panel;
         };
     return Interruptibles.awaitResult(() -> SwingAction.invokeAndWaitResult(action))
@@ -341,7 +341,7 @@ public final class BattlePanel extends ActionPanel {
                   EventThreadJOptionPane.showOptionDialog(
                       this,
                       panel,
-                      "Bombardment Territory Selection",
+                      "选择轰炸领地",
                       JOptionPane.OK_CANCEL_OPTION,
                       JOptionPane.PLAIN_MESSAGE,
                       null,
@@ -360,28 +360,25 @@ public final class BattlePanel extends ActionPanel {
   public boolean getAttackSubs(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "Attack submarines in " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击潜艇，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
   }
 
   public boolean getAttackTransports(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "Attack transports in " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击运输舰，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
   }
 
   public boolean getAttackUnits(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "Attack units in " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击单位，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
   }
 
   public boolean getShoreBombard(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null,
-        "Conduct naval bombard in " + terr.toString() + "?",
-        "Bombard",
-        ConfirmDialogType.YES_NO);
+        null, "进行海上轰炸，位于 " + terr.toString() + "?", "轰炸", ConfirmDialogType.YES_NO);
   }
 
   public void casualtyNotification(
@@ -517,7 +514,7 @@ public final class BattlePanel extends ActionPanel {
           EventThreadJOptionPane.showOptionDialog(
               getRootPane(),
               panel,
-              hit.getName() + " select casualties",
+              hit.getName() + " 选择伤亡",
               JOptionPane.OK_OPTION,
               JOptionPane.PLAIN_MESSAGE,
               null,

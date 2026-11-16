@@ -44,7 +44,7 @@ class TechPanel extends ActionPanel {
 
   private final Action getTechRollsAction =
       SwingAction.of(
-          "Roll Tech...",
+          "研发科技……",
           e -> {
             TechAdvance advance = null;
             if (Properties.getWW2V2(getData().getProperties())
@@ -52,20 +52,20 @@ class TechPanel extends ActionPanel {
                     && !Properties.getWW2V3TechModel(getData().getProperties()))) {
               final List<TechAdvance> available = getAvailableTechs();
               if (available.isEmpty()) {
-                JOptionPane.showMessageDialog(TechPanel.this, "No more available tech advances");
+                JOptionPane.showMessageDialog(TechPanel.this, "没有更多可用的科技进展");
                 return;
               }
               final JList<TechAdvance> list = new JList<>(SwingComponents.newListModel(available));
               final JPanel panel = new JPanel();
               panel.setLayout(new BorderLayout());
               panel.add(list, BorderLayout.CENTER);
-              panel.add(new JLabel("Select the tech you want to roll for"), BorderLayout.NORTH);
+              panel.add(new JLabel("选择要研发的科技"), BorderLayout.NORTH);
               list.setSelectedIndex(0);
               final int choice =
                   JOptionPane.showConfirmDialog(
                       JOptionPane.getFrameForComponent(TechPanel.this),
                       panel,
-                      "Select advance",
+                      "选择进展",
                       JOptionPane.DEFAULT_OPTION);
               if (choice != JOptionPane.OK_OPTION) {
                 return;
@@ -73,7 +73,7 @@ class TechPanel extends ActionPanel {
               advance = list.getSelectedValue();
             }
             final int pus = getCurrentPlayer().getResources().getQuantity(Constants.PUS);
-            final String message = "Roll Tech";
+            final String message = "研发科技";
             final TechRollPanel techRollPanel = new TechRollPanel(pus, getCurrentPlayer());
             final int choice =
                 JOptionPane.showConfirmDialog(
@@ -101,7 +101,7 @@ class TechPanel extends ActionPanel {
 
   private final Action getTechTokenAction =
       SwingAction.of(
-          "Buy Tech Tokens...",
+          "购买科技代币……",
           e -> {
             final GamePlayer currentPlayer = getCurrentPlayer();
             currTokens = currentPlayer.getResources().getQuantity(Constants.TECH_TOKENS);
@@ -109,7 +109,7 @@ class TechPanel extends ActionPanel {
             final List<TechnologyFrontier> techCategories = getAvailableCategories();
 
             if (techCategories.isEmpty()) {
-              JOptionPane.showMessageDialog(TechPanel.this, "No more available tech advances");
+              JOptionPane.showMessageDialog(TechPanel.this, "没有更多可用的科技进展");
               return;
             }
             final JList<TechnologyFrontier> list =
@@ -127,13 +127,12 @@ class TechPanel extends ActionPanel {
             final JPanel panel = new JPanel();
             panel.setLayout(new BorderLayout());
             panel.add(list, BorderLayout.CENTER);
-            panel.add(
-                new JLabel("Select which tech chart you want to roll for"), BorderLayout.NORTH);
+            panel.add(new JLabel("选择要研发的科学图表"), BorderLayout.NORTH);
             list.setSelectedIndex(0);
             JOptionPane.showMessageDialog(
                 JOptionPane.getFrameForComponent(TechPanel.this),
                 panel,
-                "Select chart",
+                "选择图表",
                 JOptionPane.PLAIN_MESSAGE);
             final TechnologyFrontier category = list.getSelectedValue();
 
@@ -151,7 +150,7 @@ class TechPanel extends ActionPanel {
             }
             final TechTokenPanel techTokenPanel =
                 new TechTokenPanel(pus, currTokens, currentPlayer, helpPay);
-            final String message = "Purchase Tech Tokens";
+            final String message = "购买科技代币";
             final int choice =
                 JOptionPane.showConfirmDialog(
                     getTopLevelAncestor(),
@@ -197,13 +196,12 @@ class TechPanel extends ActionPanel {
               final JPanel panel = new JPanel();
               panel.setLayout(new BorderLayout());
               panel.add(list, BorderLayout.CENTER);
-              panel.add(
-                  new JLabel("Select which tech chart you want to roll for"), BorderLayout.NORTH);
+              panel.add(new JLabel("选择要研发的科学图表"), BorderLayout.NORTH);
               list.setSelectedIndex(0);
               JOptionPane.showMessageDialog(
                   JOptionPane.getFrameForComponent(TechPanel.this),
                   panel,
-                  "Select chart",
+                  "选择图表",
                   JOptionPane.PLAIN_MESSAGE);
               final TechnologyFrontier category = list.getSelectedValue();
               techRoll = new TechRoll(category, currTokens);
@@ -223,7 +221,7 @@ class TechPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " Tech Roll");
+          actionLabel.setText(gamePlayer.getName() + " 科技掷骰");
           add(SwingComponents.leftBox(actionLabel));
 
           if (Properties.getWW2V3TechModel(getData().getProperties())) {
@@ -302,7 +300,7 @@ class TechPanel extends ActionPanel {
       setLayout(new GridBagLayout());
       this.pus = pus;
       this.player = player;
-      final JLabel title = new JLabel("Select the number of tech rolls:");
+      final JLabel title = new JLabel("选择科技掷骰次数：");
       title.setBorder(new EmptyBorder(5, 5, 5, 5));
       textField = new ScrollableTextField(0, pus / TechTracker.getTechCost(player));
       final ScrollableTextFieldListener listener =
@@ -370,7 +368,7 @@ class TechPanel extends ActionPanel {
     }
 
     private void setLabel(final int pus) {
-      left.setText("Left to spend: " + pus);
+      left.setText("剩余可用：" + pus);
     }
 
     int getValue() {
@@ -404,7 +402,7 @@ class TechPanel extends ActionPanel {
       playerPuField.setEnabled(false);
       setLayout(new GridBagLayout());
       this.player = player;
-      final JLabel title = new JLabel("Select the number of tech tokens to purchase:");
+      final JLabel title = new JLabel("选择要购买的科技代币数量：");
       title.setBorder(new EmptyBorder(5, 5, 5, 5));
       final int techCost = TechTracker.getTechCost(this.player);
       textField = new ScrollableTextField(0, totalPus / techCost);
@@ -414,7 +412,7 @@ class TechPanel extends ActionPanel {
             setWidgetActivation();
           };
       textField.addChangeListener(listener);
-      final JLabel costLabel = new JLabel("x" + techCost + " cost per token");
+      final JLabel costLabel = new JLabel("x" + techCost + " 每个代币的成本");
       setLabel(0);
       setTokens(currTokens);
       final int space = 0;
@@ -505,7 +503,7 @@ class TechPanel extends ActionPanel {
       if (!helpPay.isEmpty()) {
         int row = 4;
         add(
-            new JLabel("Nations Paying How Much:"),
+            new JLabel("各国支付金额："),
             new GridBagConstraints(
                 0,
                 row,
@@ -548,7 +546,7 @@ class TechPanel extends ActionPanel {
                 0,
                 0));
         add(
-            new JLabel("PUs"),
+            new JLabel("生产点"),
             new GridBagConstraints(
                 2,
                 row,
@@ -598,7 +596,7 @@ class TechPanel extends ActionPanel {
                     0,
                     0));
             add(
-                new JLabel("PUs"),
+                new JLabel("生产点"),
                 new GridBagConstraints(
                     2,
                     row,
@@ -663,12 +661,12 @@ class TechPanel extends ActionPanel {
     }
 
     private void setLabel(final int cost) {
-      left.setText("Left to Spend: " + (totalPus - cost));
-      totalCost.setText("Total Cost: " + cost);
+      left.setText("剩余可用：" + (totalPus - cost));
+      totalCost.setText("总成本：" + cost);
     }
 
     private void setTokens(final int tokens) {
-      right.setText("Current token count: " + tokens);
+      right.setText("当前代币数量：" + tokens);
     }
 
     private ScrollableTextFieldListener setWidgetAction() {

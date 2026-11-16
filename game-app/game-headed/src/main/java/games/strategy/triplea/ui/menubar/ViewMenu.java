@@ -55,7 +55,7 @@ final class ViewMenu {
 
   public static JMenu get(final TripleAFrame frame) {
     final MapData mapData = frame.getUiContext().getMapData();
-    return new JMenuBuilder("View", TripleAMenuBar.Mnemonic.VIEW.getMnemonicCode())
+    return new JMenuBuilder("视图", TripleAMenuBar.Mnemonic.VIEW.getMnemonicCode())
         .addMenuItem(getZoomMenu(frame))
         .addMenuItem(getUnitSizeMenu(frame))
         .addMenuItem(getLockMap())
@@ -77,7 +77,7 @@ final class ViewMenu {
   }
 
   private static JMenuItem getZoomMenu(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Map Zoom", Mnemonic.ZOOM.getMnemonicCode())
+    return new JMenuItemBuilder("地图缩放", Mnemonic.ZOOM.getMnemonicCode())
         .actionListener(
             () -> {
               final SpinnerNumberModel model = new SpinnerNumberModel();
@@ -88,12 +88,12 @@ final class ViewMenu {
               final JSpinner spinner = new JSpinner(model);
               final JPanel panel = new JPanel();
               panel.setLayout(new BorderLayout());
-              panel.add(new JLabel("Choose Map Zoom (%)"), BorderLayout.NORTH);
+              panel.add(new JLabel("选择地图缩放比例 (%)"), BorderLayout.NORTH);
               panel.add(spinner, BorderLayout.CENTER);
               final JPanel buttons = new JPanel();
-              final JButton fitWidth = new JButton("Fit Width");
+              final JButton fitWidth = new JButton("适应宽度");
               buttons.add(fitWidth);
-              final JButton fitHeight = new JButton("Fit Height");
+              final JButton fitHeight = new JButton("适应高度");
               buttons.add(fitHeight);
               final JButton reset = new JButton("Reset");
               buttons.add(reset);
@@ -214,7 +214,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowMapBlends(final TripleAFrame frame) {
-    final String menuButtonText = "Show Map Blends";
+    final String menuButtonText = "显示地图混合效果";
     final JCheckBoxMenuItem showMapBlends = new JCheckBoxMenuItem(menuButtonText);
     showMapBlends.setMnemonic(Mnemonic.SHOW_MAP_BLENDS.getValue());
     final MapData mapData = frame.getUiContext().getMapData();
@@ -249,7 +249,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowUnitsMenu(final TripleAFrame frame) {
-    final JCheckBoxMenuItem showUnitsBox = new JCheckBoxMenuItem("Show Units");
+    final JCheckBoxMenuItem showUnitsBox = new JCheckBoxMenuItem("显示单位");
     showUnitsBox.setMnemonic(Mnemonic.SHOW_UNIT.getValue());
     showUnitsBox.setSelected(true);
     showUnitsBox.addActionListener(
@@ -261,7 +261,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowUnitsInStatusBarMenu(final TripleAFrame frame) {
-    JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem("Show Units in Status Bar");
+    JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem("在状态栏显示单位");
     checkbox.setSelected(true);
     checkbox.addActionListener(
         e -> {
@@ -273,37 +273,27 @@ final class ViewMenu {
   }
 
   private static JMenuItem getMapFontAndColorEditorMenu(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Map Font and Color", Mnemonic.MAP_FONT_OPTIONS.getMnemonicCode())
+    return new JMenuItemBuilder("地图字体与颜色", Mnemonic.MAP_FONT_OPTIONS.getMnemonicCode())
         .actionListener(
             () -> {
               final List<IEditableProperty<?>> properties = new ArrayList<>();
               final NumberProperty fontSize =
-                  new NumberProperty(
-                      "Font Size", null, 60, 0, MapImage.getPropertyMapFont().getSize());
+                  new NumberProperty("字体大小", null, 60, 0, MapImage.getPropertyMapFont().getSize());
               final ColorProperty territoryNameColor =
                   new ColorProperty(
-                      "Territory Name and PU Color",
-                      null,
-                      MapImage.getPropertyTerritoryNameAndPuAndCommentColor());
+                      "领地名称与生产点颜色", null, MapImage.getPropertyTerritoryNameAndPuAndCommentColor());
               final ColorProperty unitCountColor =
-                  new ColorProperty("Unit Count Color", null, MapImage.getPropertyUnitCountColor());
+                  new ColorProperty("单位数量颜色", null, MapImage.getPropertyUnitCountColor());
               final ColorProperty unitCountOutline =
-                  new ColorProperty(
-                      "Unit Count Outline", null, MapImage.getPropertyUnitCountOutline());
+                  new ColorProperty("单位数量描边", null, MapImage.getPropertyUnitCountOutline());
               final ColorProperty factoryDamageColor =
-                  new ColorProperty(
-                      "Factory Damage Color", null, MapImage.getPropertyUnitFactoryDamageColor());
+                  new ColorProperty("工厂损伤颜色", null, MapImage.getPropertyUnitFactoryDamageColor());
               final ColorProperty factoryDamageOutline =
-                  new ColorProperty(
-                      "Factory Damage Outline",
-                      null,
-                      MapImage.getPropertyUnitFactoryDamageOutline());
+                  new ColorProperty("工厂损伤描边", null, MapImage.getPropertyUnitFactoryDamageOutline());
               final ColorProperty hitDamageColor =
-                  new ColorProperty(
-                      "Hit Damage Color", null, MapImage.getPropertyUnitHitDamageColor());
+                  new ColorProperty("命中损伤颜色", null, MapImage.getPropertyUnitHitDamageColor());
               final ColorProperty hitDamageOutline =
-                  new ColorProperty(
-                      "Hit Damage Outline", null, MapImage.getPropertyUnitHitDamageOutline());
+                  new ColorProperty("命中损伤描边", null, MapImage.getPropertyUnitHitDamageOutline());
               properties.add(fontSize);
               properties.add(territoryNameColor);
               properties.add(unitCountColor);
@@ -328,12 +318,12 @@ final class ViewMenu {
                           + "<br />basic 'look and feel', then setting the color, then switching "
                           + "back.)</em></html>"),
                   BorderLayout.NORTH);
-              final Object[] options = {"Set Properties", "Reset To Default", "Cancel"};
+              final Object[] options = {"设置属性", "恢复默认", "Cancel"};
               final int result =
                   JOptionPane.showOptionDialog(
                       frame,
                       ui,
-                      "Map Font and Color",
+                      "地图字体与颜色",
                       JOptionPane.YES_NO_CANCEL_OPTION,
                       JOptionPane.PLAIN_MESSAGE,
                       null,
@@ -367,7 +357,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowTerritoryEffects(final TripleAFrame frame) {
-    final JCheckBoxMenuItem territoryEffectsBox = new JCheckBoxMenuItem("Show TerritoryEffects");
+    final JCheckBoxMenuItem territoryEffectsBox = new JCheckBoxMenuItem("显示领地效果");
     territoryEffectsBox.setMnemonic(Mnemonic.SHOW_TERRITORY_EFFECTS.getValue());
     territoryEffectsBox.addActionListener(
         e -> {
@@ -379,7 +369,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getLockMap() {
-    return new JMenuItemCheckBoxBuilder("Lock Map", Mnemonic.LOCK_MAP.getMnemonicCode())
+    return new JMenuItemCheckBoxBuilder("锁定地图", Mnemonic.LOCK_MAP.getMnemonicCode())
         .accelerator(KeyCode.L)
         .bindSetting(ClientSetting.lockMap)
         .build();
@@ -387,12 +377,12 @@ final class ViewMenu {
 
   private static JMenu getFlagDisplayModeMenu(final TripleAFrame frame) {
     final JMenu flagDisplayMenu =
-        new JMenuBuilder("Flag Display", Mnemonic.FLAG_SUBMENU.getMnemonicCode()).build();
+        new JMenuBuilder("旗帜显示", Mnemonic.FLAG_SUBMENU.getMnemonicCode()).build();
 
     final ButtonGroup flagsDisplayGroup = new ButtonGroup();
 
     final JRadioButtonMenuItem noFlags =
-        new JMenuItemBuilder("Off", Mnemonic.FLAGS_OFF.getMnemonicCode())
+        new JMenuItemBuilder("关闭", Mnemonic.FLAGS_OFF.getMnemonicCode())
             .actionListener(
                 () ->
                     FlagDrawMode.toggleDrawMode(
@@ -400,7 +390,7 @@ final class ViewMenu {
             .buildRadio(flagsDisplayGroup);
 
     final JRadioButtonMenuItem smallFlags =
-        new JMenuItemBuilder("Small", Mnemonic.FLAGS_SMALL.getMnemonicCode())
+        new JMenuItemBuilder("小", Mnemonic.FLAGS_SMALL.getMnemonicCode())
             .actionListener(
                 () ->
                     FlagDrawMode.toggleDrawMode(
@@ -408,7 +398,7 @@ final class ViewMenu {
             .buildRadio(flagsDisplayGroup);
 
     final JRadioButtonMenuItem largeFlags =
-        new JMenuItemBuilder("Large", Mnemonic.FLAGS_LARGE.getMnemonicCode())
+        new JMenuItemBuilder("大", Mnemonic.FLAGS_LARGE.getMnemonicCode())
             .actionListener(
                 () ->
                     FlagDrawMode.toggleDrawMode(
@@ -445,8 +435,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowCommentLog(final TripleAFrame frame) {
-    return new JMenuItemCheckBoxBuilder(
-            "Show Comment Log", Mnemonic.SHOW_COMMENT_LOG.getMnemonicCode())
+    return new JMenuItemCheckBoxBuilder("显示评论日志", Mnemonic.SHOW_COMMENT_LOG.getMnemonicCode())
         .bindSetting(ClientSetting.showCommentLog)
         .actionListener(
             value -> {
@@ -461,7 +450,7 @@ final class ViewMenu {
 
   private static JMenu getMapSkinsMenu(final TripleAFrame frame) {
     final JMenu mapSubMenu =
-        new JMenuBuilder("Map Skins", Mnemonic.MAP_SKINS_SUBMENU.getMnemonicCode()).build();
+        new JMenuBuilder("地图皮肤", Mnemonic.MAP_SKINS_SUBMENU.getMnemonicCode()).build();
     final ButtonGroup mapButtonGroup = new ButtonGroup();
     final Collection<UiContext.MapSkin> skins =
         frame.getUiContext().getSkins(frame.getGame().getData().getMapName());
@@ -481,7 +470,7 @@ final class ViewMenu {
               }
               showMapDetails.setEnabled(hasRelief);
             } catch (final Exception exception) {
-              log.error("Error Changing Map Skin2", exception);
+              log.error("更换地图皮肤时出错", exception);
             }
           });
     }
@@ -489,7 +478,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowMapDetails(final TripleAFrame frame) {
-    final String menuItemText = "Show Map Details";
+    final String menuItemText = "显示地图详情";
     showMapDetails =
         new JMenuItemCheckBoxBuilder(menuItemText, Mnemonic.SHOW_MAP_DETAILS.getMnemonicCode())
             .selected(TileImageFactory.getShowReliefImages())
@@ -508,7 +497,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getShowZoomMenu(final TripleAFrame frame) {
-    final JCheckBoxMenuItem showMapZoomBox = new JCheckBoxMenuItem("Show Zoom Percentage");
+    final JCheckBoxMenuItem showMapZoomBox = new JCheckBoxMenuItem("显示缩放百分比");
 
     showMapZoomBox.addActionListener(
         e -> frame.getBottomBar().setMapZoomEnabled(showMapZoomBox.isSelected()));
@@ -517,8 +506,7 @@ final class ViewMenu {
   }
 
   private static JCheckBoxMenuItem getChatTimeMenu() {
-    return new JMenuItemCheckBoxBuilder(
-            "Show Chat Times", Mnemonic.SHOW_CHAT_TIME.getMnemonicCode())
+    return new JMenuItemCheckBoxBuilder("显示聊天时间", Mnemonic.SHOW_CHAT_TIME.getMnemonicCode())
         .bindSetting(ClientSetting.showChatTimeSettings)
         .build();
   }

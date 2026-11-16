@@ -36,8 +36,8 @@ public class PurchasePanel extends ActionPanel {
   private static final long serialVersionUID = -6121756876868623355L;
   // if this is set Purchase will use the tabbedProductionPanel - this is modifiable through the
   // View Menu
-  private static final String BUY = "Buy...";
-  private static final String CHANGE = "Change...";
+  private static final String BUY = "购买……";
+  private static final String CHANGE = "更改……";
 
   private IntegerMap<ProductionRule> purchase = new IntegerMap<>();
   private boolean bid;
@@ -49,7 +49,7 @@ public class PurchasePanel extends ActionPanel {
   @Setter private boolean keepCurrentPurchase;
 
   private final AbstractAction purchaseAction =
-      new AbstractAction("Buy") {
+      new AbstractAction("购买") {
         private static final long serialVersionUID = -2931438906267249990L;
 
         @Override
@@ -89,8 +89,8 @@ public class PurchasePanel extends ActionPanel {
             buyButton.setText(CHANGE);
             purchasedLabel.setText(
                 totalUnitNumberPurchased(purchase)
-                    + MyFormatter.pluralize(" unit", totalUnitNumberPurchased(purchase))
-                    + " to be produced:");
+                    + MyFormatter.pluralize(" 单位", totalUnitNumberPurchased(purchase))
+                    + " 待生产：");
           }
         }
       };
@@ -101,7 +101,7 @@ public class PurchasePanel extends ActionPanel {
     purchasedUnits = new SimpleUnitPanel(map.getUiContext());
     buyButton = new JButton(BUY);
     buyButton.addActionListener(purchaseAction);
-    purchasedPreviousRoundsLabel = new JLabel("Unplaced from previous rounds");
+    purchasedPreviousRoundsLabel = new JLabel("之前回合未部署的");
   }
 
   @Override
@@ -117,7 +117,7 @@ public class PurchasePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " production");
+          actionLabel.setText(gamePlayer.getName() + " 生产");
           add(SwingComponents.leftBox(actionLabel));
 
           buyButton.setText(BUY);
@@ -155,8 +155,8 @@ public class PurchasePanel extends ActionPanel {
       final int selectedOption =
           JOptionPane.showConfirmDialog(
               JOptionPane.getFrameForComponent(PurchasePanel.this),
-              "Are you sure you don't want to buy anything?",
-              "End Purchase",
+              "确定什么都不买吗？",
+              "结束购买",
               JOptionPane.YES_NO_OPTION);
       if (selectedOption != JOptionPane.YES_OPTION) {
         return;
@@ -193,16 +193,16 @@ public class PurchasePanel extends ActionPanel {
           && totalProduced + unitsNeedingFactory.size() > totalProd
           && !isUnlimitedProduction(player)) {
         final String text =
-            "You have purchased "
+            "你已购买 "
                 + (totalProduced + unitsNeedingFactory.size())
-                + " units, and can only place "
+                + " 个单位，但只能部署 "
                 + totalProd
-                + " of them. Continue with purchase?";
+                + " 个。是否继续购买？";
         final int selectedOption =
             JOptionPane.showConfirmDialog(
                 JOptionPane.getFrameForComponent(PurchasePanel.this),
                 text,
-                "End Purchase",
+                "结束购买",
                 JOptionPane.YES_NO_OPTION);
         if (selectedOption != JOptionPane.YES_OPTION) {
           return;
@@ -221,7 +221,7 @@ public class PurchasePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () ->
             actionLabel.setText(
-                getCurrentPlayer().getName() + " production " + (bid ? " for bid" : "")));
+                getCurrentPlayer().getName() + " production " + (bid ? " 用于出价" : "")));
   }
 
   IntegerMap<ProductionRule> waitForPurchase(final boolean bid) {

@@ -36,7 +36,7 @@ public class BattleCalculatorDialog extends JDialog {
   private final BattleCalculatorPanel panel;
 
   BattleCalculatorDialog(final BattleCalculatorPanel panel, final JFrame parent) {
-    super(parent, "Battle Calculator");
+    super(parent, "战斗计算器");
     this.panel = panel;
     getContentPane().setLayout(new BorderLayout());
     getContentPane().add(panel, BorderLayout.CENTER);

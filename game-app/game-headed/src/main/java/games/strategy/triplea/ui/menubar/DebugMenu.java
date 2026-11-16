@@ -48,7 +48,7 @@ public final class DebugMenu {
 
   public static JMenu get(final TripleAFrame frame) {
     final JMenu debugMenu =
-        new JMenuBuilder("Debug", TripleAMenuBar.Mnemonic.DEBUG.getMnemonicCode()).build();
+        new JMenuBuilder("调试", TripleAMenuBar.Mnemonic.DEBUG.getMnemonicCode()).build();
 
     final List<JMenu> subMenus = getSubMenus(frame);
     if (subMenus.isEmpty()) {
@@ -71,7 +71,7 @@ public final class DebugMenu {
             .forEach(subMenuBuilder::addMenuItem);
         subMenus.add(subMenuBuilder.build());
       } else if (!addedProAiOption && player instanceof AbstractProAi) {
-        JMenuBuilder menuBuilder = new JMenuBuilder("Hard AI", Mnemonic.AI_HARD.getMnemonicCode());
+        JMenuBuilder menuBuilder = new JMenuBuilder("困难 AI", Mnemonic.AI_HARD.getMnemonicCode());
         renderDebugOption(frame, ProLogUi.buildDebugOptions(frame))
             .forEach(menuBuilder::addMenuItem);
         subMenus.add(menuBuilder.build());

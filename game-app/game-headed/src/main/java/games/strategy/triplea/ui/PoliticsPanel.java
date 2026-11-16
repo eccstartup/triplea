@@ -61,7 +61,7 @@ public class PoliticsPanel extends ActionPanel {
     this.clipPlayer = frame.getUiContext().getClipPlayer();
     selectPoliticalActionAction =
         SwingAction.of(
-            "Do Politics...",
+            "进行外交……",
             e -> {
               final Dimension screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
               final int availHeight = screenResolution.height - 96;
@@ -69,7 +69,7 @@ public class PoliticsPanel extends ActionPanel {
               final int availHeightOverview = (int) ((float) availHeight * 2 / 3);
               final int availHeightChoice = (int) ((float) availHeight / 3);
 
-              final JDialog politicalChoiceDialog = new JDialog(frame, "Political Actions", true);
+              final JDialog politicalChoiceDialog = new JDialog(frame, "外交行动", true);
               final Insets insets = new Insets(1, 1, 1, 1);
               final JPanel politicalChoicePanel = new JPanel();
               politicalChoicePanel.setLayout(new GridBagLayout());
@@ -304,8 +304,8 @@ public class PoliticsPanel extends ActionPanel {
     final int selectedOption =
         JOptionPane.showConfirmDialog(
             JOptionPane.getFrameForComponent(PoliticsPanel.this),
-            "Are you sure you don't want to do anything?",
-            "End Politics",
+            "确定什么都不做吗？",
+            "结束外交",
             JOptionPane.YES_NO_OPTION);
     return selectedOption == JOptionPane.YES_OPTION;
   }

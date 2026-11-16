@@ -57,7 +57,7 @@ public final class TripleAMenuBar {
 
   private static JMenu getLobbyMenu(
       final TripleAFrame frame, final InGameLobbyWatcherWrapper watcher) {
-    return new JMenuBuilder("Lobby", Mnemonic.LOBBY.getMnemonicCode())
+    return new JMenuBuilder("大厅", Mnemonic.LOBBY.getMnemonicCode())
         .addMenuItem(new JMenuItemBuilder(new EditGameCommentAction(watcher, frame), KeyCode.E))
         .addMenuItem(new JMenuItemBuilder(new RemoveGameFromLobbyAction(watcher), KeyCode.R))
         .build();

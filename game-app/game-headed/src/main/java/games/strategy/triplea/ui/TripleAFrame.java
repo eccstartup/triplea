@@ -249,7 +249,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
   @Getter
   private final Action showHistoryAction =
       SwingAction.of(
-          "Show history",
+          "显示历史",
           e -> {
             if (!inHistory.get()) {
               showHistoryOffEdt();
@@ -259,7 +259,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
 
   @Getter
   private final Action showGameAction =
-      new AbstractAction("Show current game") {
+      new AbstractAction("显示当前游戏") {
         @Serial private static final long serialVersionUID = -7551760679570164254L;
 
         {
@@ -466,9 +466,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             g.setColor(new Color(255, 255, 255, 175));
             final Dimension size = mapPanel.getSize();
             g.drawString(
-                "Edit Mode",
-                (int) ((size.getWidth() - 200) / 2),
-                (int) ((size.getHeight() - 100) / 2));
+                "编辑模式", (int) ((size.getWidth() - 200) / 2), (int) ((size.getHeight() - 100) / 2));
           }
         });
     // force a data change event to update the UI for edit mode
@@ -540,20 +538,20 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
 
   private void addTabs(HistoryDetailsPanel historyDetailPanel) {
     if (historyDetailPanel != null) {
-      tabsPanel.add("History", historyDetailPanel);
+      tabsPanel.add("历史", historyDetailPanel);
     } else {
-      addTab("Actions", actionButtonsPanel, KeyCode.C);
+      addTab("行动", actionButtonsPanel, KeyCode.C);
     }
-    addTab("Players", statsPanel, KeyCode.P);
+    addTab("玩家", statsPanel, KeyCode.P);
     if (!TechAdvance.getTechAdvances(data.getTechnologyFrontier(), null).isEmpty()) {
-      addTab("Technology", technologyPanel, KeyCode.Y);
+      addTab("科技", technologyPanel, KeyCode.Y);
     }
-    addTab("Resources", economyPanel, KeyCode.R);
+    addTab("资源", economyPanel, KeyCode.R);
     if (objectivePanel != null) {
       String objectivePanelName = new ObjectiveProperties(uiContext.getResourceLoader()).getName();
       addTab(objectivePanelName, objectivePanel, KeyCode.O);
     }
-    addTab("Territory", territoryDetailPanel, KeyCode.T);
+    addTab("领地", territoryDetailPanel, KeyCode.T);
     if (mapPanel.getEditMode()) {
       showEditMode();
     }
@@ -596,10 +594,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
 
       final boolean confirmed =
           EventThreadJOptionPane.showConfirmDialog(
-              this,
-              "Are you sure you want to exit TripleA?\nUnsaved game data will be lost.",
-              "Exit Program",
-              ConfirmDialogType.YES_NO);
+              this, "确定要退出 TripleA 吗？\n未保存的游戏数据将会丢失。", "退出程序", ConfirmDialogType.YES_NO);
       if (!confirmed) {
         return false;
       }
@@ -617,10 +612,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
   public void leaveGame() {
     final boolean confirmed =
         EventThreadJOptionPane.showConfirmDialog(
-            this,
-            "Are you sure you want to leave the current game?\nUnsaved game data will be lost.",
-            "Leave Game",
-            ConfirmDialogType.YES_NO);
+            this, "确定要离开当前游戏吗？\n未保存的游戏数据将会丢失。", "离开游戏", ConfirmDialogType.YES_NO);
     if (!confirmed) {
       return;
     }
@@ -910,7 +902,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
   public void notifyErrorOffEdt(final String message) {
     final String displayMessage =
         LocalizeHtml.localizeImgLinksInHtml(message, uiContext.getMapLocation());
-    showMessageDialogOffEdt(displayMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    showMessageDialogOffEdt(displayMessage, "错误", JOptionPane.ERROR_MESSAGE);
   }
 
   private void showMessageDialogOffEdt(String displayMessage, String title, int type) {
@@ -939,15 +931,11 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
   public boolean getStrategicBombingRaid(final Territory location) {
     messageAndDialogThreadPool.waitForAll();
     final String message =
-        (Properties.getRaidsMayBePreceededByAirBattles(data.getProperties())
-                ? "Bomb/Escort"
-                : "Bomb")
+        (Properties.getRaidsMayBePreceededByAirBattles(data.getProperties()) ? "轰炸/护航" : "轰炸")
             + " in "
             + location.getName();
     final String bomb =
-        (Properties.getRaidsMayBePreceededByAirBattles(data.getProperties())
-            ? "Bomb/Escort"
-            : "Bomb");
+        (Properties.getRaidsMayBePreceededByAirBattles(data.getProperties()) ? "轰炸/护航" : "轰炸");
     final String normal = "Attack";
     final String[] choices = {bomb, normal};
     int choice = -1;
@@ -956,7 +944,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           EventThreadJOptionPane.showOptionDialog(
               this,
               message,
-              "Bomb?",
+              "轰炸？",
               JOptionPane.OK_CANCEL_OPTION,
               JOptionPane.INFORMATION_MESSAGE,
               null,
@@ -984,7 +972,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     }
     messageAndDialogThreadPool.waitForAll();
     final AtomicReference<Unit> selected = new AtomicReference<>();
-    final String message = "Select bombing target in " + territory.getName();
+    final String message = "选择轰炸目标，位于 " + territory.getName();
     final Supplier<Tuple<JPanel, JList<Unit>>> action =
         () -> {
           final JList<Unit> list = new JList<>(SwingComponents.newListModel(potentialTargets));
@@ -995,8 +983,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           panel.setLayout(new BorderLayout());
           if (bombers != null) {
             panel.add(
-                new JLabel("For Units: " + MyFormatter.unitsToTextNoOwner(bombers)),
-                BorderLayout.NORTH);
+                new JLabel("对于单位：" + MyFormatter.unitsToTextNoOwner(bombers)), BorderLayout.NORTH);
           }
           final JScrollPane scroll = new JScrollPane(list);
           panel.add(scroll, BorderLayout.CENTER);
@@ -1044,7 +1031,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
         final int index,
         final boolean isSelected,
         final boolean cellHasFocus) {
-      setText(unit.toString() + ", damage=" + unit.getUnitDamage());
+      setText(unit.toString() + ", 损伤=" + unit.getUnitDamage());
       setIcon(uiContext.getUnitImageFactory().getIcon(ImageKey.of(unit)));
       setBorder(new EmptyBorder(0, 0, 0, 10));
 
@@ -1125,9 +1112,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
         .map(
             panel -> {
               final String[] options = {"OK"};
-              final String title =
-                  "Select territory for air units to land, current territory is "
-                      + currentTerritory.getName();
+              final String title = "为空中单位选择降落领地，当前领地为 " + currentTerritory.getName();
               EventThreadJOptionPane.showOptionDialog(
                   this,
                   panel,
@@ -1209,7 +1194,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
               new IndividualUnitPanelGrouped(
                   possibleUnitsToAttackFromTerritoryName,
                   uiContext,
-                  "Select Units to Suicide Attack using " + attackResourceToken.getName(),
+                  "选择用于自杀式攻击的单位 " + attackResourceToken.getName(),
                   maxNumberOfAttacksAllowed,
                   true,
                   false);
@@ -1226,9 +1211,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                   options,
                   options[1]);
           final JDialog dialog =
-              new JDialog(
-                  (Frame) getParent(),
-                  "Select units to Suicide Attack using " + attackResourceToken.getName());
+              new JDialog((Frame) getParent(), "选择用于自杀式攻击的单位 " + attackResourceToken.getName());
           dialog.setContentPane(optionPane);
           dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
           dialog.setLocationRelativeTo(getParent());
@@ -1326,11 +1309,10 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     SwingUtilities.invokeLater(
         () -> {
           mapPanel.centerOn(scrambleTo);
-          final JDialog dialog =
-              new JDialog(this, "Select units to scramble to " + scrambleTo.getName());
+          final JDialog dialog = new JDialog(this, "选择要紧急起飞到的单位 " + scrambleTo.getName());
           final JPanel panel = new JPanel();
           panel.setLayout(new BorderLayout());
-          final JButton scrambleButton = new JButton("Scramble");
+          final JButton scrambleButton = new JButton("紧急起飞");
           scrambleButton.addActionListener(
               e -> getOptionPane((JComponent) e.getSource()).setValue(scrambleButton));
           final JButton noneButton = new JButton("None");
@@ -1345,7 +1327,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                   null,
                   options,
                   options[1]);
-          final JLabel whereTo = new JLabel("Scramble To: " + scrambleTo.getName());
+          final JLabel whereTo = new JLabel("紧急起飞至：" + scrambleTo.getName());
           whereTo.setFont(new Font(MapImage.FONT_FAMILY_DEFAULT, Font.ITALIC, UIScale.scale(12)));
           panel.add(whereTo, BorderLayout.NORTH);
           final JPanel panel2 = new JPanel();
@@ -1357,7 +1339,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             final JPanel panelChooser = new JPanel();
             panelChooser.setLayout(new BoxLayout(panelChooser, BoxLayout.Y_AXIS));
             panelChooser.setBorder(BorderFactory.createLineBorder(getBackground()));
-            final JLabel whereFrom = new JLabel("From: " + from.getName());
+            final JLabel whereFrom = new JLabel("来自：" + from.getName());
             whereFrom.setHorizontalAlignment(SwingConstants.LEFT);
             whereFrom.setFont(new Font(MapImage.FONT_FAMILY_DEFAULT, Font.BOLD, UIScale.scale(12)));
             panelChooser.add(whereFrom);
@@ -1506,7 +1488,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           final JPanel panelChooser = new JPanel();
           panelChooser.setLayout(new BoxLayout(panelChooser, BoxLayout.Y_AXIS));
           panelChooser.setBorder(BorderFactory.createLineBorder(getBackground()));
-          final JLabel whereFrom = new JLabel("From: " + current.getName());
+          final JLabel whereFrom = new JLabel("来自：" + current.getName());
           whereFrom.setHorizontalAlignment(SwingConstants.LEFT);
           whereFrom.setFont(new Font(MapImage.FONT_FAMILY_DEFAULT, Font.BOLD, UIScale.scale(12)));
           panelChooser.add(whereFrom);
@@ -1589,7 +1571,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
       return true;
     }
     messageAndDialogThreadPool.waitForAll();
-    final StringBuilder sb = new StringBuilder("<html>Air units cannot land in:<ul> ");
+    final StringBuilder sb = new StringBuilder("<html>空中单位无法降落于：<ul> ");
     for (final Territory t : airCantLand) {
       sb.append("<li>").append(t.getName()).append("</li>");
     }
@@ -1605,21 +1587,21 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             .sum();
     final boolean canProduceCarriersUnderFighter = lhtrProd && carrierCount != 0;
     if (canProduceCarriersUnderFighter && carrierCount > 0) {
-      sb.append("\nYou have ")
+      sb.append("\n你有 ")
           .append(carrierCount)
           .append(" ")
           .append(MyFormatter.pluralize("carrier", carrierCount))
-          .append(" on which planes can land");
+          .append(" 可供飞机降落");
     }
-    final String ok = movePhase ? "End Move Phase" : "Kill Planes";
-    final String cancel = movePhase ? "Keep Moving" : "Change Placement";
+    final String ok = movePhase ? "结束移动阶段" : "击毁飞机";
+    final String cancel = movePhase ? "继续移动" : "更改部署";
     final String[] options = {cancel, ok};
     mapPanel.centerOn(CollectionUtils.getAny(airCantLand));
     final int choice =
         EventThreadJOptionPane.showOptionDialog(
             this,
             sb.toString(),
-            "Air cannot land",
+            "空中单位无法降落",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE,
             null,
@@ -1648,16 +1630,16 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     final String message =
         unitsCantFight.stream()
             .map(DefaultNamed::getName)
-            .collect(Collectors.joining(" ", "Units in the following territories will die: ", ""));
-    final String ok = "Done Moving";
-    final String cancel = "Keep Moving";
+            .collect(Collectors.joining(" ", "以下领地中的单位将会死亡：", ""));
+    final String ok = "完成移动";
+    final String cancel = "继续移动";
     final String[] options = {cancel, ok};
     this.mapPanel.centerOn(CollectionUtils.getAny(unitsCantFight));
     final int choice =
         EventThreadJOptionPane.showOptionDialog(
             this,
             message,
-            "Units cannot fight",
+            "单位无法战斗",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE,
             null,
@@ -1677,11 +1659,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     return EventThreadJOptionPane.showConfirmDialog(
         this,
         acceptanceQuestion,
-        "Accept "
-            + (politics ? "Political " : "")
-            + "Proposal from "
-            + playerSendingProposal.getName()
-            + "?",
+        "接受 " + (politics ? "Political " : "") + " 提案，来自 " + playerSendingProposal.getName() + "?",
         ConfirmDialogType.YES_NO);
   }
 
@@ -1706,10 +1684,10 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           final JScrollPane scroll = new JScrollPane(list);
           panel.add(scroll, BorderLayout.CENTER);
           if (from != null) {
-            panel.add(BorderLayout.NORTH, new JLabel("Targets for rocket in " + from.getName()));
+            panel.add(BorderLayout.NORTH, new JLabel("火箭目标位于 " + from.getName()));
           }
-          final String[] options = {"OK", "Don't attack"};
-          final String message = "Select Rocket Target";
+          final String[] options = {"OK", "不攻击"};
+          final String message = "选择火箭目标";
           final int selection =
               JOptionPane.showOptionDialog(
                   TripleAFrame.this,
@@ -1746,7 +1724,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                       EventThreadJOptionPane.showOptionDialog(
                           TripleAFrame.this,
                           display,
-                          "Tech roll",
+                          "科技掷骰",
                           JOptionPane.OK_OPTION,
                           JOptionPane.PLAIN_MESSAGE,
                           null,
@@ -1978,7 +1956,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
   }
 
   private void showEditMode() {
-    tabsPanel.addTab("Edit", editPanel);
+    tabsPanel.addTab("编辑", editPanel);
     if (editDelegate != null) {
       tabsPanel.setSelectedComponent(editPanel);
     }
@@ -2017,34 +1995,33 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
         new HistoryPanel(clonedGameData, historyDetailPanel, uiContext);
     final JPopupMenu popup =
         new HistoryPanelPopupMenuBuilder()
-            .add("Show Summary Log", () -> showHistoryLog(popupHistoryPanel, false, clonedGameData))
-            .add("Show Detailed Log", () -> showHistoryLog(popupHistoryPanel, true, clonedGameData))
+            .add("显示摘要日志", () -> showHistoryLog(popupHistoryPanel, false, clonedGameData))
+            .add("显示详细日志", () -> showHistoryLog(popupHistoryPanel, true, clonedGameData))
             .add(
-                "Export Gameboard Picture",
+                "导出游戏板图片",
                 () -> {
                   ScreenshotExporter.exportScreenshot(
                       TripleAFrame.this, clonedGameData, popupHistoryPanel.getCurrentPopupNode());
                   popupHistoryPanel.clearCurrentPopupNode();
                 })
             .add(
-                "Save Game at this point (BETA)",
+                "在此处保存游戏（测试版）",
                 () -> {
                   JOptionPane.showMessageDialog(
                       TripleAFrame.this,
-                      "Please first left click on the spot you want to save from, "
-                          + "Then right click and select 'Save Game From History'"
-                          + "\n\nIt is recommended that when saving the game from the "
-                          + "History panel:"
-                          + "\n * Your CURRENT GAME is at the start of some player's turn, "
-                          + "and that no moves have been made and no actions taken yet."
-                          + "\n * The point in HISTORY that you are trying to save at, is at the "
-                          + "beginning of a player's turn, or the beginning of a round."
-                          + "\nSaving at any other point, could potentially create errors."
-                          + "\nFor example, saving while your current game is in the middle of a "
-                          + "move or battle phase will always create errors in the save game."
-                          + "\nAnd you will also get errors in the save game if you try to create a "
-                          + "save at a point in history such as a move or battle phase.",
-                      "Save Game from History",
+                      "请先左键点击要保存的位置，"
+                          + "然后右键选择「从历史保存游戏」"
+                          + "\n\n从历史面板保存游戏时，建议满足以下条件："
+                          + "\n * 你当前的游戏正处于某个玩家回合的开始，"
+                          + "且尚未进行任何移动或操作。"
+                          + "\n * 你要保存的历史节点，正处于某个玩家回合的开始，"
+                          + "或某个回合的开始。"
+                          + "\n在其他任何节点保存都可能产生错误。"
+                          + "\n例如，在当前游戏正处于移动或战斗阶段时保存，"
+                          + "将始终导致存档出错。"
+                          + "\n同样，如果试图在移动或战斗阶段这样的历史节点保存，"
+                          + "也会导致存档出错。",
+                      "从历史保存游戏",
                       JOptionPane.INFORMATION_MESSAGE);
 
                   final Optional<Path> f =
@@ -2055,10 +2032,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                     try (OutputStream fileOutputStream = Files.newOutputStream(f.get())) {
                       GameDataManager.saveGame(fileOutputStream, gameDataForSave);
                       JOptionPane.showMessageDialog(
-                          TripleAFrame.this,
-                          "Game Saved",
-                          "Game Saved",
-                          JOptionPane.INFORMATION_MESSAGE);
+                          TripleAFrame.this, "游戏已保存", "游戏已保存", JOptionPane.INFORMATION_MESSAGE);
                     } catch (final IOException e) {
                       log.error("Failed to save game: {}", f.get().toAbsolutePath(), e);
                     }
@@ -2177,9 +2151,9 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                   if (inGame.compareAndSet(false, true)) {
                     showGameOffEdt();
                   }
-                  if (tabsPanel.indexOfTab("Actions") == -1) {
+                  if (tabsPanel.indexOfTab("行动") == -1) {
                     // add actions tab
-                    tabsPanel.insertTab("Actions", null, actionButtonsPanel, null, 0);
+                    tabsPanel.insertTab("行动", null, actionButtonsPanel, null, 0);
                   }
                   tabsPanel.setSelectedIndex(0);
                 }));
@@ -2187,7 +2161,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     final Tuple<Territory, Set<Unit>> territoryAndUnits =
         actionButtonsPanel.waitForPickTerritoryAndUnits(
             territoryChoices, unitChoices, unitsPerPick);
-    final int index = tabsPanel.indexOfTab("Actions");
+    final int index = tabsPanel.indexOfTab("行动");
     if (index != -1 && inHistory.get()) {
       // remove actions tab
       Interruptibles.await(() -> SwingAction.invokeAndWait(() -> tabsPanel.remove(index)));
@@ -2245,7 +2219,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
         EventThreadJOptionPane.showOptionDialog(
             this,
             panelRef.get(),
-            "Move air units to carrier",
+            "将空中单位移动到航母",
             JOptionPane.PLAIN_MESSAGE,
             JOptionPane.OK_CANCEL_OPTION,
             null,

@@ -24,7 +24,7 @@ final class FindTerritoryDialog extends JDialog {
   private Result result = Result.CANCEL;
 
   FindTerritoryDialog(final TripleAFrame owner) {
-    super(owner, "Find Territory", true);
+    super(owner, "查找领地", true);
 
     mapPanel = owner.getMapPanel();
     originalMapPanelOffset = new Point(mapPanel.getXOffset(), mapPanel.getYOffset());

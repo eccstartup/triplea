@@ -54,23 +54,15 @@ public final class GameSelectorPanel extends JPanel implements Observer {
   private final JLabel roundText = new JLabel();
 
   private final JButton loadNewGame =
-      new JButtonBuilder()
-          .title("Select Game")
-          .toolTip("Start a new game (autosaves on bot servers will appear here)")
-          .build();
+      new JButtonBuilder().title("选择游戏").toolTip("开始新游戏（机器人服务器上的自动存档会显示在此处）").build();
 
   private final JButton loadSavedGame =
-      new JButtonBuilder()
-          .title("Saved Game")
-          .toolTip("Open a game saved on your computer.")
-          .build();
+      new JButtonBuilder().title("已保存的游戏").toolTip("打开电脑上已保存的游戏。").build();
 
   private final JButton mapOptions =
       new JButtonBuilder()
-          .title("Game Options")
-          .toolTip(
-              "<html>Set options for the currently selected game, <br>such as enabling/disabling "
-                  + "Low Luck, or Technology</html>")
+          .title("游戏选项")
+          .toolTip("<html>设置当前所选游戏的选项，<br>例如开启/关闭 " + "低运气或科技</html>")
           .build();
 
   public GameSelectorPanel(final GameSelectorModel model) {
@@ -96,27 +88,27 @@ public final class GameSelectorPanel extends JPanel implements Observer {
             .build());
     row++;
 
-    add(new JLabel("Java Version:"), buildGridCell(0, row, new Insets(10, 10, 3, 5)));
+    add(new JLabel("Java 版本："), buildGridCell(0, row, new Insets(10, 10, 3, 5)));
     add(
         new JLabel(SystemProperties.getJavaVersion()),
         buildGridCell(1, row, new Insets(10, 0, 3, 0)));
     row++;
 
-    add(new JLabel("Engine Version:"), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
+    add(new JLabel("引擎版本："), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
     add(
         new JLabel(ProductVersionReader.getCurrentVersion().toString()),
         buildGridCell(1, row, new Insets(0, 0, 3, 0)));
     row++;
 
-    add(new JLabel("Game Name:"), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
+    add(new JLabel("游戏名称："), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
     add(nameText, buildGridCell(1, row, new Insets(0, 0, 3, 0)));
     row++;
 
-    add(new JLabel("Game Round:"), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
+    add(new JLabel("游戏回合："), buildGridCell(0, row, new Insets(0, 10, 3, 5)));
     add(roundText, buildGridCell(1, row, new Insets(0, 0, 3, 0)));
     row++;
 
-    add(new JLabel("Loaded Savegame:"), buildGridCell(0, row, new Insets(20, 10, 3, 5)));
+    add(new JLabel("已加载的存档："), buildGridCell(0, row, new Insets(20, 10, 3, 5)));
     row++;
 
     add(saveGameText, buildGridRow(0, row, new Insets(0, 10, 3, 5)));
@@ -130,8 +122,8 @@ public final class GameSelectorPanel extends JPanel implements Observer {
 
     final JButton downloadMapButton =
         new JButtonBuilder()
-            .title("Download Maps")
-            .toolTip("Click this button to install additional maps")
+            .title("下载地图")
+            .toolTip("点击此按钮安装更多地图")
             .actionListener(DownloadMapsWindow::showDownloadMapsWindow)
             .build();
     add(downloadMapButton, buildGridRow(0, row, new Insets(0, 10, 10, 10)));
@@ -244,8 +236,7 @@ public final class GameSelectorPanel extends JPanel implements Observer {
     final String makeDefault = "Make Default";
     final String reset = "Reset";
     pane.setOptions(new Object[] {ok, makeDefault, reset, cancel});
-    final JDialog window =
-        pane.createDialog(JOptionPane.getFrameForComponent(this), "Game Options");
+    final JDialog window = pane.createDialog(JOptionPane.getFrameForComponent(this), "游戏选项");
     window.setVisible(true);
     final Object buttonPressed = pane.getValue();
     if (buttonPressed == null || buttonPressed.equals(cancel)) {
@@ -307,8 +298,8 @@ public final class GameSelectorPanel extends JPanel implements Observer {
             file ->
                 DialogBuilder.builder()
                     .parent(this)
-                    .title("Save Game File Not Found")
-                    .errorMessage("File does not exist: " + file.toAbsolutePath())
+                    .title("未找到游戏存档文件")
+                    .errorMessage("文件不存在：" + file.toAbsolutePath())
                     .showDialog())
         .build()
         .selectGameFile(JOptionPane.getFrameForComponent(this))
@@ -317,20 +308,20 @@ public final class GameSelectorPanel extends JPanel implements Observer {
 
   public void loadSaveFile(final Path file) {
     TaskRunner.builder()
-        .waitDialogTitle("Loading Save Game")
+        .waitDialogTitle("正在加载存档")
         .exceptionHandler(
             e ->
                 SwingComponents.showDialogWithLinks(
                     DialogWithLinksParams.builder()
-                        .title("Failed To Load Save Game")
+                        .title("加载存档失败")
                         .dialogType(DialogWithLinksTypes.ERROR)
                         .dialogText(
                             String.format(
                                 "<html>Error: %s<br/><br/>"
-                                    + "If this is not expected, please "
-                                    + "file a <a href=%s>bug report</a><br/>"
-                                    + "and attach the error message above and the "
-                                    + "save game you are trying to load.",
+                                    + "如果这不是预期结果，请 "
+                                    + "提交一份 <a href=%s>错误报告</a><br/>"
+                                    + "并附上上述错误消息以及你正在尝试加载的 "
+                                    + "游戏存档。",
                                 e.getMessage(), UrlConstants.GITHUB_ISSUES))
                         .build()))
         .build()
@@ -346,7 +337,7 @@ public final class GameSelectorPanel extends JPanel implements Observer {
     try {
       final InstalledMapsListing installedMapsListing =
           BackgroundTaskRunner.runInBackgroundAndReturn(
-              "Loading all available games...", InstalledMapsListing::parseMapFiles);
+              "正在加载所有可用游戏……", InstalledMapsListing::parseMapFiles);
 
       GameChooser.chooseGame(
           JOptionPane.getFrameForComponent(this),
@@ -360,7 +351,7 @@ public final class GameSelectorPanel extends JPanel implements Observer {
 
   public void gameSelected(final Path gameFile) {
     BackgroundTaskRunner.runInBackground(
-        "Loading map...",
+        "正在加载地图……",
         () -> {
           if (model.loadMap(gameFile)) {
             setOriginalPropertiesMap(model.getGameData());

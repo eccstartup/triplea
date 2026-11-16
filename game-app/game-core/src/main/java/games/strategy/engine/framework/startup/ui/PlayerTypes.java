@@ -16,7 +16,7 @@ import lombok.Value;
 @Value
 public class PlayerTypes {
 
-  public static final String DOES_NOTHING_PLAYER_LABEL = "Does Nothing (AI)";
+  public static final String DOES_NOTHING_PLAYER_LABEL = "不执行操作（AI）";
   public static final Type WEAK_AI =
       new Type(I18nEngineFramework.get().getText("startup.PlayerTypes.PLAYER_TYPE_AI_EASY_LABEL")) {
         @Override

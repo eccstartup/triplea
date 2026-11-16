@@ -33,8 +33,8 @@ public final class LobbyMenu extends JMenuBar {
     // file only has one value, and on mac it is in the apple menu
     if (!SystemProperties.isMac()) {
       add(
-          new JMenuBuilder("File", KeyCode.F)
-              .addMenuItem("Exit", KeyCode.X, lobbyFrame::shutdown)
+          new JMenuBuilder("文件", KeyCode.F)
+              .addMenuItem("退出", KeyCode.X, lobbyFrame::shutdown)
               .build());
     } else {
       MacOsIntegration.setQuitHandler(lobbyFrame);
@@ -42,13 +42,13 @@ public final class LobbyMenu extends JMenuBar {
 
     if (!loginResult.isAnonymousLogin()) {
       add(
-          new JMenuBuilder("Account", KeyCode.A)
+          new JMenuBuilder("账户", KeyCode.A)
               .addMenuItem(
-                  "Update Email",
+                  "更新邮箱",
                   KeyCode.E,
                   () -> ChangeEmailPanel.promptUserForNewEmail(frame, playerToLobbyConnection))
               .addMenuItem(
-                  "Update Password",
+                  "更新密码",
                   KeyCode.P,
                   () ->
                       ChangePasswordPanel.doPasswordChange(
@@ -65,9 +65,9 @@ public final class LobbyMenu extends JMenuBar {
               .apiKey(loginResult.getApiKey().getValue())
               .build();
       add(
-          new JMenuBuilder("Admin", KeyCode.M)
+          new JMenuBuilder("管理", KeyCode.M)
               .addMenuItem(
-                  "Open Toolbox",
+                  "打开工具箱",
                   KeyCode.T,
                   () ->
                       ToolBoxWindow.showWindow(
@@ -81,31 +81,31 @@ public final class LobbyMenu extends JMenuBar {
     }
 
     add(
-        new JMenuBuilder("Settings", KeyCode.S)
+        new JMenuBuilder("设置", KeyCode.S)
             .addMenuItem(SoundOptions.buildGlobalSoundSwitchMenuItem())
             .addMenuItem(SoundOptions.buildSoundOptionsMenuItem())
             .addMenuItem(
-                new JMenuItemCheckBoxBuilder("Show Chat Times", KeyCode.C)
+                new JMenuItemCheckBoxBuilder("显示聊天时间", KeyCode.C)
                     .bindSetting(ClientSetting.showChatTimeSettings)
                     .build())
             .build());
 
     add(
-        new JMenuBuilder("Help", KeyCode.H)
+        new JMenuBuilder("帮助", KeyCode.H)
             .addMenuItem(
-                "User Guide",
+                "用户指南",
                 KeyCode.U,
                 () ->
                     SwingComponents.newOpenUrlConfirmationDialog(
                         lobbyFrame, UrlConstants.USER_GUIDE))
             .addMenuItem(
-                "View Forums",
+                "查看论坛",
                 KeyCode.F,
                 () ->
                     SwingComponents.newOpenUrlConfirmationDialog(
                         lobbyFrame, UrlConstants.TRIPLEA_FORUM))
             .addMenuItem(
-                "Send Bug Report",
+                "发送错误报告",
                 KeyCode.B,
                 () ->
                     SwingComponents.newOpenUrlConfirmationDialog(

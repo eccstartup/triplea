@@ -74,11 +74,11 @@ final class GameMenu {
 
   static JMenu get(final TripleAFrame frame) {
     final GameData gameData = frame.getGame().getData();
-    return new JMenuBuilder("Game", TripleAMenuBar.Mnemonic.GAME.getMnemonicCode())
+    return new JMenuBuilder("游戏", TripleAMenuBar.Mnemonic.GAME.getMnemonicCode())
         .addMenuItem(addEditMode(frame))
         .addSeparator()
         .addMenuItem(
-            new JMenuItemBuilder("Engine Settings", Mnemonic.ENGINE_SETTINGS.getMnemonicCode())
+            new JMenuItemBuilder("引擎设置", Mnemonic.ENGINE_SETTINGS.getMnemonicCode())
                 .actionListener(() -> ClientSetting.showSettingsWindow(frame)))
         .addMenuItem(SoundOptions.buildGlobalSoundSwitchMenuItem())
         .addMenuItem(SoundOptions.buildSoundOptionsMenuItem())
@@ -95,21 +95,20 @@ final class GameMenu {
         .addMenuItemIf(
             !gameData.getProperties().getEditableProperties().isEmpty(),
             () ->
-                new JMenuItemBuilder("Game Options", Mnemonic.GAME_OPTIONS.getMnemonicCode())
+                new JMenuItemBuilder("游戏选项", Mnemonic.GAME_OPTIONS.getMnemonicCode())
                     .actionListener(
                         () -> {
                           final PropertiesUi ui =
                               new PropertiesUi(
                                   gameData.getProperties().getEditableProperties(), false);
                           JOptionPane.showMessageDialog(
-                              frame, ui, "Game Options", JOptionPane.PLAIN_MESSAGE);
+                              frame, ui, "游戏选项", JOptionPane.PLAIN_MESSAGE);
                         })
                     .build())
         .addMenuItemIf(
             frame.getGame() instanceof ClientGame,
             () ->
-                new JMenuItemBuilder(
-                        "Show Verified Dice", Mnemonic.SHOW_VERIFIED_DICE.getMnemonicCode())
+                new JMenuItemBuilder("显示验证骰子", Mnemonic.SHOW_VERIFIED_DICE.getMnemonicCode())
                     .actionListener(
                         () -> new VerifiedRandomNumbersDialog(frame.getRootPane()).setVisible(true))
                     .build())
@@ -120,7 +119,7 @@ final class GameMenu {
         .addMenuItemIf(ClientSetting.showBetaFeatures.getValueOrThrow(), () -> addStatistics(frame))
         .addMenuItem(
             addMenuItemWithHotkey(
-                "Battle Calculator",
+                "战斗计算器",
                 () -> BattleCalculatorDialog.show(frame, null, frame.getGame().getData()),
                 Mnemonic.BATTLE_CALCULATOR.getMnemonicCode()))
         .build();
@@ -141,7 +140,7 @@ final class GameMenu {
   private static JCheckBoxMenuItem addEditMode(final TripleAFrame frame) {
     KeyCode mnemonicAndAccelerator = Mnemonic.ENABLE_EDIT_MODE.getMnemonicCode();
     final JCheckBoxMenuItem editMode =
-        new JMenuItemCheckBoxBuilder("Enable Edit Mode", mnemonicAndAccelerator)
+        new JMenuItemCheckBoxBuilder("启用编辑模式", mnemonicAndAccelerator)
             // dummy action as menu checkbox button model is linked to the frame
             .actionListener(selected -> {})
             .accelerator(mnemonicAndAccelerator)
@@ -155,8 +154,7 @@ final class GameMenu {
    * landscape as a reference, no actions on this panel.
    */
   private static JMenuItem getShowPoliticsPanel(final TripleAFrame frame) {
-    return new JMenuItemBuilder(
-            "Show Politics Panel", Mnemonic.SHOW_POLITICS_PANEL.getMnemonicCode())
+    return new JMenuItemBuilder("显示外交面板", Mnemonic.SHOW_POLITICS_PANEL.getMnemonicCode())
         // On Mac, Cmd-W is the standard "close window" shortcut, which we use for "Leave Game".
         .accelerator(SystemProperties.isMac() ? KeyCode.O : KeyCode.W)
         .actionListener(
@@ -178,8 +176,7 @@ final class GameMenu {
                       Math.min(scroll.getPreferredSize().width, availWidth),
                       Math.min(scroll.getPreferredSize().height, availHeight)));
 
-              JOptionPane.showMessageDialog(
-                  frame, scroll, "Politics Panel", JOptionPane.PLAIN_MESSAGE);
+              JOptionPane.showMessageDialog(frame, scroll, "外交面板", JOptionPane.PLAIN_MESSAGE);
             })
         .build();
   }
@@ -187,23 +184,23 @@ final class GameMenu {
   private static JMenu getNotificationSettings(final TripleAFrame frame) {
     final UiContext uiContext = frame.getUiContext();
     final JCheckBoxMenuItem showEndOfTurnReport =
-        new JMenuItemCheckBoxBuilder("Show End of Turn Report", KeyCode.R)
+        new JMenuItemCheckBoxBuilder("显示回合结束报告", KeyCode.R)
             .actionListener(uiContext::setShowEndOfTurnReport)
             .build();
     final JCheckBoxMenuItem showTriggeredNotifications =
-        new JMenuItemCheckBoxBuilder("Show Triggered Notifications", KeyCode.T)
+        new JMenuItemCheckBoxBuilder("显示触发通知", KeyCode.T)
             .actionListener(uiContext::setShowTriggeredNotifications)
             .build();
     final JCheckBoxMenuItem showTriggerChanceSuccessful =
-        new JMenuItemCheckBoxBuilder("Show Trigger/Condition Chance Roll Successful", KeyCode.S)
+        new JMenuItemCheckBoxBuilder("显示触发器/条件概率掷骰成功", KeyCode.S)
             .actionListener(uiContext::setShowTriggerChanceSuccessful)
             .build();
     final JCheckBoxMenuItem showTriggerChanceFailure =
-        new JMenuItemCheckBoxBuilder("Show Trigger/Condition Chance Roll Failure", KeyCode.F)
+        new JMenuItemCheckBoxBuilder("显示触发器/条件概率掷骰失败", KeyCode.F)
             .actionListener(uiContext::setShowTriggerChanceFailure)
             .build();
     final JMenu notificationMenu =
-        new JMenuBuilder("User Notifications", Mnemonic.USER_NOTIFICATIONS.getMnemonicCode())
+        new JMenuBuilder("用户通知", Mnemonic.USER_NOTIFICATIONS.getMnemonicCode())
             .addMenuItem(showEndOfTurnReport)
             .addMenuItem(showTriggeredNotifications)
             .addMenuItem(showTriggerChanceSuccessful)
@@ -229,7 +226,7 @@ final class GameMenu {
   }
 
   private static JMenuItem addShowDiceStats(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Show Dice Stats", Mnemonic.SHOW_DICE_STATS.getMnemonicCode())
+    return new JMenuItemBuilder("显示骰子统计", Mnemonic.SHOW_DICE_STATS.getMnemonicCode())
         .actionListener(
             () -> {
               IGame game = frame.getGame();
@@ -241,14 +238,14 @@ final class GameMenu {
               JOptionPane.showMessageDialog(
                   frame,
                   new JScrollPane(stats.getAllStats()),
-                  "Random Stats",
+                  "随机统计",
                   JOptionPane.INFORMATION_MESSAGE);
             })
         .build();
   }
 
   private static JMenuItem addRollDice(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Roll Dice", Mnemonic.ROLL_DICE.getMnemonicCode())
+    return new JMenuItemBuilder("掷骰子", Mnemonic.ROLL_DICE.getMnemonicCode())
         .actionListener(
             () -> {
               IGame game = frame.getGame();
@@ -262,14 +259,14 @@ final class GameMenu {
               final JPanel panel = new JPanel();
               panel.setLayout(new GridBagLayout());
               panel.add(
-                  new JLabel("Number of Dice to Roll: "),
+                  new JLabel("要掷的骰子数量："),
                   new GridBagConstraintsBuilder(0, 0)
                       .anchor(GridBagConstraintsAnchor.WEST)
                       .fill(GridBagConstraintsFill.BOTH)
                       .insets(0, 0, 0, 20)
                       .build());
               panel.add(
-                  new JLabel("Sides on the Dice: "),
+                  new JLabel("骰子的面数："),
                   new GridBagConstraintsBuilder(2, 0)
                       .anchor(GridBagConstraintsAnchor.WEST)
                       .fill(GridBagConstraintsFill.BOTH)
@@ -292,7 +289,7 @@ final class GameMenu {
               JOptionPane.showOptionDialog(
                   frame,
                   panel,
-                  "Roll Dice",
+                  "掷骰子",
                   JOptionPane.YES_NO_OPTION,
                   JOptionPane.INFORMATION_MESSAGE,
                   null,
@@ -303,12 +300,11 @@ final class GameMenu {
                 if (numberOfDice > 0) {
                   final int diceSides = Integer.parseInt(diceSidesText.getText());
                   final int[] dice =
-                      new PlainRandomSource()
-                          .getRandom(diceSides, numberOfDice, "Rolling Dice, no effect on game.");
+                      new PlainRandomSource().getRandom(diceSides, numberOfDice, "掷骰子，对游戏无影响。");
                   final JPanel panelDice = new JPanel();
                   final BoxLayout layout = new BoxLayout(panelDice, BoxLayout.Y_AXIS);
                   panelDice.setLayout(layout);
-                  final JLabel label = new JLabel("Rolls (no effect on game): ");
+                  final JLabel label = new JLabel("掷骰结果（对游戏无影响）：");
                   panelDice.add(label);
                   final StringBuilder diceString = new StringBuilder();
                   for (int i = 0; i < dice.length; i++) {
@@ -318,7 +314,7 @@ final class GameMenu {
                   diceList.setEditable(false);
                   panelDice.add(diceList);
                   JOptionPane.showMessageDialog(
-                      frame, panelDice, "Dice Rolled", JOptionPane.INFORMATION_MESSAGE);
+                      frame, panelDice, "已掷骰子", JOptionPane.INFORMATION_MESSAGE);
                 }
               } catch (final NumberFormatException ex) {
                 // ignore malformed input
@@ -328,14 +324,14 @@ final class GameMenu {
   }
 
   private JMenuItem addStatistics(final TripleAFrame frame) {
-    return new JMenuItemBuilder("Game Statistics", Mnemonic.GAME_STATISTICS.getMnemonicCode())
+    return new JMenuItemBuilder("游戏统计", Mnemonic.GAME_STATISTICS.getMnemonicCode())
         .actionListener(
             () ->
                 JOptionPane.showMessageDialog(
                     frame,
                     new StatisticsDialog(
                         frame.getGame().getData(), frame.getUiContext().getMapData()),
-                    "Game Statistics",
+                    "游戏统计",
                     JOptionPane.INFORMATION_MESSAGE))
         .build();
   }

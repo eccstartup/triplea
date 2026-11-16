@@ -47,31 +47,25 @@ final class ExportMenu {
   private static final String DATE_TIME_FORMAT_FILE_NAME = "yyyy_MM_dd";
 
   public static JMenu get(final TripleAFrame frame) {
-    return new JMenuBuilder("Export", TripleAMenuBar.Mnemonic.EXPORT.getMnemonicCode())
+    return new JMenuBuilder("导出", TripleAMenuBar.Mnemonic.EXPORT.getMnemonicCode())
         .addMenuItem(
             // TODO: create a second menu option for parsing current attachments
-            new JMenuItemBuilder(
-                    "Export game.xml File (Beta)", Mnemonic.EXPORT_XML.getMnemonicCode())
+            new JMenuItemBuilder("导出 game.xml 文件（测试版）", Mnemonic.EXPORT_XML.getMnemonicCode())
                 .actionListener(() -> exportXmlFile(frame)))
         .addMenuItem(
-            new JMenuItemBuilder(
-                    "Export Short Game Stats", Mnemonic.EXPORT_STATS_SHORT.getMnemonicCode())
+            new JMenuItemBuilder("导出简要游戏统计", Mnemonic.EXPORT_STATS_SHORT.getMnemonicCode())
                 .actionListener(() -> createAndSaveStats(frame, false)))
         .addMenuItem(
-            new JMenuItemBuilder(
-                    "Export Full Game Stats", Mnemonic.EXPORT_STATS_FULL.getMnemonicCode())
+            new JMenuItemBuilder("导出完整游戏统计", Mnemonic.EXPORT_STATS_FULL.getMnemonicCode())
                 .actionListener(() -> createAndSaveStats(frame, true)))
         .addMenuItem(
-            new JMenuItemBuilder(
-                    "Export Setup Charts", Mnemonic.EXPORT_CHARTS_SETUP.getMnemonicCode())
+            new JMenuItemBuilder("导出设置图表", Mnemonic.EXPORT_CHARTS_SETUP.getMnemonicCode())
                 .actionListener(() -> exportSetupCharts(frame)))
         .addMenuItem(
-            new JMenuItemBuilder(
-                    "Export Unit Charts", Mnemonic.EXPORT_CHARTS_UNIT.getMnemonicCode())
+            new JMenuItemBuilder("导出单位图表", Mnemonic.EXPORT_CHARTS_UNIT.getMnemonicCode())
                 .actionListener(() -> exportUnitCharts(frame)))
         .addMenuItem(
-            new JMenuItemBuilder(
-                    "Export Gameboard Picture", Mnemonic.EXPORT_PICTURE.getMnemonicCode())
+            new JMenuItemBuilder("导出游戏板图片", Mnemonic.EXPORT_PICTURE.getMnemonicCode())
                 .actionListener(() -> saveScreenshot(frame)))
         .build();
   }
@@ -82,7 +76,7 @@ final class ExportMenu {
     final Path gameXmlPath =
         gameData.getGameXmlPath(frame.getUiContext().getMapLocation()).orElse(null);
     if (gameXmlPath == null) {
-      JOptionPane.showMessageDialog(frame, "Error: Existing XML file not found.");
+      JOptionPane.showMessageDialog(frame, "错误：未找到现有的 XML 文件。");
       return;
     }
     final String defaultFileName =
@@ -177,7 +171,7 @@ final class ExportMenu {
 
   private static void exportSetupCharts(final TripleAFrame frame) {
     JFrameBuilder.builder()
-        .title("Export Setup Charts")
+        .title("导出设置图表")
         .locateRelativeTo(frame)
         .iconImage(EngineImageLoader.loadFrameIcon())
         .pack()

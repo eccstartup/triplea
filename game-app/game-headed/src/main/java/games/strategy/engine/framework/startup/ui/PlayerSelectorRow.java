@@ -108,7 +108,7 @@ public class PlayerSelectorRow implements PlayerCountrySelection {
     incomePercentageLabel = new JLabel("%");
 
     puIncomeBonus = gameProperties.ensurePropertyPuIncomeBonusFor(player).getEditorComponent();
-    puIncomeBonusLabel = new JLabel("PUs");
+    puIncomeBonusLabel = new JLabel("生产点");
 
     setWidgetActivation();
   }

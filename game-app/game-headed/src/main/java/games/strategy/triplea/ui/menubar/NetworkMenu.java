@@ -39,7 +39,7 @@ final class NetworkMenu {
       final Optional<InGameLobbyWatcherWrapper> watcher, final TripleAFrame frame) {
     final IGame game = frame.getGame();
     final boolean isServer = game.getMessengers().isServer();
-    return new JMenuBuilder("Network", TripleAMenuBar.Mnemonic.NETWORK.getMnemonicCode())
+    return new JMenuBuilder("网络", TripleAMenuBar.Mnemonic.NETWORK.getMnemonicCode())
         .addMenuItemIf(
             isServer,
             () ->
@@ -67,7 +67,7 @@ final class NetworkMenu {
         .addMenuItemIf(
             !game.getData().getProperties().getEditableProperties().isEmpty(),
             () ->
-                new JMenuItemBuilder("Show Who is Who", Mnemonic.SHOW_WHO_IS_WHO.getMnemonicCode())
+                new JMenuItemBuilder("显示玩家信息", Mnemonic.SHOW_WHO_IS_WHO.getMnemonicCode())
                     .actionListener(() -> PlayersPanel.showPlayers(game, frame))
                     .build())
         .build();

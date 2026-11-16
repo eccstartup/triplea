@@ -41,7 +41,7 @@ import org.triplea.java.collections.CollectionUtils;
 import org.triplea.swing.SwingComponents;
 
 class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
-  public static final String LBL_UNITS_LEFT_TO_PLACE = "Units left to place:";
+  public static final String LBL_UNITS_LEFT_TO_PLACE = "剩余待部署单位：";
   private static final long serialVersionUID = -4411301492537704785L;
   private final JLabel leftToPlaceLabel = createIndentedLabel();
   private final SimpleUnitPanel unitsToPlacePanel;
@@ -95,7 +95,7 @@ class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
               JOptionPane.showMessageDialog(
                   getTopLevelAncestor(),
                   production.getErrorMessage(),
-                  "Cannot produce units",
+                  "无法生产单位",
                   JOptionPane.INFORMATION_MESSAGE);
             }
             return production;
@@ -123,7 +123,7 @@ class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
               JOptionPane.showOptionDialog(
                   getTopLevelAncestor(),
                   scroll,
-                  format("Place units in {0}", territory.getName()),
+                  format("在 {0} 部署单位", territory.getName()),
                   JOptionPane.OK_CANCEL_OPTION,
                   JOptionPane.PLAIN_MESSAGE,
                   null,
@@ -257,7 +257,7 @@ class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
 
   @Override
   public void display(final GamePlayer gamePlayer) {
-    super.display(gamePlayer, " place");
+    super.display(gamePlayer, " 部署");
   }
 
   private void refreshActionLabelText(final boolean bid) {
@@ -265,8 +265,8 @@ class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
         () ->
             actionLabel.setText(
                 bid
-                    ? format("{0} place for bid", getCurrentPlayer().getName())
-                    : format("{0} place", getCurrentPlayer().getName())));
+                    ? format("{0} 出价部署", getCurrentPlayer().getName())
+                    : format("{0} 部署", getCurrentPlayer().getName())));
   }
 
   PlaceData waitForPlace(final boolean bid, final PlayerBridge playerBridge) {
@@ -311,8 +311,8 @@ class PlacePanel extends AbstractMovePanel implements GameDataChangeListener {
       final int option =
           JOptionPane.showConfirmDialog(
               getTopLevelAncestor(),
-              "You have not placed all your units yet.  Are you sure you want to end your turn?",
-              "Confirm End Turn",
+              "你还未部署所有单位。确定要结束回合吗？",
+              "确认结束回合",
               JOptionPane.YES_NO_OPTION,
               JOptionPane.PLAIN_MESSAGE);
       if (option != JOptionPane.YES_OPTION) {

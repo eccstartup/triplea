@@ -35,14 +35,14 @@ final class FileMenu {
       MacOsIntegration.setQuitHandler(frame);
     }
 
-    return new JMenuBuilder("File", TripleAMenuBar.Mnemonic.FILE.getMnemonicCode())
+    return new JMenuBuilder("文件", TripleAMenuBar.Mnemonic.FILE.getMnemonicCode())
         .addMenuItem(newSaveMenuItem(frame))
         .addMenuItemIf(
             PbemMessagePoster.gameDataHasPlayByEmailOrForumMessengers(frame.getGame().getData()),
             () -> addPostPbem(frame))
         .addSeparator()
         .addMenuItem(
-            new JMenuItemBuilder("Leave Game", Mnemonic.LEAVE.getMnemonicCode())
+            new JMenuItemBuilder("离开游戏", Mnemonic.LEAVE.getMnemonicCode())
                 .accelerator(
                     (isMac
                         ?
@@ -59,7 +59,7 @@ final class FileMenu {
             !isMac,
             // On non-Mac operating systems, we need to manually create an Exit menu item
             () ->
-                new JMenuItemBuilder("Exit Program", Mnemonic.EXIT.getMnemonicCode())
+                new JMenuItemBuilder("退出程序", Mnemonic.EXIT.getMnemonicCode())
                     .actionListener(frame::shutdown)
                     .build())
         .build();
@@ -75,7 +75,7 @@ final class FileMenu {
               if (f.isPresent()) {
                 game.saveGame(f.get());
                 JOptionPane.showMessageDialog(
-                    frame, "Game Saved", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
+                    frame, "游戏已保存", "游戏已保存", JOptionPane.INFORMATION_MESSAGE);
               }
             })
         .build();
@@ -83,14 +83,14 @@ final class FileMenu {
 
   private JMenuItem addPostPbem(TripleAFrame frame) {
     final GameData gameData = frame.getGame().getData();
-    return new JMenuItemBuilder("Post PBEM/PBF Gamesave", Mnemonic.POST_PBEM.getMnemonicCode())
+    return new JMenuItemBuilder("发布 PBEM/PBF 游戏存档", Mnemonic.POST_PBEM.getMnemonicCode())
         .accelerator(KeyCode.M)
         .actionListener(
             () -> {
               if (!PbemMessagePoster.gameDataHasPlayByEmailOrForumMessengers(gameData)) {
                 return;
               }
-              final String title = "Manual Gamesave Post";
+              final String title = "手动发布游戏存档";
               try (GameData.Unlocker ignored = gameData.acquireReadLock()) {
                 final GameStep step = gameData.getSequence().getStep();
                 final GamePlayer currentPlayer =
