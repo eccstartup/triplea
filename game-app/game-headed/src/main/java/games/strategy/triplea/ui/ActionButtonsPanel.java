@@ -42,8 +42,7 @@ import org.triplea.util.Tuple;
 
 /** Root panel for all action buttons in a triplea game. */
 public class ActionButtonsPanel extends JPanel {
-  public static final String DONE_BUTTON_TOOLTIP =
-      "Press ctrl+enter or click this button to end the current turn phase";
+  public static final String DONE_BUTTON_TOOLTIP = "按 Ctrl+Enter 或点击此按钮结束当前回合阶段";
   private static final long serialVersionUID = 2175685892863042399L;
   private final CardLayout layout = new CardLayout();
 

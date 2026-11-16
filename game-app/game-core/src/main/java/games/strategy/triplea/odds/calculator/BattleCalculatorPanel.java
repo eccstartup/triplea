@@ -176,32 +176,16 @@ class BattleCalculatorPanel extends JPanel {
     retreatAfterXUnitsLeft.setValue(-1);
     retreatAfterXUnitsLeft.setToolTipText("-1 表示永不。若为正数且同时选中了「仅剩空军时撤退」，" + "则当非空军单位剩余 X 个时撤退。");
     setResultsToBlank();
-    defenderLeft.setToolTipText(
-        "Units Left does not include AA guns and other infrastructure, and does not include "
-            + "Bombarding sea units for land battles.");
-    attackerLeft.setToolTipText(
-        "Units Left does not include AA guns and other infrastructure, and does not include "
-            + "Bombarding sea units for land battles.");
-    defenderLeftWhenDefenderWon.setToolTipText(
-        "Units Left does not include AA guns and other infrastructure, and "
-            + "does not include Bombarding sea units for land battles.");
-    attackerLeftWhenAttackerWon.setToolTipText(
-        "Units Left does not include AA guns and other infrastructure, and "
-            + "does not include Bombarding sea units for land battles.");
-    averageChangeInTuv.setToolTipText(
-        "TUV Swing does not include captured AA guns and other infrastructure, and "
-            + "does not include Bombarding sea units for land battles.");
+    defenderLeft.setToolTipText("剩余单位数不包含防空炮及其他基础设施，也不包含陆地战斗中的" + "海上轰炸单位。");
+    attackerLeft.setToolTipText("剩余单位数不包含防空炮及其他基础设施，也不包含陆地战斗中的" + "海上轰炸单位。");
+    defenderLeftWhenDefenderWon.setToolTipText("剩余单位数不包含防空炮及其他基础设施，且" + "不包含陆地战斗中的海上轰炸单位。");
+    attackerLeftWhenAttackerWon.setToolTipText("剩余单位数不包含防空炮及其他基础设施，且" + "不包含陆地战斗中的海上轰炸单位。");
+    averageChangeInTuv.setToolTipText("战力净值变化不包含被俘获的防空炮及其他基础设施，且" + "不包含陆地战斗中的海上轰炸单位。");
     retreatWhenOnlyAirLeftCheckBox.setToolTipText(
-        "We retreat if only air is left, and if 'retreat when x units "
-            + "left' is positive we will retreat when x of non-air is left too.");
-    amphibiousCheckBox.setToolTipText(
-        "Applies amphibious attack modifiers to all attacking land units");
-    attackerUnitsTotalNumber.setToolTipText(
-        "Totals do not include AA guns and other infrastructure, and does not "
-            + "include Bombarding sea units for land battles.");
-    defenderUnitsTotalNumber.setToolTipText(
-        "Totals do not include AA guns and other infrastructure, and does not "
-            + "include Bombarding sea units for land battles.");
+        "仅剩空军时撤退；若「剩余 X 个单位时撤退」为正数，" + "则当非空军单位剩余 X 个时也会撤退。");
+    amphibiousCheckBox.setToolTipText("对所有进攻方陆地单位应用两栖攻击修正");
+    attackerUnitsTotalNumber.setToolTipText("总数不包含防空炮及其他基础设施，且不包含" + "陆地战斗中的海上轰炸单位。");
+    defenderUnitsTotalNumber.setToolTipText("总数不包含防空炮及其他基础设施，且不包含" + "陆地战斗中的海上轰炸单位。");
 
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     final JPanel main = new JPanel();
@@ -667,8 +651,7 @@ class BattleCalculatorPanel extends JPanel {
       newBattleSiteTerritory = this.battleSiteTerritory;
     }
     if (newBattleSiteTerritory == null) {
-      throw new IllegalStateException(
-          format("No territory found that is land: {0}", isLandBattle()));
+      throw new IllegalStateException(format("未找到陆地领地：{0}", isLandBattle()));
     }
     return newBattleSiteTerritory;
   }

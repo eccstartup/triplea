@@ -118,7 +118,7 @@ public final class BattlePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " battle");
+          actionLabel.setText(gamePlayer.getName() + " 战斗");
           setLayout(new BorderLayout());
           final JPanel panel = new JPanelBuilder().gridLayout(0, 1).add(actionLabel).build();
           battleListing.forEachBattle(
@@ -146,7 +146,7 @@ public final class BattlePanel extends ActionPanel {
                         () -> fightBattleAction(territory, battleType))))
             .addEast(
                 new JButtonBuilder()
-                    .title("Center")
+                    .title("居中")
                     .actionListener(
                         () ->
                             getMap()
@@ -345,11 +345,11 @@ public final class BattlePanel extends ActionPanel {
                       JOptionPane.OK_CANCEL_OPTION,
                       JOptionPane.PLAIN_MESSAGE,
                       null,
-                      new String[] {"OK", "None"},
+                      new String[] {"OK", "无"},
                       null,
                       getMap().getUiContext().getCountDownLatchHandler());
               if (choice != JOptionPane.OK_OPTION) {
-                // User selected the "None" option.
+                // User selected the "无" option.
                 return null;
               }
               return panel.getSelection();
@@ -360,19 +360,19 @@ public final class BattlePanel extends ActionPanel {
   public boolean getAttackSubs(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "攻击潜艇，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击潜艇，位于 " + terr.toString() + "?", "攻击", ConfirmDialogType.YES_NO);
   }
 
   public boolean getAttackTransports(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "攻击运输舰，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击运输舰，位于 " + terr.toString() + "?", "攻击", ConfirmDialogType.YES_NO);
   }
 
   public boolean getAttackUnits(final Territory terr) {
     getMap().centerOn(terr);
     return EventThreadJOptionPane.showConfirmDialog(
-        null, "攻击单位，位于 " + terr.toString() + "?", "Attack", ConfirmDialogType.YES_NO);
+        null, "攻击单位，位于 " + terr.toString() + "?", "攻击", ConfirmDialogType.YES_NO);
   }
 
   public boolean getShoreBombard(final Territory terr) {

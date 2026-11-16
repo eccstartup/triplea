@@ -49,8 +49,8 @@ class OrderOfLossesInputPanel extends JPanel {
   private final List<UnitCategory> defenderCategories;
   private final JTextField attackerTextField;
   private final JTextField defenderTextField;
-  private final JLabel attackerLabel = new JLabel("Attacker Units:");
-  private final JLabel defenderLabel = new JLabel("Defender Units:");
+  private final JLabel attackerLabel = new JLabel("进攻方单位：");
+  private final JLabel defenderLabel = new JLabel("防守方单位：");
   private final JButton clear;
   private final boolean land;
 
@@ -76,7 +76,7 @@ class OrderOfLossesInputPanel extends JPanel {
     new DocumentListenerBuilder(() -> turnToRedIfNotValidOrderOfLoss(defenderTextField))
         .attachTo(defenderTextField);
 
-    clear = new JButton("Clear");
+    clear = new JButton("清除");
     clear.addActionListener(
         e -> {
           attackerTextField.setText("");
@@ -171,23 +171,23 @@ class OrderOfLossesInputPanel extends JPanel {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     final JLabel instructions =
         new JLabel(
-            "<html>Here you can specify the 'Order of Losses' (OOL) for each side."
-                + "<br />Damageable units will be damaged first always. If the player label is "
-                + "red, your OOL is invalid."
-                + "<br />The engine will take your input and add all units to a list starting "
-                + "on the RIGHT side of your text line."
-                + "<br />Then, during combat, casualties will be chosen starting on the LEFT side "
-                + "of your OOL."
+            "<html>在这里可以为每一方指定「伤亡顺序」（OOL）。"
+                + "<br />可受损的单位总是最先受伤。如果玩家标签显示为"
+                + "红色，说明你的伤亡顺序无效。"
+                + "<br />引擎会读取你的输入，并将所有单位从文本行的"
+                + "右侧开始依次加入列表。"
+                + "<br />随后在战斗中，将从伤亡顺序的左侧开始"
+                + "选择伤亡单位。"
                 + "<br />"
                 + OOL_SEPARATOR
-                + " separates unit types."
+                + " 用于分隔单位类型。"
                 + "<br />"
                 + OOL_AMOUNT_DESCRIPTOR
-                + " is in front of the unit type and describes the number of units."
+                + " 位于单位类型之前，表示该类型的单位数量。"
                 + "<br />"
                 + OOL_ALL
-                + " means all units of that type."
-                + "<br />Examples:"
+                + " 表示该类型的所有单位。"
+                + "<br />示例："
                 + "<br />"
                 + OOL_ALL
                 + OOL_AMOUNT_DESCRIPTOR
@@ -200,8 +200,8 @@ class OrderOfLossesInputPanel extends JPanel {
                 + OOL_ALL
                 + OOL_AMOUNT_DESCRIPTOR
                 + "fighter"
-                + "<br />The above will take all infantry, then all artillery, then all fighters, "
-                + "then all other units as casualty."
+                + "<br />上述设置将先取全部 infantry，然后全部 artillery，再全部 fighters，"
+                + "最后取其他所有单位作为伤亡。"
                 + "<br /><br />1"
                 + OOL_AMOUNT_DESCRIPTOR
                 + "infantry"
@@ -213,8 +213,8 @@ class OrderOfLossesInputPanel extends JPanel {
                 + "6"
                 + OOL_AMOUNT_DESCRIPTOR
                 + "fighter"
-                + "<br />The above will take 1 infantry, then 2 artillery, then 6 fighters, "
-                + "then all other units as casualty."
+                + "<br />上述设置将先取 1 个 infantry，然后 2 个 artillery，再 6 个 fighters，"
+                + "最后取其他所有单位作为伤亡。"
                 + "<br /><br />"
                 + OOL_ALL
                 + OOL_AMOUNT_DESCRIPTOR
@@ -227,8 +227,8 @@ class OrderOfLossesInputPanel extends JPanel {
                 + "1"
                 + OOL_AMOUNT_DESCRIPTOR
                 + "infantry"
-                + "<br />The above will take all except 1 infantry casualty, then all fighters, "
-                + "then the last infantry, then all other units casualty.</html>");
+                + "<br />上述设置将先取除 1 个以外的全部 infantry，然后全部 fighters，"
+                + "再取最后 1 个 infantry，最后取其他所有单位作为伤亡。</html>");
     instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
     add(instructions);
     add(Box.createVerticalStrut(30));

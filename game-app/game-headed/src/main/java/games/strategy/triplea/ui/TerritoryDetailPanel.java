@@ -154,7 +154,7 @@ public class TerritoryDetailPanel extends JPanel {
                 () ->
                     "<html>"
                         + territory.getName()
-                        + "<br>Water Territory"
+                        + "<br>水域领地"
                         + "<br><br>"
                         + additionalText
                         + "</html>");

@@ -140,7 +140,7 @@ public abstract class AbstractUndoableMovesPanel extends JPanel {
     final Box textBox = new Box(BoxLayout.X_AXIS);
     textBox.add(text);
     textBox.add(Box.createHorizontalGlue());
-    final JButton undoButton = new JButton("Undo");
+    final JButton undoButton = new JButton("撤销");
     final int moveIndex = move.getIndex();
     undoButton.addActionListener(
         (e) -> {
@@ -186,7 +186,7 @@ public abstract class AbstractUndoableMovesPanel extends JPanel {
     private final AbstractUndoableMove move;
 
     ViewAction(final AbstractUndoableMove move) {
-      super("Show");
+      super("显示");
       this.move = move;
     }
 
@@ -201,7 +201,7 @@ public abstract class AbstractUndoableMovesPanel extends JPanel {
   }
 
   protected String getLabelText() {
-    return "Moves:";
+    return "移动：";
   }
 
   protected abstract void specificViewAction(AbstractUndoableMove move);

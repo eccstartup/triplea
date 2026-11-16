@@ -58,7 +58,7 @@ class CommentPanel extends JPanel {
   private final SimpleAttributeSet normal = new SimpleAttributeSet();
   private final Action saveAction =
       SwingAction.of(
-          "Add Comment",
+          "添加评论",
           e -> {
             if (nextMessage.getText().trim().isEmpty()) {
               return;
@@ -232,7 +232,7 @@ class CommentPanel extends JPanel {
             final IEditDelegate delegate = frame.getEditDelegate();
             final String error;
             if (delegate == null) {
-              error = "You can only add comments during your turn";
+              error = "你只能在自己的回合添加评论";
             } else {
               error = delegate.addComment(message);
             }

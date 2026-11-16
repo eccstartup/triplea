@@ -42,7 +42,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
   private @Nullable Territory currentHighlightedTerritory;
 
   private final Action selectUnitsAction =
-      new AbstractAction("Select Units") {
+      new AbstractAction("选择单位") {
         private static final long serialVersionUID = 4745335350716395600L;
 
         @Override
@@ -53,7 +53,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
               new UnitChooser(unitChoices, Map.of(), false, getMap().getUiContext());
           unitChooser.setMaxAndShowMaxButton(unitsPerPick);
           if (EventThreadJOptionPane.showConfirmDialog(
-              frame, unitChooser, "Select Units", ConfirmDialogType.OK_CANCEL)) {
+              frame, unitChooser, "选择单位", ConfirmDialogType.OK_CANCEL)) {
             pickedUnits.clear();
             pickedUnits.addAll(unitChooser.getSelected());
           }
@@ -63,7 +63,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
       };
 
   private final Action selectTerritoryAction =
-      new AbstractAction("Select Territory") {
+      new AbstractAction("选择领地") {
         private static final long serialVersionUID = -8003634505955439651L;
 
         @Override
@@ -81,10 +81,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
           if (currentAction == selectTerritoryAction) {
             if (!territoryChoices.contains(territory)) {
               EventThreadJOptionPane.showMessageDialog(
-                  frame,
-                  "You must pick an unowned land territory (will have a white highlight)",
-                  "Must Pick An Unowned Land Territory",
-                  JOptionPane.WARNING_MESSAGE);
+                  frame, "你必须选择一个无主陆地领地（将以白色高亮显示）", "必须选择一个无主陆地领地", JOptionPane.WARNING_MESSAGE);
               return;
             }
             pickedTerritory = territory;
@@ -132,7 +129,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
 
   @Override
   public String toString() {
-    return "Pick Territory and Units";
+    return "选择领地与单位";
   }
 
   @Override
@@ -145,7 +142,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " Pick Territory and Units");
+          actionLabel.setText(gamePlayer.getName() + " 选择领地与单位");
           add(actionLabel);
           selectTerritoryButton = new JButton(selectTerritoryAction);
           add(selectTerritoryButton);
@@ -164,10 +161,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
     setWidgetActivation();
     if (pickedTerritory == null || !territoryChoices.contains(pickedTerritory)) {
       EventThreadJOptionPane.showMessageDialog(
-          frame,
-          "Must Pick An Unowned Territory",
-          "Must Pick An Unowned Territory",
-          JOptionPane.WARNING_MESSAGE);
+          frame, "必须选择一个无主领地", "必须选择一个无主领地", JOptionPane.WARNING_MESSAGE);
       currentAction = null;
       if (currentHighlightedTerritory != null) {
         getMap().clearTerritoryOverlay(currentHighlightedTerritory);
@@ -179,7 +173,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
     }
     if (!pickedUnits.isEmpty() && !unitChoices.containsAll(pickedUnits)) {
       EventThreadJOptionPane.showMessageDialog(
-          frame, "Invalid Units?!?", "Invalid Units?!?", JOptionPane.WARNING_MESSAGE);
+          frame, "无效的单位？！", "无效的单位？！", JOptionPane.WARNING_MESSAGE);
       currentAction = null;
       pickedUnits.clear();
       setWidgetActivation();
@@ -187,7 +181,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
     }
     if (pickedUnits.size() > Math.max(0, unitsPerPick)) {
       EventThreadJOptionPane.showMessageDialog(
-          frame, "Too Many Units?!?", "Too Many Units?!?", JOptionPane.WARNING_MESSAGE);
+          frame, "单位过多？！", "单位过多？！", JOptionPane.WARNING_MESSAGE);
       currentAction = null;
       pickedUnits.clear();
       setWidgetActivation();
@@ -204,10 +198,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
         pickedUnits.addAll(CollectionUtils.getNMatches(unitChoices, unitsPerPick, it -> true));
       } else {
         EventThreadJOptionPane.showMessageDialog(
-            frame,
-            "Must Choose Units For This Territory",
-            "Must Choose Units For This Territory",
-            JOptionPane.WARNING_MESSAGE);
+            frame, "必须为此领地选择单位", "必须为此领地选择单位", JOptionPane.WARNING_MESSAGE);
         currentAction = null;
         setWidgetActivation();
         return;
@@ -256,7 +247,7 @@ public class PickTerritoryAndUnitsPanel extends ActionPanel {
         () -> {
           if (!isActive()) {
             // current turn belongs to remote player or AI player
-            actionLabel.setText("Waiting for other players...");
+            actionLabel.setText("等待其他玩家……");
             doneButton.setEnabled(false);
             selectUnitsAction.setEnabled(false);
             selectTerritoryAction.setEnabled(false);

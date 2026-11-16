@@ -78,12 +78,12 @@ import org.triplea.util.Triple;
 
 class EditPanel extends ActionPanel {
   private static final long serialVersionUID = 5043639777373556106L;
-  public static final String ACTION_LABEL_COULD_NOT_PERFORM_EDIT = "Could not perform edit";
-  public static final String ACTION_LABEL_CHANGE_UNIT_HIT_DAMAGE = "Change Unit Hit Damage";
-  public static final String ACTION_LABEL_CHANGE_UNIT_BOMBING_DAMAGE = "Change Unit Bombing Damage";
-  public static final String ACTION_LABEL_CHANGE_RESOURCES = "Change Resources";
+  public static final String ACTION_LABEL_COULD_NOT_PERFORM_EDIT = "无法执行编辑";
+  public static final String ACTION_LABEL_CHANGE_UNIT_HIT_DAMAGE = "修改单位命中损伤";
+  public static final String ACTION_LABEL_CHANGE_UNIT_BOMBING_DAMAGE = "修改单位轰炸损伤";
+  public static final String ACTION_LABEL_CHANGE_RESOURCES = "修改资源";
   private final AbstractAction cancelEditAction =
-      new AbstractAction("Cancel") {
+      new AbstractAction("取消") {
         private static final long serialVersionUID = 6394987295241603443L;
 
         @Override
@@ -196,7 +196,7 @@ class EditPanel extends ActionPanel {
             if (unitsToMove.isEmpty()) {
               return;
             }
-            final String text = "Remove from " + t.getName();
+            final String text = "从……移除 " + t.getName();
             final UnitChooser chooser =
                 new UnitChooser(
                     unitsToMove,
@@ -257,7 +257,7 @@ class EditPanel extends ActionPanel {
             if (optionalTerritoryAttachment.isEmpty()) {
               JOptionPane.showMessageDialog(
                   getTopLevelAncestor(),
-                  "No TerritoryAttachment for " + territory + ".",
+                  "没有领地附加属性：" + territory + ".",
                   ACTION_LABEL_COULD_NOT_PERFORM_EDIT,
                   JOptionPane.ERROR_MESSAGE);
               return;
@@ -265,8 +265,7 @@ class EditPanel extends ActionPanel {
             final Optional<GamePlayer> optionalDefaultPlayer =
                 optionalTerritoryAttachment.get().getOriginalOwner();
             final GamePlayer player =
-                choosePlayerOrNull(
-                    "Select new owner for territory", optionalDefaultPlayer.orElse(null), true);
+                choosePlayerOrNull("选择领地的新归属方", optionalDefaultPlayer.orElse(null), true);
             if (player != null) {
               final String result = frame.getEditDelegate().changeTerritoryOwner(territory, player);
               if (result != null) {
@@ -281,8 +280,7 @@ class EditPanel extends ActionPanel {
           } else if (currentAction == addUnitsAction) {
             final boolean allowNeutral = doesNeutralHaveUnitsOnMap(getData());
             final GamePlayer player =
-                choosePlayerOrNull(
-                    "Select owner for new units", territory.getOwner(), allowNeutral);
+                choosePlayerOrNull("选择新单位的所有者", territory.getOwner(), allowNeutral);
             if (player != null) {
               // open production panel for adding new units
               final IntegerMap<ProductionRule> production =
@@ -339,7 +337,7 @@ class EditPanel extends ActionPanel {
     super(frame);
     this.frame = frame;
     performMoveAction =
-        new AbstractAction("Perform Move or Other Actions") {
+        new AbstractAction("执行移动或其他操作") {
           @Serial private static final long serialVersionUID = 2205085537962024476L;
 
           @Override
@@ -350,7 +348,7 @@ class EditPanel extends ActionPanel {
           }
         };
     addUnitsAction =
-        new AbstractAction("Add Units") {
+        new AbstractAction("添加单位") {
           @Serial private static final long serialVersionUID = 2205085537962024476L;
 
           @Override
@@ -362,7 +360,7 @@ class EditPanel extends ActionPanel {
           }
         };
     delUnitsAction =
-        new AbstractAction("Remove Selected Units") {
+        new AbstractAction("移除所选单位") {
           private static final long serialVersionUID = 5127470604727907906L;
 
           @Override
@@ -412,7 +410,7 @@ class EditPanel extends ActionPanel {
             }
             final Collection<Unit> bestUnits;
             if (mustChoose) {
-              final String chooserText = "Remove units from " + selectedTerritory + ":";
+              final String chooserText = "从……移除单位 " + selectedTerritory + ":";
               final UnitChooser chooser =
                   new UnitChooser(
                       allUnits,
@@ -445,14 +443,14 @@ class EditPanel extends ActionPanel {
               JOptionPane.showMessageDialog(
                   getTopLevelAncestor(),
                   result,
-                  MyFormatter.pluralize("Could not remove unit", selectedUnits.size()),
+                  MyFormatter.pluralize("无法移除单位", selectedUnits.size()),
                   JOptionPane.ERROR_MESSAGE);
             }
             cancelEditAction.actionPerformed(null);
           }
         };
     changeTerritoryOwnerAction =
-        new AbstractAction("Change Territory Owner") {
+        new AbstractAction("更改领地归属") {
           private static final long serialVersionUID = 8547635747553626362L;
 
           @Override
@@ -536,7 +534,7 @@ class EditPanel extends ActionPanel {
                 JOptionPane.showOptionDialog(
                     getTopLevelAncestor(),
                     new JScrollPane(totalField),
-                    "Select new number of " + resource.getName(),
+                    "选择新的……数量 " + resource.getName(),
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
@@ -549,14 +547,14 @@ class EditPanel extends ActionPanel {
           }
         };
     addTechAction =
-        new AbstractAction("Add Technology") {
+        new AbstractAction("添加科技") {
           private static final long serialVersionUID = -5536151512828077755L;
 
           @Override
           public void actionPerformed(final ActionEvent event) {
             currentAction = this;
             setWidgetActivation();
-            final GamePlayer player = choosePlayerOrNull("Select player to get technology");
+            final GamePlayer player = choosePlayerOrNull("选择获得科技的玩家");
             if (player == null) {
               cancelEditAction.actionPerformed(null);
               return;
@@ -579,7 +577,7 @@ class EditPanel extends ActionPanel {
                 JOptionPane.showOptionDialog(
                     getTopLevelAncestor(),
                     scroll,
-                    "Select tech to add",
+                    "选择要添加的科技",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
@@ -603,14 +601,14 @@ class EditPanel extends ActionPanel {
           }
         };
     removeTechAction =
-        new AbstractAction("Remove Technology") {
+        new AbstractAction("移除科技") {
           private static final long serialVersionUID = -2456111915025687825L;
 
           @Override
           public void actionPerformed(final ActionEvent event) {
             currentAction = this;
             setWidgetActivation();
-            final GamePlayer player = choosePlayerOrNull("Select player to remove technology");
+            final GamePlayer player = choosePlayerOrNull("选择要移除科技的玩家");
             if (player == null) {
               cancelEditAction.actionPerformed(null);
               return;
@@ -638,7 +636,7 @@ class EditPanel extends ActionPanel {
                 JOptionPane.showOptionDialog(
                     getTopLevelAncestor(),
                     scroll,
-                    "Select tech to remove",
+                    "选择要移除的科技",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
@@ -807,7 +805,7 @@ class EditPanel extends ActionPanel {
           }
         };
     changePoliticalRelationships =
-        new AbstractAction("Change Political Relationships") {
+        new AbstractAction("更改外交关系") {
           private static final long serialVersionUID = -2950034347058147592L;
 
           @Override
@@ -819,24 +817,21 @@ class EditPanel extends ActionPanel {
             panel.setBorder(BorderFactory.createEmptyBorder());
             final JLabel helpText =
                 new JLabel(
-                    "<html><b>Click the buttons inside the relationship squares to change the "
-                        + "relationships between players.</b>"
-                        + "<br />Please note that none of this is validated by the engine or map, "
-                        + "so the results are not guaranteed to be perfectly what you expect."
-                        + "<br />In addition, any maps that use triggers could be royally messed "
-                        + "up by changing editing political relationships:"
-                        + "<br /><em>Example: Take a map where America gets some benefit "
-                        + "(like upgraded factories) after it goes to war for the first time, "
-                        + "<br />and the american player accidentally clicked to go to war, and "
-                        + "now wishes to undo that change. Changing America from being at war to "
-                        + "<br />not being at war will not undo the benefit if it has already "
-                        + "happened. And later, when America goes to war (for real this "
-                        + "time), that "
-                        + "<br />benefit may or may not be applied a second time, totally "
-                        + "depending on how the map was coded (and this is not the map's fault "
-                        + "either, "
-                        + "<br />since you are using edit mode).  So if you change anything here, "
-                        + "be on the look out for unintended consequences!</em></html>");
+                    "<html><b>点击关系方块内的按钮即可更改玩家之间的关系。</b>"
+                        + "<br />请注意，引擎和地图都不会对此进行校验，"
+                        + "因此结果无法保证完全符合你的预期。"
+                        + "<br />此外，任何使用触发器的地图都可能因修改外交关系而被"
+                        + "严重打乱："
+                        + "<br /><em>示例：假设某张地图中，美国在首次参战后获得某项好处"
+                        + "（例如升级的工厂），"
+                        + "<br />而美国玩家不小心点击了参战，现在想撤销这一改动。将美国从"
+                        + "交战改为"
+                        + "<br />非交战，并不会撤销已经发生的好处。之后当美国（这次真的）"
+                        + "参战时，"
+                        + "<br />该项好处可能会被再次应用，也可能不会，完全"
+                        + "取决于地图的编写方式（这也不是地图的错，"
+                        + "<br />因为你正在使用编辑模式）。因此如果你在此处做了任何改动，"
+                        + "请留意可能出现的意外后果！</em></html>");
             panel.add(helpText, BorderLayout.NORTH);
             final PoliticalStateOverview pui =
                 new PoliticalStateOverview(getData(), EditPanel.this.frame.getUiContext(), true);
@@ -846,7 +841,7 @@ class EditPanel extends ActionPanel {
                 JOptionPane.showConfirmDialog(
                     EditPanel.this.frame,
                     scroll,
-                    "Change Political Relationships",
+                    "更改外交关系",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
@@ -886,18 +881,18 @@ class EditPanel extends ActionPanel {
             return scroll;
           }
         };
-    actionLabel.setText("Edit Mode Actions");
+    actionLabel.setText("编辑模式操作");
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     setBorder(new EmptyBorder(5, 5, 0, 0));
     add(actionLabel);
     final JButton performMove = new JButton(performMoveAction);
     performMove.setToolTipText(
-        "<html>When in Edit Mode, you can perform special actions according to whatever phase "
-            + "you are in, by switching back to the 'Action' tab.<br /> "
-            + "So if you are in the 'Move' phase, you can move units virtually anywhere, "
-            + "because Edit Mode turns off the movement validation.<br /> "
-            + "You can use 'Action' tab during Edit Mode to do things not available by the "
-            + "other edit buttons.</html>");
+        "<html>在编辑模式下，切换回「行动」标签页，即可根据当前所处阶段执行特殊操作。"
+            + "<br /> "
+            + "例如，如果你正处于「移动」阶段，则几乎可以把单位移动到任何地方，"
+            + "因为编辑模式会关闭移动校验。<br /> "
+            + "编辑模式下你可以使用「行动」标签页，完成其他编辑按钮无法实现的操作。"
+            + "</html>");
     add(performMove);
     add(new JButton(addUnitsAction));
     add(new JButton(delUnitsAction));

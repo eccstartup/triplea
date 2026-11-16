@@ -15,7 +15,7 @@ public final class FindTerritoryAction extends AbstractAction {
   private final TripleAFrame frame;
 
   public FindTerritoryAction(final TripleAFrame frame) {
-    super("Find Territory...");
+    super("查找领地……");
 
     this.frame = checkNotNull(frame);
   }

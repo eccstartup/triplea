@@ -22,7 +22,7 @@ import org.triplea.swing.SwingComponents;
 
 class RepairPanel extends ActionPanel {
   private static final long serialVersionUID = 3045997038627313714L;
-  private static final String CHANGE = "Change...";
+  private static final String CHANGE = "更改……";
   private static final String BUY = "修理……";
   private Map<Unit, IntegerMap<RepairRule>> repair;
   private boolean bid;
@@ -54,7 +54,7 @@ class RepairPanel extends ActionPanel {
           } else {
             buyButton.setText(CHANGE);
             repairedSoFar.setText(
-                totalValues + MyFormatter.pluralize(" unit", totalValues) + " 待修理：");
+                totalValues + MyFormatter.pluralize(" 单位", totalValues) + " 待修理：");
           }
         }
       };
@@ -98,7 +98,7 @@ class RepairPanel extends ActionPanel {
           JOptionPane.showConfirmDialog(
               JOptionPane.getFrameForComponent(RepairPanel.this),
               "确定什么都不修理吗？",
-              "End Purchase",
+              "结束购买",
               JOptionPane.YES_NO_OPTION);
       if (selectedOption != JOptionPane.YES_OPTION) {
         return;
@@ -123,7 +123,7 @@ class RepairPanel extends ActionPanel {
   }
 
   private void refreshActionLabelText() {
-    actionLabel.setText(getCurrentPlayer().getName() + " repair " + (bid ? " for bid" : ""));
+    actionLabel.setText(getCurrentPlayer().getName() + " 修理 " + (bid ? " 用于出价" : ""));
   }
 
   // Spin through the territories to get this.

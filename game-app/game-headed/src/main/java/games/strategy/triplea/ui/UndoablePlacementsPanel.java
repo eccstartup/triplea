@@ -11,7 +11,7 @@ class UndoablePlacementsPanel extends AbstractUndoableMovesPanel {
 
   @Override
   protected String getLabelText() {
-    return "Placements:";
+    return "部署：";
   }
 
   @Override

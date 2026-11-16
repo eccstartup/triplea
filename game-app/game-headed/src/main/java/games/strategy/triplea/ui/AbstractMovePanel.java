@@ -43,10 +43,10 @@ public abstract class AbstractMovePanel extends ActionPanel {
   private PlayerBridge playerBridge;
 
   private final JButton cancelMoveButton =
-      new JButtonBuilder().title("Cancel").actionListener(this::cancelMove).build();
+      new JButtonBuilder().title("取消").actionListener(this::cancelMove).build();
   private final JButton doneButton = createDoneButton();
   private final JButton undoAllButton =
-      new JButtonBuilder().title("Undo All").actionListener(this::undoAll).build();
+      new JButtonBuilder().title("撤销全部").actionListener(this::undoAll).build();
 
   protected AbstractMovePanel(final TripleAFrame frame) {
     super(frame);
@@ -109,7 +109,7 @@ public abstract class AbstractMovePanel extends ActionPanel {
     cancelMoveButton.setEnabled(false);
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("未勾选")
   private IAbstractMoveDelegate<UndoableMove> getMoveDelegate() {
     return (IAbstractMoveDelegate<UndoableMove>) playerBridge.getRemoteDelegate();
   }
@@ -140,7 +140,7 @@ public abstract class AbstractMovePanel extends ActionPanel {
     final String error = getMoveDelegate().undoMove(moveIndex);
     if (error != null && !suppressError) {
       JOptionPane.showMessageDialog(
-          getTopLevelAncestor(), error, "Could not undo move", JOptionPane.ERROR_MESSAGE);
+          getTopLevelAncestor(), error, "无法撤销移动", JOptionPane.ERROR_MESSAGE);
     } else {
       updateMoves();
     }
@@ -159,18 +159,16 @@ public abstract class AbstractMovePanel extends ActionPanel {
   /**
    * Executes an undo move for any of the units passed in as a parameter.
    *
-   * <p>"Cannot undo" Error messages are suppressed if any moves cannot be undone (at least until we
-   * come up with a way to deal with "n" reasons for an undo failure rather than just one)
+   * <p>"无法撤销" Error messages are suppressed if any moves cannot be undone (at least until we come
+   * up with a way to deal with "n" reasons for an undo failure rather than just one)
    */
   void undoMoves(final Set<Unit> units) {
     final Set<UndoableMove> movesToUndo = getMovesToUndo(units, getMoveDelegate().getMovesMade());
 
     if (movesToUndo.isEmpty()) {
-      final String error =
-          "Could not undo any moves, check that the unit has moved and that you "
-              + "can undo the move normally";
+      final String error = "无法撤销任何移动，请确认该单位已移动，且你 " + "可以正常撤销该移动";
       JOptionPane.showMessageDialog(
-          getTopLevelAncestor(), error, "Could not undo move", JOptionPane.ERROR_MESSAGE);
+          getTopLevelAncestor(), error, "无法撤销移动", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
@@ -232,7 +230,7 @@ public abstract class AbstractMovePanel extends ActionPanel {
               .exceptionally(e -> log.warn("Failed to receive move updates", e));
 
           if (listening) {
-            throw new IllegalStateException("Not listening");
+            throw new IllegalStateException("未监听");
           }
           listening = true;
           if (getRootPane() != null) {
@@ -290,7 +288,7 @@ public abstract class AbstractMovePanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           if (!listening) {
-            throw new IllegalStateException("Not listening");
+            throw new IllegalStateException("未监听");
           }
           listening = false;
           cleanUpSpecific();

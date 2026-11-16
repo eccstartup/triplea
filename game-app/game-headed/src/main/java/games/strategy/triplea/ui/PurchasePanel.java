@@ -219,9 +219,7 @@ public class PurchasePanel extends ActionPanel {
 
   private void refreshActionLabelText() {
     SwingUtilities.invokeLater(
-        () ->
-            actionLabel.setText(
-                getCurrentPlayer().getName() + " production " + (bid ? " 用于出价" : "")));
+        () -> actionLabel.setText(getCurrentPlayer().getName() + " 生产 " + (bid ? " 用于出价" : "")));
   }
 
   IntegerMap<ProductionRule> waitForPurchase(final boolean bid) {

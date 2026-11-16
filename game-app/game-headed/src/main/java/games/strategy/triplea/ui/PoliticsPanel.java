@@ -166,7 +166,7 @@ public class PoliticsPanel extends ActionPanel {
 
   @Override
   public String toString() {
-    return "Politics Panel";
+    return "外交面板";
   }
 
   @Override
@@ -176,7 +176,7 @@ public class PoliticsPanel extends ActionPanel {
     SwingUtilities.invokeLater(
         () -> {
           removeAll();
-          actionLabel.setText(gamePlayer.getName() + " Politics");
+          actionLabel.setText(gamePlayer.getName() + " 外交");
           add(SwingComponents.leftBox(actionLabel));
 
           selectPoliticalActionButton = new JButton(selectPoliticalActionAction);

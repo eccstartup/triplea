@@ -936,7 +936,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             + location.getName();
     final String bomb =
         (Properties.getRaidsMayBePreceededByAirBattles(data.getProperties()) ? "轰炸/护航" : "轰炸");
-    final String normal = "Attack";
+    final String normal = "攻击";
     final String[] choices = {bomb, normal};
     int choice = -1;
     while (choice < 0 || choice > 1) {
@@ -995,7 +995,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             comps -> {
               final JPanel panel = comps.getFirst();
               final JList<?> list = comps.getSecond();
-              final String[] options = {"OK", "Cancel"};
+              final String[] options = {"确定", "取消"};
               final int selection =
                   EventThreadJOptionPane.showOptionDialog(
                       this,
@@ -1199,8 +1199,8 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
                   true,
                   false);
           unitPanels.add(unitPanel);
-          final String optionAttack = "Attack";
-          final String optionNone = "None";
+          final String optionAttack = "攻击";
+          final String optionNone = "无";
           final Object[] options = {optionAttack, optionNone};
           final JOptionPane optionPane =
               new JOptionPane(
@@ -1315,7 +1315,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           final JButton scrambleButton = new JButton("紧急起飞");
           scrambleButton.addActionListener(
               e -> getOptionPane((JComponent) e.getSource()).setValue(scrambleButton));
-          final JButton noneButton = new JButton("None");
+          final JButton noneButton = new JButton("无");
           noneButton.addActionListener(
               e -> getOptionPane((JComponent) e.getSource()).setValue(noneButton));
           final Object[] options = {scrambleButton, noneButton};
@@ -1500,8 +1500,8 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
           panelChooser.add(chooser);
           final JScrollPane chooserScrollPane = new JScrollPane(panelChooser);
           panel.add(chooserScrollPane, BorderLayout.CENTER);
-          final String optionSelect = "Select";
-          final String optionNone = "None";
+          final String optionSelect = "选择";
+          final String optionNone = "无";
           final Object[] options = {optionSelect, optionNone};
           final JOptionPane optionPane =
               new JOptionPane(
@@ -1590,7 +1590,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
       sb.append("\n你有 ")
           .append(carrierCount)
           .append(" ")
-          .append(MyFormatter.pluralize("carrier", carrierCount))
+          .append(MyFormatter.pluralize("航母", carrierCount))
           .append(" 可供飞机降落");
     }
     final String ok = movePhase ? "结束移动阶段" : "击毁飞机";
@@ -1659,7 +1659,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
     return EventThreadJOptionPane.showConfirmDialog(
         this,
         acceptanceQuestion,
-        "接受 " + (politics ? "Political " : "") + " 提案，来自 " + playerSendingProposal.getName() + "?",
+        "接受 " + (politics ? "政治" : "") + " 提案，来自 " + playerSendingProposal.getName() + "?",
         ConfirmDialogType.YES_NO);
   }
 
@@ -2223,7 +2223,7 @@ public final class TripleAFrame extends JFrame implements QuitHandler {
             JOptionPane.PLAIN_MESSAGE,
             JOptionPane.OK_CANCEL_OPTION,
             null,
-            new String[] {"OK", "Cancel"},
+            new String[] {"确定", "取消"},
             "OK",
             getUiContext().getCountDownLatchHandler());
     if (option == JOptionPane.OK_OPTION) {
