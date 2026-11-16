@@ -34,7 +34,7 @@ public final class ProLogUi {
     ProLogger.info("Initialized Hard AI");
     return List.of(
         AiPlayerDebugOption.builder()
-            .title("Show Logs")
+            .title("显示日志")
             .actionListener(ProLogUi::showSettingsWindow)
             .mnemonic(KeyCode.X.getInputEventCode())
             .build());

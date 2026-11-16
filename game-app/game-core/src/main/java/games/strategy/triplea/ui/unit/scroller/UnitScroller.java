@@ -8,6 +8,7 @@ import games.strategy.engine.data.Unit;
 import games.strategy.triplea.attachments.TerritoryAttachment;
 import games.strategy.triplea.delegate.Matches;
 import games.strategy.triplea.settings.ClientSetting;
+import games.strategy.triplea.ui.DisplayNameLocalizer;
 import games.strategy.triplea.ui.MouseDetails;
 import games.strategy.triplea.ui.panels.map.MapPanel;
 import games.strategy.triplea.ui.panels.map.MapSelectionListener;
@@ -110,7 +111,7 @@ public class UnitScroller {
                 && movesLeft > 0) {
               lastFocusedTerritory = territory;
               drawUnitAvatarPane(territory);
-              territoryNameLabel.setText(territory.getName());
+              territoryNameLabel.setText(DisplayNameLocalizer.territoryName(territory.getName()));
             }
           }
 
@@ -199,7 +200,8 @@ public class UnitScroller {
                     .ifPresent(
                         territory -> {
                           drawUnitAvatarPane(territory);
-                          territoryNameLabel.setText(territory.getName());
+                          territoryNameLabel.setText(
+                              DisplayNameLocalizer.territoryName(territory.getName()));
                         }));
   }
 
@@ -399,7 +401,7 @@ public class UnitScroller {
 
   private void updateRenderingToTerritory(final @Nonnull Territory selectedTerritory) {
     lastFocusedTerritory = selectedTerritory;
-    territoryNameLabel.setText(lastFocusedTerritory.getName());
+    territoryNameLabel.setText(DisplayNameLocalizer.territoryName(lastFocusedTerritory.getName()));
     highlightTerritory(selectedTerritory);
     updateMovesLeft();
     drawUnitAvatarPane(selectedTerritory);

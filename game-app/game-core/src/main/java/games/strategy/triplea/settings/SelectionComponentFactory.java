@@ -58,13 +58,11 @@ final class SelectionComponentFactory {
     return new SelectionComponent<>() {
       final HttpProxy.ProxyChoice proxyChoice = proxyChoiceClientSetting.getValueOrThrow();
       final JRadioButton noneButton =
-          new JRadioButton("None", proxyChoice == HttpProxy.ProxyChoice.NONE);
+          new JRadioButton("无", proxyChoice == HttpProxy.ProxyChoice.NONE);
       final JRadioButton systemButton =
-          new JRadioButton(
-              "Use System Settings", proxyChoice == HttpProxy.ProxyChoice.USE_SYSTEM_SETTINGS);
+          new JRadioButton("使用系统设置", proxyChoice == HttpProxy.ProxyChoice.USE_SYSTEM_SETTINGS);
       final JRadioButton userButton =
-          new JRadioButton(
-              "Use These Settings:", proxyChoice == HttpProxy.ProxyChoice.USE_USER_PREFERENCES);
+          new JRadioButton("使用以下设置：", proxyChoice == HttpProxy.ProxyChoice.USE_USER_PREFERENCES);
       final JTextField hostText = new JTextField(proxyHostClientSetting.getValue().orElse(""), 20);
       final JTextField portText =
           new JTextField(proxyPortClientSetting.getValue().map(Object::toString).orElse(""), 6);
@@ -81,7 +79,7 @@ final class SelectionComponentFactory {
                       .add(
                           new JPanelBuilder()
                               .boxLayoutHorizontal()
-                              .addLeftJustified(new JLabel("Proxy Host:"))
+                              .addLeftJustified(new JLabel("代理主机："))
                               .addLeftJustified(hostText)
                               .build())
                       .build())
@@ -92,7 +90,7 @@ final class SelectionComponentFactory {
                       .add(
                           new JPanelBuilder()
                               .boxLayoutHorizontal()
-                              .addLeftJustified(new JLabel("Proxy Port:"))
+                              .addLeftJustified(new JLabel("代理端口："))
                               .addLeftJustified(portText)
                               .build())
                       .build())
@@ -261,8 +259,8 @@ final class SelectionComponentFactory {
       final ClientSetting<Boolean> clientSetting) {
     return new SelectionComponent<>() {
       final boolean initialSelection = clientSetting.getValueOrThrow();
-      final JRadioButton yesButton = new JRadioButton("True");
-      final JRadioButton noButton = new JRadioButton("False");
+      final JRadioButton yesButton = new JRadioButton("是");
+      final JRadioButton noButton = new JRadioButton("否");
       final JPanel buttonPanel =
           new JPanelBuilder().boxLayoutHorizontal().add(yesButton).add(noButton).build();
 
@@ -303,7 +301,7 @@ final class SelectionComponentFactory {
           new JTextField(SelectionComponentUiUtils.toString(clientSetting.getValue()), 20);
       final JButton button =
           new JButtonBuilder()
-              .title("Select")
+              .title("选择")
               .actionListener(
                   () -> {
                     final String currentValue = field.getText();
@@ -426,7 +424,7 @@ final class SelectionComponentFactory {
   static SelectionComponent<JComponent> diceRollerOverrideSelection() {
     final JTextField uriField = new JTextFieldBuilder().build();
 
-    final JRadioButton production = new JRadioButton("Production (default)");
+    final JRadioButton production = new JRadioButton("正式服务器（默认）");
     final ActionListener disableCustomField =
         e -> {
           uriField.setText("");
@@ -434,7 +432,7 @@ final class SelectionComponentFactory {
         };
     production.addActionListener(disableCustomField);
 
-    final JRadioButton custom = new JRadioButton("Custom");
+    final JRadioButton custom = new JRadioButton("自定义");
     custom.addActionListener(e -> uriField.setEnabled(true));
 
     // set radio button selections
@@ -540,9 +538,9 @@ final class SelectionComponentFactory {
       private final JPanel panel =
           new JPanelBuilder()
               .boxLayoutVertical()
-              .addLeftJustified(new JLabel("Email Server"))
+              .addLeftJustified(new JLabel("邮件服务器"))
               .addLeftJustified(serverField)
-              .addLeftJustified(new JLabel("Port"))
+              .addLeftJustified(new JLabel("端口"))
               .addLeftJustified(
                   new JPanelBuilder()
                       .boxLayoutHorizontal()
@@ -552,7 +550,7 @@ final class SelectionComponentFactory {
               .addVerticalStrut(5)
               .addLeftJustified(
                   new JButtonBuilder()
-                      .title("Presets...")
+                      .title("预设...")
                       .actionListener(
                           () -> {
                             final List<String> selections =
@@ -564,7 +562,7 @@ final class SelectionComponentFactory {
                             if (JOptionPane.showConfirmDialog(
                                     this.panel.getParent(),
                                     new JPanelBuilder().add(comboBox).build(),
-                                    "Select a Preset",
+                                    "选择预设",
                                     JOptionPane.OK_CANCEL_OPTION)
                                 == JOptionPane.OK_OPTION) {
 
@@ -586,9 +584,9 @@ final class SelectionComponentFactory {
                             }
                           })
                       .build())
-              .addLeftJustified(new JLabel("Username"))
+              .addLeftJustified(new JLabel("用户名"))
               .addLeftJustified(usernameField)
-              .addLeftJustified(new JLabel("Password"))
+              .addLeftJustified(new JLabel("密码"))
               .addLeftJustified(passwordField)
               .build();
 
@@ -659,11 +657,11 @@ final class SelectionComponentFactory {
       private final JPanel mainPanel =
           new JPanelBuilder()
               .boxLayoutVertical()
-              .addLeftJustified(new JLabel("Username:"))
+              .addLeftJustified(new JLabel("用户名："))
               .addLeftJustified(usernameField)
-              .addLeftJustified(new JLabel("Password:"))
+              .addLeftJustified(new JLabel("密码："))
               .addLeftJustified(passwordField)
-              .addLeftJustified(new JLabel("2FA OTP Code (required for 2FA)"))
+              .addLeftJustified(new JLabel("双因素验证码（启用双因素验证时必填）"))
               .addLeftJustified(otpField)
               .build();
 

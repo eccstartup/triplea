@@ -101,8 +101,8 @@ enum ClientSettingSwingUiBinding implements GameSettingUiBinding<JComponent> {
       "空格键确认伤亡",
       SettingType.COMBAT,
 """
-When set to true casualty confirmation can be accepted by pressing space bar.
-When set to false, the confirm casualty button has to always be clicked.""") {
+设为 true 时，可按空格键确认伤亡。
+设为 false 时，必须始终点击“确认伤亡”按钮。""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.spaceBarConfirmsCasualties);
@@ -127,8 +127,8 @@ When set to false, the confirm casualty button has to always be clicked.""") {
       "界面外观",
       SettingType.LOOK_AND_FEEL,
 """
-Updates UI theme for TripleA.
-WARNING: restart all running TripleA instances after changing this setting to avoid system instability.""") {
+更改 TripleA 的界面主题。
+警告：更改此设置后请重启所有正在运行的 TripleA 实例，以避免系统不稳定。""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       final Collection<UIManager.LookAndFeelInfo> lookAndFeels =
@@ -150,8 +150,8 @@ WARNING: restart all running TripleA instances after changing this setting to av
       "关系颜色",
       SettingType.LOOK_AND_FEEL,
 """
-War/allied/neutral colors in the politics panel and status bar.
-Color blind friendly uses orange/blue instead of red/green.""") {
+外交面板和状态栏中的交战/同盟/中立颜色。
+色盲友好模式使用橙色/蓝色代替红色/绿色。""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return selectionBox(
@@ -199,8 +199,8 @@ Color blind friendly uses orange/blue instead of red/green.""") {
       "网络代理",
       SettingType.NETWORK,
 """
-Configure TripleA's Network and Proxy Settings
-This only effects Play-By-Forum games, dice servers, and map downloads.""") {
+配置 TripleA 的网络与代理设置。
+这仅影响论坛对战游戏、骰子服务器和地图下载。""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return proxySettings(
@@ -234,8 +234,8 @@ This only effects Play-By-Forum games, dice servers, and map downloads.""") {
       "显示测试版功能",
       SettingType.TESTING,
 """
-Toggles whether to show 'beta' features. These are game features that are still under development and potentially may not be working yet.
-Restart to fully activate""") {
+切换是否显示“测试版”功能。这些功能仍在开发中，可能无法正常使用。
+重启后完全生效""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.showBetaFeatures);
@@ -246,8 +246,8 @@ Restart to fully activate""") {
       "使用新序列化方式",
       SettingType.TESTING,
 """
-Toggles whether to use the new serialization mechanisms. This mechanism is still under development and potentially may break saved games and network games.
-All players in the same game must have it set to the same value. Restart to fully activate""") {
+切换是否使用新的存档序列化机制。该机制仍在开发中，可能会破坏存档和联网游戏。
+同一游戏中的所有玩家必须设置为相同的值。重启后完全生效""") {
     @Override
     public SelectionComponent<JComponent> newSelectionComponent() {
       return booleanRadioButtons(ClientSetting.showSerializeFeatures);
